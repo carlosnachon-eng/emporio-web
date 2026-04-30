@@ -36,7 +36,7 @@ export default function Nosotros() {
             </p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-            {[["5,000+", "Propiedades promovidas", "🏠"], ["3,000+", "Operaciones cerradas", "🤝"], ["20+", "Años de experiencia", "⭐"], ["60K+", "Seguidores en TikTok", "📱"]].map(([val, label, icon]) => (
+            {[["5,000+", "Propiedades promovidas", "🏠"], ["3,000+", "Operaciones cerradas", "🤝"], ["20+", "Años de experiencia", "⭐"], ["90K+", "Seguidores en TikTok", "📱"]].map(([val, label, icon]) => (
               <div key={label} style={{ background: "#fafafa", borderRadius: 20, padding: 28, textAlign: "center", border: "1px solid #f3f4f6" }}>
                 <div style={{ fontSize: 28, marginBottom: 8 }}>{icon}</div>
                 <div style={{ fontSize: 32, fontWeight: 900, color: "#C8102E", lineHeight: 1 }}>{val}</div>
@@ -58,7 +58,7 @@ export default function Nosotros() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
             {[
               { nombre: "Carlos Nachón", rol: "Fundador y Director", inicial: "CN", bio1: "Carlos Nachón fundó Emporio Inmobiliario hace más de 20 años con una visión muy clara: profesionalizar el servicio inmobiliario en Puebla y crear una empresa donde la ética, la constancia y el servicio de calidad fueran el estándar.", bio2: "Hoy lidera el equipo de ventas, coordina las operaciones estratégicas y sigue involucrado personalmente en los cierres más importantes." },
-              { nombre: "Ivonne Torres", rol: "Imagen y corazón de Emporio", inicial: "IT", bio1: "Ivonne es la cara visible de Emporio Inmobiliario en TikTok, donde más de 60,000 personas siguen sus recomendaciones, tips y videos de propiedades.", bio2: "Es socia, embajadora de marca y quien representa la calidez y atención cercana que caracteriza nuestro servicio. Su experiencia en relaciones públicas y atención a propietarios es una pieza clave en cada operación." },
+              { nombre: "Ivonne Torres", rol: "Imagen y corazón de Emporio", inicial: "IT", bio1: "Ivonne es la cara visible de Emporio Inmobiliario en TikTok, donde más de 90,000 personas siguen sus recomendaciones, tips y videos de propiedades.", bio2: "Es socia, embajadora de marca y quien representa la calidez y atención cercana que caracteriza nuestro servicio. Su experiencia en relaciones públicas y atención a propietarios es una pieza clave en cada operación." },
             ].map((p) => (
               <div key={p.nombre} style={{ background: "#fff", borderRadius: 24, padding: "40px 36px", border: "1px solid #f3f4f6", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 24 }}>
