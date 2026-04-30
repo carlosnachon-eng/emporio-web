@@ -40,22 +40,21 @@ export default function Propietarios() {
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      <Navbar />
 
       {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%)", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
-        <div style={{ position: "absolute", top: -80, right: -80, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 70%)" }} />
-        <Navbar transparent={true} />
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 32px 100px", position: "relative", zIndex: 1 }}>
+      <div style={{ background: "linear-gradient(120deg, #fff 0%, #fff5f5 100%)", padding: "80px 32px 100px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: -100, right: -100, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,16,46,0.06) 0%, transparent 70%)" }} />
+        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <div style={{ maxWidth: 640 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(200,16,46,0.15)", border: "1px solid rgba(200,16,46,0.3)", padding: "6px 16px", borderRadius: 99, marginBottom: 28 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff0f2", border: "1px solid #fecdd3", padding: "6px 16px", borderRadius: 99, marginBottom: 28 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", display: "inline-block" }} />
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Para propietarios</span>
+              <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Para propietarios</span>
             </div>
-            <h1 style={{ fontSize: 56, fontWeight: 900, color: "#fff", lineHeight: 1.1, margin: "0 0 24px", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: 54, fontWeight: 900, color: "#1a1a2e", lineHeight: 1.1, margin: "0 0 24px" }}>
               ¿Tienes una propiedad<br />en <span style={{ color: "#C8102E" }}>Puebla?</span>
             </h1>
-            <p style={{ fontSize: 20, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 40px" }}>
+            <p style={{ fontSize: 18, color: "#6b7280", lineHeight: 1.7, margin: "0 0 40px" }}>
               Nosotros encontramos al cliente ideal, te acompañamos en todo el proceso y tú no pagas un solo peso hasta que se cierre la operación.
             </p>
             <a href="#formulario" style={{ display: "inline-block", background: "#C8102E", color: "#fff", padding: "16px 36px", borderRadius: 12, fontWeight: 800, fontSize: 16, textDecoration: "none" }}>
@@ -65,16 +64,29 @@ export default function Propietarios() {
         </div>
       </div>
 
+      {/* Stats */}
+      <div style={{ padding: "48px 32px", background: "#fafafa", borderBottom: "1px solid #f3f4f6" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, textAlign: "center" }}>
+          {[["5,000+", "Propiedades promovidas", "🏠"], ["3,000+", "Operaciones cerradas", "🤝"], ["20+", "Años de experiencia", "⭐"]].map(([val, label, icon]) => (
+            <div key={label}>
+              <div style={{ fontSize: 28, marginBottom: 8 }}>{icon}</div>
+              <div style={{ fontSize: 40, fontWeight: 900, color: "#C8102E", lineHeight: 1 }}>{val}</div>
+              <div style={{ fontSize: 14, color: "#6b7280", marginTop: 8 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Beneficios */}
-      <div style={{ padding: "100px 32px", background: "#f8f8fa" }}>
+      <div style={{ padding: "80px 32px", background: "#fff" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 60 }}>
+          <div style={{ textAlign: "center", marginBottom: 52 }}>
             <p style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 12px" }}>Por qué elegirnos</p>
-            <h2 style={{ fontSize: 40, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Beneficios Emporio</h2>
+            <h2 style={{ fontSize: 38, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Beneficios Emporio</h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {BENEFICIOS.map((b, i) => (
-              <div key={i} style={{ background: "#fff", borderRadius: 16, padding: "32px 28px", border: "1px solid rgba(0,0,0,0.05)" }}>
+              <div key={i} style={{ background: "#fafafa", borderRadius: 20, padding: "32px 28px", border: "1px solid #f3f4f6" }}>
                 <div style={{ fontSize: 36, marginBottom: 16 }}>{b.icon}</div>
                 <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1a1a2e", margin: "0 0 10px" }}>{b.title}</h3>
                 <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: 0 }}>{b.desc}</p>
@@ -85,15 +97,15 @@ export default function Propietarios() {
       </div>
 
       {/* Cómo funciona */}
-      <div style={{ padding: "100px 32px", background: "#1a1a2e" }}>
+      <div style={{ padding: "80px 32px", background: "#1a1a2e" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 60 }}>
+          <div style={{ textAlign: "center", marginBottom: 52 }}>
             <p style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 12px" }}>El proceso</p>
-            <h2 style={{ fontSize: 40, fontWeight: 900, color: "#fff", margin: 0 }}>¿Cómo funciona?</h2>
+            <h2 style={{ fontSize: 38, fontWeight: 900, color: "#fff", margin: 0 }}>¿Cómo funciona?</h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
             {PASOS.map((paso, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "28px 20px", textAlign: "center" }}>
+              <div key={i} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "28px 20px", textAlign: "center" }}>
                 <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#C8102E", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, margin: "0 auto 16px" }}>{paso.num}</div>
                 <div style={{ fontSize: 28, marginBottom: 12 }}>{paso.icon}</div>
                 <h4 style={{ fontSize: 13, fontWeight: 700, color: "#fff", margin: "0 0 8px", lineHeight: 1.4 }}>{paso.title}</h4>
@@ -104,35 +116,23 @@ export default function Propietarios() {
         </div>
       </div>
 
-      {/* Stats */}
-      <div style={{ padding: "64px 32px", background: "#fff" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 48, textAlign: "center" }}>
-          {[["5,000+", "Propiedades promovidas"], ["3,000+", "Operaciones cerradas"], ["20+", "Años de experiencia"]].map(([val, label]) => (
-            <div key={label}>
-              <div style={{ fontSize: 48, fontWeight: 900, color: "#C8102E", lineHeight: 1 }}>{val}</div>
-              <div style={{ fontSize: 14, color: "#6b7280", marginTop: 8 }}>{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Formulario */}
-      <div id="formulario" style={{ padding: "100px 32px", background: "#f8f8fa" }}>
+      <div id="formulario" style={{ padding: "80px 32px", background: "#fafafa" }}>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 12px" }}>Empecemos</p>
-            <h2 style={{ fontSize: 40, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>¿Listo para rentar o vender sin complicaciones?</h2>
+            <h2 style={{ fontSize: 38, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>¿Listo para rentar o vender?</h2>
             <p style={{ fontSize: 16, color: "#6b7280", margin: 0 }}>Llena el formulario y un asesor te contactará a la brevedad.</p>
           </div>
 
           {enviado ? (
-            <div style={{ background: "#f0fdf4", borderRadius: 16, padding: 48, textAlign: "center" }}>
+            <div style={{ background: "#f0fdf4", borderRadius: 20, padding: 48, textAlign: "center" }}>
               <div style={{ fontSize: 56, marginBottom: 16 }}>✅</div>
               <h3 style={{ color: "#065f46", margin: "0 0 8px", fontSize: 22 }}>¡Recibimos tu información!</h3>
               <p style={{ color: "#6b7280", margin: 0 }}>Un asesor te contactará muy pronto.</p>
             </div>
           ) : (
-            <div style={{ background: "#fff", borderRadius: 20, padding: "48px 40px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
+            <div style={{ background: "#fff", borderRadius: 24, padding: "48px 40px", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", border: "1px solid #f3f4f6" }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
                 {[
                   { label: "Nombre completo", key: "nombre", type: "text", placeholder: "Tu nombre" },
@@ -141,13 +141,12 @@ export default function Propietarios() {
                   { label: "Colonia o zona", key: "colonia", type: "text", placeholder: "Ej. Angelópolis" },
                 ].map(f => (
                   <div key={f.key}>
-                    <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6, letterSpacing: "0.03em" }}>{f.label}</label>
+                    <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6 }}>{f.label}</label>
                     <input type={f.type} placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(v => ({ ...v, [f.key]: e.target.value }))}
                       style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                   </div>
                 ))}
               </div>
-
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
                 <div>
                   <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6 }}>Tipo de propiedad</label>
@@ -164,13 +163,11 @@ export default function Propietarios() {
                   </select>
                 </div>
               </div>
-
               <div style={{ marginBottom: 28 }}>
                 <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6 }}>Comentarios adicionales</label>
                 <textarea placeholder="Cuéntanos más sobre tu propiedad..." value={form.comentarios} onChange={e => setForm(v => ({ ...v, comentarios: e.target.value }))}
                   style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 100, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
               </div>
-
               <button onClick={handleEnviar} disabled={enviando || !form.nombre || !form.whatsapp}
                 style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 12, padding: "15px", fontWeight: 800, fontSize: 16, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, fontFamily: "'Montserrat', sans-serif" }}>
                 {enviando ? "Enviando..." : "📩 Quiero que promuevan mi propiedad"}
@@ -181,7 +178,7 @@ export default function Propietarios() {
       </div>
 
       <Footer />
-      <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{ position: "fixed", bottom: 24, right: 24, background: "#25d366", color: "#fff", width: 56, height: 56, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, boxShadow: "0 4px 16px rgba(0,0,0,0.25)", textDecoration: "none", zIndex: 100 }}>💬</a>
+      <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{ position: "fixed", bottom: 24, right: 24, background: "#25d366", color: "#fff", width: 56, height: 56, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, boxShadow: "0 4px 16px rgba(0,0,0,0.2)", textDecoration: "none", zIndex: 100 }}>💬</a>
     </div>
   );
 }
