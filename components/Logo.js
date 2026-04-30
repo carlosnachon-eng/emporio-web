@@ -2,9 +2,9 @@ export default function Logo({ size = 40, dark = false }) {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <img
-        src="/logo.png"
+        src="/IMG_7034.jpeg"
         alt="Emporio Inmobiliario"
-        style={{ height: size * 1.4, width: "auto", objectFit: "contain", filter: dark ? "none" : "brightness(0) invert(1)" }}
+        style={{ height: size * 1.4, width: "auto", objectFit: "contain" }}
       />
     </div>
   );
