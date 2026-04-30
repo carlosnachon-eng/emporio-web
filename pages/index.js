@@ -290,11 +290,14 @@ export default function Home({ propiedadesDestacadas = [] }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch("https://api.easybroker.com/v1/properties?page=1&limit=6&search[statuses][]=published", {
+    const res = await fetch("https://api.easybroker.com/v1/properties?page=1&limit=20&search[statuses][]=published", {
       headers: { "X-Authorization": process.env.EASYBROKER_API_KEY, "accept": "application/json" },
     });
     const data = await res.json();
-    return { props: { propiedadesDestacadas: data.content || [] } };
+    const todas = data.content || [];
+    // Mezclar aleatoriamente y tomar 3
+    const aleatorias = todas.sort(() => Math.random() - 0.5).slice(0, 3);
+    return { props: { propiedadesDestacadas: aleatorias } };
   } catch (e) {
     return { props: { propiedadesDestacadas: [] } };
   }
