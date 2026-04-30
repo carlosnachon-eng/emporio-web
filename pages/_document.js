@@ -23,16 +23,16 @@ export default function Document() {
         <meta property="og:title" content="Emporio Inmobiliario — Tu propiedad en Puebla" />
         <meta property="og:description" content="Vende, renta o encuentra tu próxima propiedad en Puebla. Más de 20 años de experiencia, sin costo hasta cerrar." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx" />
-        <meta property="og:image" content="https://www.emporioinmobiliario.com.mx/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://www.emporioinmobiliario.com.mx/logo.png" />
+        <meta property="og:image:width" content="768" />
+        <meta property="og:image:height" content="434" />
         <meta property="og:locale" content="es_MX" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Emporio Inmobiliario — Tu propiedad en Puebla" />
         <meta name="twitter:description" content="Vende, renta o encuentra tu próxima propiedad en Puebla. Más de 20 años de experiencia." />
-        <meta name="twitter:image" content="https://www.emporioinmobiliario.com.mx/og-image.jpg" />
+        <meta name="twitter:image" content="https://www.emporioinmobiliario.com.mx/logo.png" />
 
         {/* Google Search Console — agregar tu código aquí cuando lo tengas */}
         {/* <meta name="google-site-verification" content="TU_CODIGO_AQUI" /> */}
