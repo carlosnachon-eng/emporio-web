@@ -1,10 +1,21 @@
 export default function Footer() {
+  const CSS = `
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+      .footer-brand { grid-column: 1 / -1 !important; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr !important; }
+    }
+  `;
   return (
-    <footer style={{ background: "#1a1a2e", color: "#fff", fontFamily: "'Montserrat', sans-serif", paddingTop: 64 }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px 48px", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48 }}>
+    <footer style={{ background: "#1a1a2e", color: "#fff", fontFamily: "'Montserrat', sans-serif", paddingTop: 56 }}>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 48px" }}>
 
         {/* Brand */}
-        <div>
+        <div className="footer-brand">
           <img src="/logo.png" alt="Emporio Inmobiliario" style={{ height: 52, marginBottom: 20, filter: "brightness(0) invert(1)" }} />
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.8, maxWidth: 280, margin: "0 0 24px" }}>
             Más de 20 años ayudando a familias y empresas a vender, rentar o encontrar su propiedad ideal en Puebla.
