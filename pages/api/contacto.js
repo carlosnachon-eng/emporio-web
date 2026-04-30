@@ -45,7 +45,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: "Emporio Web <cobros@emporioinmobiliario.com.mx>",
-        to: ["ventas@emporioinmobiliario.com.mx"],
+        to: ["ventas@emporioinmobiliario.mx"],
         subject,
         html,
       }),
