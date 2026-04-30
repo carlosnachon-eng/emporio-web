@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 const NAV_LINKS = [
   { label: "Inicio", href: "/" },
-  { label: "Propiedades", href: "/propiedades" },
+  { label: "Propiedades", href: "https://app.emporioinmobiliario.com.mx/propiedades" },
   { label: "Propietarios", href: "/propietarios" },
   { label: "Arrendatarios", href: "/arrendatarios" },
   { label: "Nosotros", href: "/nosotros" },
