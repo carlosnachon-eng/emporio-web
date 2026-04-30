@@ -56,7 +56,13 @@ export default function Contacto() {
               <div style={{ marginTop: 40 }}>
                 <p style={{ fontSize: 13, color: "#9ca3af", fontWeight: 600, marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.08em" }}>Síguenos en redes</p>
                 <div style={{ display: "flex", gap: 10 }}>
-                  {[{ label: "FB", href: "https://facebook.com" }, { label: "IG", href: "https://instagram.com" }, { label: "TT", href: "https://tiktok.com" }, { label: "YT", href: "https://youtube.com" }].map(s => (
+                  {[
+                    { label: "FB", href: "https://www.facebook.com/share/1CNyXV7qBP/?mibextid=wwXIfr" },
+                    { label: "IG", href: "https://www.instagram.com/emporio.inmobiliariopue?igsh=bDRndWNwdjhzcTdq&utm_source=qr" },
+                    { label: "TT", href: "https://www.tiktok.com/@emporioinmobiliario?_r=1&_t=ZS-95xVsr3JVuH" },
+                    { label: "YT", href: "https://youtube.com/@emporioinmobiliario1690?si=hoeUNniKIW7ZWuiR" },
+                    { label: "X", href: "https://x.com/emporioinmo?s=21&t=RHixRnSwbbMJlCWmie693Q" },
+                  ].map(s => (
                     <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{ width: 40, height: 40, borderRadius: 10, background: "#1a1a2e", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, textDecoration: "none" }}
                       onMouseEnter={e => e.currentTarget.style.background = "#C8102E"}
                       onMouseLeave={e => e.currentTarget.style.background = "#1a1a2e"}
