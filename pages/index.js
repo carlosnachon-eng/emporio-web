@@ -81,7 +81,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
               { val: "+5,000", label: "Propiedades promovidas", icon: "🏠" },
               { val: "+3,000", label: "Operaciones cerradas", icon: "🤝" },
               { val: "+20", label: "Años de experiencia", icon: "⭐" },
-              { val: "60K+", label: "Seguidores en TikTok", icon: "📱" },
+              { val: "90K+", label: "Seguidores en TikTok", icon: "📱" },
             ].map((s, i) => (
               <div key={i} style={{ background: "#fff", border: "1px solid #f3f4f6", borderRadius: 20, padding: "28px 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", textAlign: "center" }}>
                 <div style={{ fontSize: 32, marginBottom: 8 }}>{s.icon}</div>
