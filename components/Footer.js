@@ -11,10 +11,10 @@ export default function Footer() {
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             {[
-              { label: "FB", href: "https://facebook.com/emporioinmobiliario" },
-              { label: "IG", href: "https://instagram.com/emporioinmobiliario" },
-              { label: "TT", href: "https://tiktok.com/@emporioinmobiliario" },
-              { label: "YT", href: "https://youtube.com" },
+              { label: "FB", href: "https://www.facebook.com/share/1CNyXV7qBP/?mibextid=wwXIfr" },
+              { label: "IG", href: "https://www.instagram.com/emporio.inmobiliariopue?igsh=bDRndWNwdjhzcTdq&utm_source=qr" },
+              { label: "TT", href: "https://www.tiktok.com/@emporioinmobiliario?_r=1&_t=ZS-95xVsr3JVuH" },
+              { label: "YT", href: "https://youtube.com/@emporioinmobiliario1690?si=hoeUNniKIW7ZWuiR" },
             ].map(s => (
               <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{
                 width: 36, height: 36, borderRadius: "50%",
