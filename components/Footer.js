@@ -57,7 +57,7 @@ export default function Footer() {
           <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Servicios</h4>
           {[
             { label: "Solicitud de arrendamiento", href: "https://app.emporioinmobiliario.com.mx/solicitud" },
-            { label: "Simulador de crédito", href: "/simulador" },
+            { label: "Simulador de crédito", href: "https://emporio-inmobiliario.easybroker.com/Credito" },
             { label: "Portal inquilino", href: "https://app.emporioinmobiliario.com.mx/inquilino" },
             { label: "Portal propietario", href: "https://app.emporioinmobiliario.com.mx/propietario" },
             { label: "Aviso de privacidad", href: "/aviso-privacidad" },
