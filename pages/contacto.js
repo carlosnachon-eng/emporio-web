@@ -2,6 +2,15 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+const CSS = `
+* { box-sizing: border-box; }
+@media (max-width: 768px) {
+  .g2 { grid-template-columns: 1fr !important; }
+  .sec-pad { padding: 40px 20px !important; }
+  .h1 { font-size: 30px !important; }
+}
+`;
+
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: "", email: "", whatsapp: "", mensaje: "" });
   const [enviando, setEnviando] = useState(false);
@@ -10,11 +19,7 @@ export default function Contacto() {
   const handleEnviar = async () => {
     setEnviando(true);
     try {
-      await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, asunto: "Contacto desde el sitio web" }),
-      });
+      await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Contacto desde el sitio web" }) });
       setEnviado(true);
     } catch (e) { console.error(e); }
     setEnviando(false);
@@ -23,45 +28,47 @@ export default function Contacto() {
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <Navbar />
 
-      <div style={{ padding: "80px 32px", background: "linear-gradient(120deg, #fff 0%, #fff5f5 100%)" }}>
+      <div className="sec-pad" style={{ padding: "64px 32px", background: "linear-gradient(120deg, #fff 0%, #fff5f5 100%)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }}>
+          <div className="g2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "start" }}>
 
             {/* Info */}
             <div>
-              <p style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>Hablemos</p>
-              <h1 style={{ fontSize: 44, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px", lineHeight: 1.1 }}>Estamos aquí para ayudarte</h1>
-              <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.8, margin: "0 0 48px" }}>
+              <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 14px" }}>Hablemos</p>
+              <h1 className="h1" style={{ fontSize: 42, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px", lineHeight: 1.1 }}>Estamos aquí para ayudarte</h1>
+              <p style={{ fontSize: 15, color: "#6b7280", lineHeight: 1.8, margin: "0 0 40px" }}>
                 Ya sea para vender, rentar o comprar, estamos listos para ayudarte a lograrlo sin estrés ni sorpresas.
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 {[
                   { icon: "📍", label: "Dirección", value: "5to Retorno de Osa Menor 2A, Reserva Territorial Atlixcayotl, San Andrés Cholula, Pue." },
                   { icon: "📞", label: "Teléfono", value: "222 257 3237", href: "tel:2222573237" },
                   { icon: "✉️", label: "Email", value: "ventas@emporioinmobiliario.mx", href: "mailto:ventas@emporioinmobiliario.mx" },
                 ].map(c => (
-                  <div key={c.label} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: "#fff0f2", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{c.icon}</div>
+                  <div key={c.label} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                    <div style={{ width: 42, height: 42, borderRadius: 10, background: "#fff0f2", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{c.icon}</div>
                     <div>
-                      <p style={{ margin: "0 0 4px", fontSize: 12, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase" }}>{c.label}</p>
+                      <p style={{ margin: "0 0 3px", fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase" }}>{c.label}</p>
                       {c.href
-                        ? <a href={c.href} style={{ fontSize: 16, fontWeight: 600, color: "#1a1a2e", textDecoration: "none" }}>{c.value}</a>
-                        : <p style={{ margin: 0, fontSize: 15, color: "#374151", lineHeight: 1.6 }}>{c.value}</p>}
+                        ? <a href={c.href} style={{ fontSize: 15, fontWeight: 600, color: "#1a1a2e", textDecoration: "none" }}>{c.value}</a>
+                        : <p style={{ margin: 0, fontSize: 14, color: "#374151", lineHeight: 1.6 }}>{c.value}</p>
+                      }
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: 40 }}>
-                <p style={{ fontSize: 13, color: "#9ca3af", fontWeight: 600, marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.08em" }}>Síguenos en redes</p>
-                <div style={{ display: "flex", gap: 10 }}>
+              <div style={{ marginTop: 36 }}>
+                <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 700, marginBottom: 14, textTransform: "uppercase", letterSpacing: "0.08em" }}>Síguenos en redes</p>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   {[
                     { label: "FB", href: "https://www.facebook.com/share/1CNyXV7qBP/?mibextid=wwXIfr" },
-                    { label: "IG", href: "https://www.instagram.com/emporio.inmobiliariopue?igsh=bDRndWNwdjhzcTdq&utm_source=qr" },
-                    { label: "TT", href: "https://www.tiktok.com/@emporioinmobiliario?_r=1&_t=ZS-95xVsr3JVuH" },
-                    { label: "YT", href: "https://youtube.com/@emporioinmobiliario1690?si=hoeUNniKIW7ZWuiR" },
-                    { label: "X", href: "https://x.com/emporioinmo?s=21&t=RHixRnSwbbMJlCWmie693Q" },
+                    { label: "IG", href: "https://www.instagram.com/emporio.inmobiliariopue" },
+                    { label: "TT", href: "https://www.tiktok.com/@emporioinmobiliario" },
+                    { label: "YT", href: "https://youtube.com/@emporioinmobiliario1690" },
+                    { label: "X",  href: "https://x.com/emporioinmo" },
                   ].map(s => (
                     <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{ width: 40, height: 40, borderRadius: 10, background: "#1a1a2e", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, textDecoration: "none" }}
                       onMouseEnter={e => e.currentTarget.style.background = "#C8102E"}
@@ -73,13 +80,13 @@ export default function Contacto() {
             </div>
 
             {/* Formulario */}
-            <div style={{ background: "#fff", borderRadius: 24, padding: "40px 36px", boxShadow: "0 4px 32px rgba(0,0,0,0.08)", border: "1px solid #f3f4f6" }}>
-              <h2 style={{ fontSize: 24, fontWeight: 800, color: "#1a1a2e", margin: "0 0 8px" }}>Envíanos un mensaje</h2>
-              <p style={{ fontSize: 14, color: "#6b7280", margin: "0 0 32px" }}>Te contactaremos a la brevedad posible.</p>
+            <div style={{ background: "#fff", borderRadius: 20, padding: "36px 32px", boxShadow: "0 4px 32px rgba(0,0,0,0.08)", border: "1px solid #f3f4f6" }}>
+              <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2e", margin: "0 0 6px" }}>Envíanos un mensaje</h2>
+              <p style={{ fontSize: 13, color: "#6b7280", margin: "0 0 28px" }}>Te contactaremos a la brevedad posible.</p>
 
               {enviado ? (
                 <div style={{ background: "#f0fdf4", borderRadius: 16, padding: 40, textAlign: "center" }}>
-                  <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
+                  <div style={{ fontSize: 48, marginBottom: 14 }}>✅</div>
                   <h3 style={{ color: "#065f46", margin: "0 0 8px" }}>¡Mensaje recibido!</h3>
                   <p style={{ color: "#6b7280", margin: 0 }}>Te contactaremos muy pronto.</p>
                 </div>
@@ -90,16 +97,16 @@ export default function Contacto() {
                     { label: "Correo electrónico", key: "email", type: "email", placeholder: "tu@email.com" },
                     { label: "WhatsApp", key: "whatsapp", type: "tel", placeholder: "2221234567" },
                   ].map(f => (
-                    <div key={f.key} style={{ marginBottom: 18 }}>
-                      <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6 }}>{f.label}</label>
+                    <div key={f.key} style={{ marginBottom: 16 }}>
+                      <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>{f.label}</label>
                       <input type={f.type} placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(v => ({ ...v, [f.key]: e.target.value }))}
-                        style={{ width: "100%", padding: "12px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
+                        style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                     </div>
                   ))}
-                  <div style={{ marginBottom: 24 }}>
-                    <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 6 }}>Mensaje</label>
+                  <div style={{ marginBottom: 22 }}>
+                    <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>Mensaje</label>
                     <textarea placeholder="¿En qué podemos ayudarte?" value={form.mensaje} onChange={e => setForm(v => ({ ...v, mensaje: e.target.value }))}
-                      style={{ width: "100%", padding: "12px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 120, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
+                      style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 110, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                   </div>
                   <button onClick={handleEnviar} disabled={enviando || !form.nombre || !form.whatsapp}
                     style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 12, padding: "14px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, fontFamily: "'Montserrat', sans-serif", marginBottom: 12 }}>
