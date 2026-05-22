@@ -107,7 +107,7 @@ export default function Administracion() {
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                <a href="https://app.emporioinmobiliario.com.mx/registro-propietario" target="_blank" rel="noreferrer"
+                <a href="https://app.emporioinmobiliario.com.mx/propietario" target="_blank" rel="noreferrer"
                   style={{ background: "#C8102E", color: "#fff", padding: "10px 14px", borderRadius: 10, fontWeight: 700, fontSize: 12, textDecoration: "none", textAlign: "center" }}>
                   🏠 Portal propietario
                 </a>
