@@ -99,7 +99,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                       }}>{op.l}</button>
                     ))}
                   </div>
-                  <a href={`https://app.emporioinmobiliario.com.mx/propiedades?operacion=${busqueda}`} style={{
+                  <a href={`/propiedades?operacion=${busqueda}`} style={{
                     display: "block", width: "100%", background: "#C8102E", color: "#fff",
                     padding: "13px 0", borderRadius: 10, fontWeight: 800, fontSize: 15,
                     textAlign: "center", textDecoration: "none",
@@ -141,7 +141,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#C8102E", color: "#fff", padding: "10px 20px", borderRadius: 10, fontWeight: 700, fontSize: 13 }}>Quiero promover mi propiedad →</span>
                 </div>
               </a>
-              <a href="https://app.emporioinmobiliario.com.mx/propiedades" style={{ textDecoration: "none" }}>
+              <a href="/propiedades" style={{ textDecoration: "none" }}>
                 <div style={{ background: "#C8102E", borderRadius: 20, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
                   <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: "rgba(255,255,255,0.1)" }} />
                   <div style={{ fontSize: 40, marginBottom: 16 }}>🔑</div>
@@ -163,7 +163,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 8px" }}>Catálogo activo</p>
                   <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Propiedades destacadas</h2>
                 </div>
-                <a href="https://app.emporioinmobiliario.com.mx/propiedades" style={{ color: "#C8102E", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Ver todas →</a>
+                <a href="/propiedades" style={{ color: "#C8102E", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Ver todas →</a>
               </div>
               <div className="props-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
                 {propiedadesDestacadas.map(p => {
@@ -172,7 +172,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   const img = p.title_image_thumb || p.title_image_full;
                   const esVenta = op?.type === "sale";
                   return (
-                    <a key={p.public_id} href={`https://app.emporioinmobiliario.com.mx/propiedad/${p.public_id}`} style={{ textDecoration: "none" }}>
+                    <a key={p.public_id} href={`/propiedades/${p.public_id}`} style={{ textDecoration: "none" }}>
                       <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6" }}>
                         <div style={{ height: 200, background: "#f3f4f6", position: "relative", overflow: "hidden" }}>
                           {img && <img src={img} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
@@ -312,7 +312,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
             <p style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", margin: "0 0 36px", lineHeight: 1.7 }}>Ya sea que quieras vender, rentar o encontrar tu próxima casa, estamos aquí para ayudarte.</p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{ background: "#fff", color: "#C8102E", padding: "14px 28px", borderRadius: 12, fontWeight: 800, fontSize: 15, textDecoration: "none" }}>💬 Escríbenos por WhatsApp</a>
-              <a href="https://app.emporioinmobiliario.com.mx/propiedades" style={{ background: "rgba(255,255,255,0.15)", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>Ver propiedades →</a>
+              <a href="/propiedades" style={{ background: "rgba(255,255,255,0.15)", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>Ver propiedades →</a>
             </div>
           </div>
         </div>
