@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -92,10 +93,22 @@ const DIFERENCIADORES = [
 
 export default function BlindajeLegal() {
   return (
-    <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <Navbar />
+    <>
+      <Head>
+        <title>Emporio Blindaje Legal — Póliza Jurídica para Arrendamiento en Puebla</title>
+        <meta name="description" content="Protección jurídica total para tu inmueble en Puebla. Investigamos al inquilino, elaboramos el contrato y te respaldamos si algo falla. Desde $2,800 + IVA." />
+        <meta name="keywords" content="póliza jurídica puebla, protección jurídica arrendamiento puebla, investigación de inquilinos puebla, contrato arrendamiento puebla, blindaje legal inmueble puebla" />
+        <meta property="og:title" content="Emporio Blindaje Legal — Póliza Jurídica en Puebla" />
+        <meta property="og:description" content="Investigamos al inquilino, elaboramos el contrato y te respaldamos jurídicamente durante todo el arrendamiento." />
+        <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blindaje-legal" />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blindaje-legal" />
+      </Head>
+      <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <style dangerouslySetInnerHTML={{ __html: CSS }} />
+        <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <div style={{ background: "linear-gradient(120deg, #1a1a2e 0%, #0f1520 100%)", position: "relative", overflow: "hidden" }}>
@@ -419,6 +432,7 @@ export default function BlindajeLegal() {
         style={{ position: "fixed", bottom: 24, right: 24, background: "#25d366", color: "#fff", width: 56, height: 56, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, boxShadow: "0 4px 16px rgba(0,0,0,0.2)", textDecoration: "none", zIndex: 100 }}>
         💬
       </a>
-    </div>
+      </div>
+    </>
   );
 }
