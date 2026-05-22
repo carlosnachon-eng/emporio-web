@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -31,6 +32,18 @@ const REQUISITOS = [
 
 export default function Arrendatarios() {
   return (
+    <>
+      <Head>
+        <title>Departamentos y Casas en Renta en Puebla — Emporio Inmobiliario</title>
+        <meta name="description" content="Encuentra departamentos, casas y locales en renta en Puebla. Más de 50 opciones activas en Lomas de Angelópolis, Cholula, Cuautlancingo y toda la zona metropolitana." />
+        <meta name="keywords" content="departamentos en renta puebla, casas en renta puebla, renta cholula, departamentos lomas angelópolis, renta cuautlancingo, arrendatarios puebla" />
+        <meta property="og:title" content="Departamentos y Casas en Renta en Puebla — Emporio Inmobiliario" />
+        <meta property="og:description" content="Más de 50 propiedades en renta en Puebla y zona metropolitana. Encuentra tu próximo hogar con Emporio Inmobiliario." />
+        <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/arrendatarios" />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/arrendatarios" />
+      </Head>
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -123,5 +136,6 @@ export default function Arrendatarios() {
       <Footer />
       <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{ position: "fixed", bottom: 24, right: 24, background: "#25d366", color: "#fff", width: 56, height: 56, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, boxShadow: "0 4px 16px rgba(0,0,0,0.2)", textDecoration: "none", zIndex: 100 }}>💬</a>
     </div>
+    </>
   );
 }
