@@ -38,6 +38,18 @@
   </url>
 
   <url>
+    <loc>https://www.emporioinmobiliario.com.mx/nosotros</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.emporioinmobiliario.com.mx/contacto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.emporioinmobiliario.com.mx/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -50,13 +62,31 @@
   </url>
 
   <url>
-    <loc>https://www.emporioinmobiliario.com.mx/nosotros</loc>
+    <loc>https://www.emporioinmobiliario.com.mx/blog/poliza-juridica-vs-aval-puebla</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.emporioinmobiliario.com.mx/contacto</loc>
+    <loc>https://www.emporioinmobiliario.com.mx/blog/quien-paga-poliza-juridica-arrendamiento</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.emporioinmobiliario.com.mx/blog/como-rentar-departamento-puebla</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.emporioinmobiliario.com.mx/blog/colonias-para-vivir-puebla</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.emporioinmobiliario.com.mx/blog/administracion-inmuebles-puebla</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
