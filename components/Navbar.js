@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { label: "Propietarios",    href: "/propietarios" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
+  { label: "Administración",  href: "/administracion" },
   { label: "Nosotros",        href: "/nosotros" },
   { label: "Contacto",        href: "/contacto" },
 ];
