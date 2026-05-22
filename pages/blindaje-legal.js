@@ -301,7 +301,7 @@ export default function BlindajeLegal() {
                   </div>
                 ))}
               </div>
-              <a href="https://wa.me/522222573237?text=Hola,%20quiero%20información%20sobre%20el%20servicio%20de%20administración%20de%20inmuebles" target="_blank" rel="noreferrer"
+              <a href="/administracion"
                 style={{ display: "inline-block", background: "#C8102E", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
                 Conocer el servicio →
               </a>
