@@ -78,8 +78,8 @@ const PRECIOS = [
   { renta: "$15,001 a $20,000",   costo: "$4,500" },
   { renta: "$20,001 a $25,000",   costo: "$5,200" },
   { renta: "$25,001 a $30,000",   costo: "$6,100" },
-  { renta: "$30,001 a $40,000",   costo: "$8,000" },
-  { renta: "$40,001 a $50,000",   costo: "$10,000" },
+  { renta: "$30,001 a $40,000",   costo: "$9,500" },
+  { renta: "$40,001 a $50,000",   costo: "$12,500" },
   { renta: "$50,001 en adelante", costo: "25% de una renta mensual" },
 ];
 
