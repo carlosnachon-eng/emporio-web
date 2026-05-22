@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -53,6 +54,18 @@ export default function Propietarios() {
   };
 
   return (
+    <>
+      <Head>
+        <title>Renta o Vende tu Propiedad en Puebla — Emporio Inmobiliario</title>
+        <meta name="description" content="Promovemos tu propiedad en Puebla sin costo hasta cerrar. Publicamos en TikTok, Instagram y más de 20 portales. Más de 20 años de experiencia en el mercado poblano." />
+        <meta name="keywords" content="rentar propiedad puebla, vender casa puebla, promover inmueble puebla, inmobiliaria propietarios puebla, publicar propiedad puebla" />
+        <meta property="og:title" content="Renta o Vende tu Propiedad en Puebla — Emporio Inmobiliario" />
+        <meta property="og:description" content="Sin costo hasta cerrar. Publicamos tu propiedad en todos los portales y filtramos a los mejores candidatos." />
+        <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/propietarios" />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/propietarios" />
+      </Head>
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -196,5 +209,6 @@ export default function Propietarios() {
       <Footer />
       <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{ position: "fixed", bottom: 24, right: 24, background: "#25d366", color: "#fff", width: 56, height: 56, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, boxShadow: "0 4px 16px rgba(0,0,0,0.2)", textDecoration: "none", zIndex: 100 }}>💬</a>
     </div>
+    </>
   );
 }
