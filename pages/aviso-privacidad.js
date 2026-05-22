@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -38,6 +39,13 @@ const SECCIONES = [
 
 export default function AvisoPrivacidad() {
   return (
+    <>
+      <Head>
+        <title>Aviso de Privacidad — Emporio Inmobiliario Puebla</title>
+        <meta name="description" content="Aviso de privacidad de Grupo Inmobiliario Nachón Torres S.A. de C.V. Conoce cómo tratamos tus datos personales conforme a la legislación mexicana." />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/aviso-privacidad" />
+      </Head>
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       <div style={{ background: "#1a1a2e" }}><Navbar transparent={false} /></div>
@@ -59,5 +67,6 @@ export default function AvisoPrivacidad() {
 
       <Footer />
     </div>
+    </>
   );
 }
