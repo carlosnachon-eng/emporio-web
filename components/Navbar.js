@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const NAV_LINKS = [
   { label: "Inicio",          href: "/" },
-  { label: "Propiedades",     href: "https://app.emporioinmobiliario.com.mx/propiedades" },
+  { label: "Propiedades",     href: "/propiedades" },
   { label: "Propietarios",    href: "/propietarios" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
