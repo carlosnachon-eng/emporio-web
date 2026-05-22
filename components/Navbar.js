@@ -1,17 +1,19 @@
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Inicio", href: "/" },
-  { label: "Propiedades", href: "https://app.emporioinmobiliario.com.mx/propiedades" },
-  { label: "Propietarios", href: "/propietarios" },
-  { label: "Arrendatarios", href: "/arrendatarios" },
-  { label: "Nosotros", href: "/nosotros" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Inicio",          href: "/" },
+  { label: "Propiedades",     href: "https://app.emporioinmobiliario.com.mx/propiedades" },
+  { label: "Propietarios",    href: "/propietarios" },
+  { label: "Arrendatarios",   href: "/arrendatarios" },
+  { label: "Blindaje Legal",  href: "/blindaje-legal" },
+  { label: "Nosotros",        href: "/nosotros" },
+  { label: "Contacto",        href: "/contacto" },
 ];
 
 const CSS = `
   .nav-desktop { display: flex !important; }
   .nav-burger { display: none !important; }
+  .nav-link-blindaje { color: #C8102E !important; }
   @media (max-width: 768px) {
     .nav-desktop { display: none !important; }
     .nav-burger { display: flex !important; }
@@ -40,16 +42,24 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <div className="nav-desktop" style={{ alignItems: "center", gap: 2 }}>
-            {NAV_LINKS.map(link => (
-              <a key={link.href} href={link.href} style={{
-                color: "#374151", fontSize: 13, fontWeight: 600,
-                textDecoration: "none", padding: "8px 12px", borderRadius: 8,
-                letterSpacing: "0.02em", transition: "all 0.15s", whiteSpace: "nowrap",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.color = "#C8102E"; e.currentTarget.style.background = "#fff5f5"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "#374151"; e.currentTarget.style.background = "transparent"; }}
-              >{link.label}</a>
-            ))}
+            {NAV_LINKS.map(link => {
+              const isBlindaje = link.href === "/blindaje-legal";
+              return (
+                <a key={link.href} href={link.href}
+                  style={{
+                    color: isBlindaje ? "#C8102E" : "#374151",
+                    fontSize: 13, fontWeight: isBlindaje ? 700 : 600,
+                    textDecoration: "none", padding: "8px 12px", borderRadius: 8,
+                    letterSpacing: "0.02em", transition: "all 0.15s", whiteSpace: "nowrap",
+                    background: isBlindaje ? "#fff5f5" : "transparent",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "#C8102E"; e.currentTarget.style.background = "#fff5f5"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = isBlindaje ? "#C8102E" : "#374151"; e.currentTarget.style.background = isBlindaje ? "#fff5f5" : "transparent"; }}
+                >
+                  {isBlindaje ? "🛡️ " : ""}{link.label}
+                </a>
+              );
+            })}
             <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{
               marginLeft: 8, background: "#C8102E", color: "#fff",
               padding: "9px 18px", borderRadius: 8, fontSize: 13,
@@ -83,13 +93,20 @@ export default function Navbar() {
           </div>
 
           {/* Links */}
-          {NAV_LINKS.map(link => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)} style={{
-              display: "block", color: "#1a1a2e", fontSize: 20, fontWeight: 700,
-              textDecoration: "none", padding: "18px 0",
-              borderBottom: "1px solid #f3f4f6",
-            }}>{link.label}</a>
-          ))}
+          {NAV_LINKS.map(link => {
+            const isBlindaje = link.href === "/blindaje-legal";
+            return (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)} style={{
+                display: "block",
+                color: isBlindaje ? "#C8102E" : "#1a1a2e",
+                fontSize: 20, fontWeight: 700,
+                textDecoration: "none", padding: "18px 0",
+                borderBottom: "1px solid #f3f4f6",
+              }}>
+                {isBlindaje ? "🛡️ " : ""}{link.label}
+              </a>
+            );
+          })}
 
           {/* WhatsApp */}
           <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{
