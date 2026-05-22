@@ -6,11 +6,12 @@ const ARTICULOS = [
   {
     slug: "cuanto-cuesta-poliza-juridica-puebla",
     titulo: "¿Cuánto cuesta una póliza jurídica en Puebla?",
-    descripcion: "Conoce los precios reales de la póliza jurídica de arrendamiento en Puebla según el monto de tu renta mensual. Tabla de costos actualizada 2025.",
+    descripcion: "Tabla de precios actualizada de la póliza jurídica de arrendamiento en Puebla. Desde $2,800 + IVA según el monto de tu renta mensual. Vigencia 12 meses.",
     categoria: "Póliza Jurídica",
     fecha: "22 de mayo, 2025",
     lectura: "4 min",
     emoji: "🛡️",
+    color: "#1a1a2e",
   },
   {
     slug: "poliza-juridica-vs-aval-puebla",
@@ -20,6 +21,7 @@ const ARTICULOS = [
     fecha: "29 de mayo, 2025",
     lectura: "5 min",
     emoji: "⚖️",
+    color: "#C8102E",
   },
   {
     slug: "quien-paga-poliza-juridica-arrendamiento",
@@ -29,6 +31,7 @@ const ARTICULOS = [
     fecha: "5 de junio, 2025",
     lectura: "3 min",
     emoji: "💰",
+    color: "#1a1a2e",
   },
   {
     slug: "como-rentar-departamento-puebla",
@@ -38,6 +41,7 @@ const ARTICULOS = [
     fecha: "12 de junio, 2025",
     lectura: "6 min",
     emoji: "🏠",
+    color: "#C8102E",
   },
   {
     slug: "colonias-para-vivir-puebla",
@@ -47,27 +51,57 @@ const ARTICULOS = [
     fecha: "19 de junio, 2025",
     lectura: "7 min",
     emoji: "📍",
+    color: "#1a1a2e",
   },
   {
     slug: "administracion-inmuebles-puebla",
     titulo: "¿Vale la pena contratar administración de inmuebles en Puebla?",
-    descripcion: "Si tienes una o más propiedades en renta en Puebla, la administración profesional puede ahorrarte tiempo, dinero y conflictos. Te explicamos cómo funciona.",
+    descripcion: "Si tienes una o más propiedades en renta en Puebla, la administración profesional puede ahorrarte tiempo, dinero y conflictos.",
     categoria: "Administración",
     fecha: "26 de junio, 2025",
     lectura: "5 min",
     emoji: "⚙️",
+    color: "#C8102E",
+  },
+  {
+    slug: "cuanto-vale-mi-casa-puebla",
+    titulo: "¿Cuánto vale mi casa en Puebla? Precios por zona 2025",
+    descripcion: "Conoce el valor de tu propiedad en Puebla. Precios de casas, departamentos y terrenos por zona en 2025. Factores que determinan el precio.",
+    categoria: "Mercado Inmobiliario",
+    fecha: "3 de julio, 2025",
+    lectura: "5 min",
+    emoji: "💰",
+    color: "#1a1a2e",
+  },
+  {
+    slug: "como-vender-casa-puebla-rapido",
+    titulo: "¿Cómo vender una casa en Puebla rápido?",
+    descripcion: "Guía completa para vender tu propiedad en Puebla al mejor precio y en el menor tiempo posible. Lo que funciona y los errores que cuestan caro.",
+    categoria: "Guías",
+    fecha: "10 de julio, 2025",
+    lectura: "6 min",
+    emoji: "🏡",
+    color: "#C8102E",
+  },
+  {
+    slug: "preventa-departamentos-puebla",
+    titulo: "Departamentos en preventa en Puebla — qué considerar antes de comprar",
+    descripcion: "Ventajas, riesgos y qué revisar al comprar en preventa en Puebla. Las zonas con mejor plusvalía y Torre Zaia en Lomas de Angelópolis III.",
+    categoria: "Inversión",
+    fecha: "17 de julio, 2025",
+    lectura: "6 min",
+    emoji: "🏗️",
+    color: "#1a1a2e",
   },
 ];
-
-const CATEGORIAS = ["Todos", "Póliza Jurídica", "Guías", "Mercado Inmobiliario", "Administración"];
 
 export default function Blog() {
   return (
     <>
       <Head>
         <title>Blog Inmobiliario Puebla — Emporio Inmobiliario</title>
-        <meta name="description" content="Guías, consejos y noticias sobre el mercado inmobiliario en Puebla. Aprende sobre póliza jurídica, renta, venta y administración de propiedades en Puebla." />
-        <meta name="keywords" content="blog inmobiliario puebla, consejos renta puebla, póliza jurídica puebla, mercado inmobiliario puebla, guía rentar puebla" />
+        <meta name="description" content="Guías, consejos y noticias sobre el mercado inmobiliario en Puebla. Aprende sobre póliza jurídica, renta, venta, preventa y administración de propiedades en Puebla." />
+        <meta name="keywords" content="blog inmobiliario puebla, consejos renta puebla, póliza jurídica puebla, mercado inmobiliario puebla, guía rentar puebla, vender casa puebla" />
         <meta property="og:title" content="Blog Inmobiliario Puebla — Emporio Inmobiliario" />
         <meta property="og:description" content="Guías y consejos sobre el mercado inmobiliario en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog" />
@@ -85,42 +119,27 @@ export default function Blog() {
           <div style={{ position: "absolute", top: -80, right: -80, width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%)" }} />
           <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
             <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 12px" }}>Recursos</p>
-            <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, color: "#fff", margin: "0 0 16px", lineHeight: 1.1 }}>
-              Blog Inmobiliario
-            </h1>
+            <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 900, color: "#fff", margin: "0 0 16px", lineHeight: 1.1 }}>Blog Inmobiliario</h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.6)", margin: 0, maxWidth: 520, lineHeight: 1.7 }}>
               Guías, consejos y todo lo que necesitas saber sobre el mercado inmobiliario en Puebla.
             </p>
           </div>
         </div>
 
-        {/* Artículos */}
+        {/* Grid de artículos */}
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "56px 32px" }}>
-
-          {/* Grid */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
-            {ARTICULOS.map((art, i) => (
+            {ARTICULOS.map((art) => (
               <a key={art.slug} href={`/blog/${art.slug}`} style={{ textDecoration: "none" }}>
-                <div style={{
-                  background: "#fff", border: "1px solid #f3f4f6", borderRadius: 16,
-                  overflow: "hidden", height: "100%", display: "flex", flexDirection: "column",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                }}
+                <div style={{ background: "#fff", border: "1px solid #f3f4f6", borderRadius: 16, overflow: "hidden", height: "100%", display: "flex", flexDirection: "column", transition: "transform 0.2s, box-shadow 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.08)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  {/* Card header */}
-                  <div style={{ background: i % 3 === 0 ? "#1a1a2e" : i % 3 === 1 ? "#C8102E" : "#fafafa", padding: "32px 28px 24px", position: "relative", overflow: "hidden" }}>
+                  <div style={{ background: art.color, padding: "32px 28px 24px", position: "relative", overflow: "hidden" }}>
                     <div style={{ position: "absolute", bottom: -20, right: -10, fontSize: 80, opacity: 0.15 }}>{art.emoji}</div>
-                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: i % 3 === 2 ? "#C8102E" : "rgba(255,255,255,0.6)", display: "block", marginBottom: 12 }}>
-                      {art.categoria}
-                    </span>
-                    <h2 style={{ fontSize: 18, fontWeight: 800, color: i % 3 === 2 ? "#1a1a2e" : "#fff", margin: 0, lineHeight: 1.3 }}>
-                      {art.titulo}
-                    </h2>
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)", display: "block", marginBottom: 12 }}>{art.categoria}</span>
+                    <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", margin: 0, lineHeight: 1.3 }}>{art.titulo}</h2>
                   </div>
-
-                  {/* Card body */}
                   <div style={{ padding: "20px 28px 24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                     <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: "0 0 20px" }}>{art.descripcion}</p>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
