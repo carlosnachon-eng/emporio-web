@@ -118,7 +118,7 @@ export default function ArticuloPolizaPrecio() {
             ))}
           </div>
           <p style={{ fontSize: 13, color: "#9ca3af", fontStyle: "italic", margin: "0 0 48px" }}>
-            *Todos los precios son más IVA. Vigencia 12 meses. Cobertura básica: investigación, contrato, pagarés y recuperación del inmueble.
+            *Todos los precios son más IVA. Vigencia 12 meses. Cobertura: investigación, contrato, pagarés y recuperación del inmueble.
           </p>
 
           {/* Qué incluye */}
