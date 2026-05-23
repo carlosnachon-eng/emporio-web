@@ -92,6 +92,26 @@ const ARTICULOS = [
     lectura: "6 min",
     emoji: "🏗️",
     color: "#1a1a2e",
+,
+  {
+    slug: "casas-en-venta-puebla",
+    titulo: "Casas en venta en Puebla — Guía completa 2025",
+    descripcion: "Precios por zona, tipos de propiedad, opciones de crédito y todo lo que necesitas saber para comprar casa en Puebla en 2025.",
+    categoria: "Guías",
+    fecha: "24 de julio, 2025",
+    lectura: "6 min",
+    emoji: "🏡",
+    color: "#C8102E",
+  },
+  {
+    slug: "departamentos-en-renta-puebla",
+    titulo: "Departamentos en renta en Puebla — Zonas, precios y requisitos 2025",
+    descripcion: "Guía completa con precios de renta por colonia, requisitos para rentar y cómo encontrar el departamento ideal en Puebla en 2025.",
+    categoria: "Guías",
+    fecha: "31 de julio, 2025",
+    lectura: "5 min",
+    emoji: "🏠",
+    color: "#1a1a2e",
   },
 ];
 
