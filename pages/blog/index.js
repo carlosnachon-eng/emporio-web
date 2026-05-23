@@ -92,7 +92,7 @@ const ARTICULOS = [
     lectura: "6 min",
     emoji: "🏗️",
     color: "#1a1a2e",
-,
+  },
   {
     slug: "casas-en-venta-puebla",
     titulo: "Casas en venta en Puebla — Guía completa 2025",
