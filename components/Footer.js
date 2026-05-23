@@ -45,9 +45,12 @@ export default function Footer() {
           <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Navegación</h4>
           {[
             { label: "Inicio", href: "/" },
-            { label: "Propiedades", href: "https://app.emporioinmobiliario.com.mx/propiedades" },
+            { label: "Propiedades", href: "/propiedades" },
+            { label: "Torre Zaia", href: "/torre-zaia" },
+            { label: "Equiah", href: "/equiah" },
             { label: "Propietarios", href: "/propietarios" },
             { label: "Arrendatarios", href: "/arrendatarios" },
+            { label: "Blog", href: "/blog" },
             { label: "Nosotros", href: "/nosotros" },
             { label: "Contacto", href: "/contacto" },
           ].map(l => (
@@ -62,13 +65,15 @@ export default function Footer() {
         <div>
           <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Servicios</h4>
           {[
+            { label: "Emporio Blindaje Legal", href: "/blindaje-legal" },
+            { label: "Administración de Inmuebles", href: "/administracion" },
             { label: "Solicitud de arrendamiento", href: "https://app.emporioinmobiliario.com.mx/solicitud" },
             { label: "Simulador de crédito", href: "https://socasesores.com/simulador-credito-hipotecario/?q=NUCAE" },
             { label: "Portal inquilino", href: "https://app.emporioinmobiliario.com.mx/inquilino" },
             { label: "Portal propietario", href: "https://app.emporioinmobiliario.com.mx/propietario" },
             { label: "Aviso de privacidad", href: "/aviso-privacidad" },
           ].map(l => (
-            <a key={l.href} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
+            <a key={l.label} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
               onMouseEnter={e => e.target.style.color = "#fff"}
               onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
             >{l.label}</a>
@@ -92,7 +97,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", maxWidth: 1200, margin: "0 auto", flexWrap: "wrap", gap: 8 }}>
         <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,0.3)" }}>© 2025 Emporio Inmobiliario · Grupo Inmobiliario Nachón Torres S.A. de C.V.</p>
         <a href="/aviso-privacidad" style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>Aviso de privacidad</a>
       </div>
