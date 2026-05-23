@@ -321,6 +321,30 @@ export default function Propietarios() {
               </div>
             </div>
 
+            {/* Links a servicios relacionados */}
+            <div className="honorarios-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+              <a href="/administracion" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 16, background: "#fff", borderRadius: 16, padding: "20px 24px", border: "1.5px solid #e5e7eb", transition: "border-color 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = "#C8102E"}
+                onMouseLeave={e => e.currentTarget.style.borderColor = "#e5e7eb"}>
+                <div style={{ fontSize: 32, flexShrink: 0 }}>📊</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>Administración de Inmuebles</div>
+                  <div style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Cobranza, mantenimiento y reportes mensuales. Tú solo recibes tu renta.</div>
+                  <div style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, marginTop: 6 }}>Ver servicio completo →</div>
+                </div>
+              </a>
+              <a href="/blindaje-legal" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 16, background: "#fff", borderRadius: 16, padding: "20px 24px", border: "1.5px solid #e5e7eb", transition: "border-color 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = "#C8102E"}
+                onMouseLeave={e => e.currentTarget.style.borderColor = "#e5e7eb"}>
+                <div style={{ fontSize: 32, flexShrink: 0 }}>🛡️</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>Emporio Blindaje Legal</div>
+                  <div style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Investigación de inquilino, póliza jurídica y respaldo legal durante todo el contrato.</div>
+                  <div style={{ fontSize: 12, color: "#C8102E", fontWeight: 700, marginTop: 6 }}>Ver servicio completo →</div>
+                </div>
+              </a>
+            </div>
+
             {/* Garantía */}
             <div style={{ background: "linear-gradient(135deg, #C8102E 0%, #9b0d23 100%)", borderRadius: 20, padding: "32px 36px", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
               <div style={{ fontSize: 48, flexShrink: 0 }}>🛡️</div>
