@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const DISPONIBLES = [
   { id: "107", tipo: "Vida I", nivel: "N1", m2: 77.24, terraza: 2.86, total: 80.10, precio: 2768910, enganche20: 553782, eng10: 27689 },
