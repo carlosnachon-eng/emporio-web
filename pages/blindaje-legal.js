@@ -352,9 +352,9 @@ export default function BlindajeLegal() {
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
             <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px" }}>Inversión</p>
-            <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: "0 0 12px" }}>Póliza Jurídica Básica</h2>
+            <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: "0 0 12px" }}>Póliza Jurídica Emporio</h2>
             <p style={{ fontSize: 15, color: "#6b7280", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
-              Cobertura legal anual básica: investigación, contrato, pagarés y recuperación del inmueble.
+              Cobertura jurídica anual: investigación, contrato, pagarés y recuperación del inmueble.
             </p>
           </div>
           <div style={{ border: "1px solid #f3f4f6", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
