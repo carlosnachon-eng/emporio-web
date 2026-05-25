@@ -139,7 +139,7 @@ flexWrap:"wrap"
 }}>
 
 <a
-href="#hot-week"
+href="/hot-week"
 style={{
 background:"#fff",
 color:"#C8102E",
@@ -251,117 +251,6 @@ color:"rgba(255,255,255,.6)"
             </div>
           </div>
         </div>
-
-{/* SECCIÓN HOT WEEK */}
-<div id="hot-week" style={{
-  background:"#fff",
-  padding:"56px 32px",
-  borderBottom:"1px solid #f3f4f6"
-}}>
-  <div style={{maxWidth:1200, margin:"0 auto"}}>
-    <div style={{textAlign:"center", marginBottom:36}}>
-      <p style={{
-        fontSize:11,
-        color:"#C8102E",
-        fontWeight:800,
-        letterSpacing:"0.18em",
-        textTransform:"uppercase",
-        margin:"0 0 10px"
-      }}>
-        🔥 Hot Week Emporio
-      </p>
-
-      <h2 style={{
-        fontSize:"clamp(28px,4vw,42px)",
-        fontWeight:900,
-        color:"#1a1a2e",
-        margin:"0 0 12px"
-      }}>
-        Beneficios especiales al comprar o rentar
-      </h2>
-
-      <p style={{
-        fontSize:16,
-        color:"#6b7280",
-        lineHeight:1.7,
-        maxWidth:640,
-        margin:"0 auto"
-      }}>
-        Solo por tiempo limitado, algunas propiedades participantes cuentan con beneficios especiales al cerrar tu operación.
-      </p>
-    </div>
-
-    <div style={{
-      display:"grid",
-      gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",
-      gap:20
-    }}>
-      <div style={{
-        background:"#1a1a2e",
-        borderRadius:20,
-        padding:"32px 28px",
-        color:"#fff"
-      }}>
-        <div style={{fontSize:36, marginBottom:12}}>🏡</div>
-        <h3 style={{fontSize:22, fontWeight:900, margin:"0 0 10px"}}>
-          Si compras
-        </h3>
-        <p style={{fontSize:15, color:"rgba(255,255,255,.7)", lineHeight:1.7, margin:"0 0 20px"}}>
-          Aparta una propiedad participante esta semana y recibe una Smart TV de 50” al concretar tu compra.*
-        </p>
-        <a href="/propiedades?operacion=sale" style={{
-          display:"inline-block",
-          background:"#C8102E",
-          color:"#fff",
-          padding:"12px 20px",
-          borderRadius:10,
-          fontWeight:800,
-          fontSize:14,
-          textDecoration:"none"
-        }}>
-          Ver propiedades en venta →
-        </a>
-      </div>
-
-      <div style={{
-        background:"#C8102E",
-        borderRadius:20,
-        padding:"32px 28px",
-        color:"#fff"
-      }}>
-        <div style={{fontSize:36, marginBottom:12}}>🔑</div>
-        <h3 style={{fontSize:22, fontWeight:900, margin:"0 0 10px"}}>
-          Si rentas
-        </h3>
-        <p style={{fontSize:15, color:"rgba(255,255,255,.85)", lineHeight:1.7, margin:"0 0 20px"}}>
-          Firma tu contrato esta semana y obtén un beneficio especial en tu póliza jurídica o gastos iniciales.*
-        </p>
-        <a href="/propiedades?operacion=rental" style={{
-          display:"inline-block",
-          background:"#fff",
-          color:"#C8102E",
-          padding:"12px 20px",
-          borderRadius:10,
-          fontWeight:800,
-          fontSize:14,
-          textDecoration:"none"
-        }}>
-          Ver propiedades en renta →
-        </a>
-      </div>
-    </div>
-
-    <p style={{
-      fontSize:11,
-      color:"#9ca3af",
-      textAlign:"center",
-      margin:"20px 0 0",
-      lineHeight:1.6
-    }}>
-      *Aplican términos y condiciones. Promoción válida únicamente en propiedades participantes y operaciones concretadas durante la vigencia de la campaña.
-    </p>
-  </div>
-</div>
 
         {/* PROPIEDADES DESTACADAS */}
         {propiedadesDestacadas.length > 0 && (
