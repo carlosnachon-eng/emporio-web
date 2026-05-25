@@ -4,6 +4,36 @@ import Footer from "../../components/Footer";
 
 const ARTICULOS = [
   {
+  slug: "como-evitar-fraudes-inmobiliarios-puebla",
+  titulo: "Cómo evitar fraudes inmobiliarios al comprar una casa en Puebla",
+  descripcion: "Señales de alerta, documentos y recomendaciones para comprar una propiedad con mayor tranquilidad y evitar problemas antes de firmar.",
+  categoria: "Compra Segura",
+  fecha: "25 de mayo, 2026",
+  lectura: "7 min",
+  emoji: "🚨",
+  color: "#C8102E",
+},
+{
+  slug: "que-revisar-antes-firmar-promesa-compraventa-puebla",
+  titulo: "Qué revisar antes de firmar una promesa de compraventa en Puebla",
+  descripcion: "Antes de firmar una promesa de compraventa, revisa propietario, escritura, adeudos, pagos, penalizaciones y documentos clave.",
+  categoria: "Compra Segura",
+  fecha: "18 de mayo, 2026",
+  lectura: "6 min",
+  emoji: "📝",
+  color: "#1a1a2e",
+},
+{
+  slug: "documentos-para-vender-casa-puebla",
+  titulo: "7 documentos necesarios para vender una casa en Puebla",
+  descripcion: "Conoce qué documentos debes preparar para vender tu casa en Puebla y evitar retrasos durante el proceso de compraventa.",
+  categoria: "Para propietarios",
+  fecha: "11 de mayo, 2026",
+  lectura: "6 min",
+  emoji: "📄",
+  color: "#C8102E",
+},
+  {
     slug: "cuanto-cuesta-poliza-juridica-puebla",
     titulo: "¿Cuánto cuesta una póliza jurídica en Puebla?",
     descripcion: "Tabla de precios actualizada de la póliza jurídica de arrendamiento en Puebla. Desde $2,800 + IVA según el monto de tu renta mensual. Vigencia 12 meses.",
@@ -112,7 +142,7 @@ const ARTICULOS = [
     lectura: "5 min",
     emoji: "🏠",
     color: "#1a1a2e",
-  },,
+  },
   {
     slug: "como-rentar-mi-casa-puebla",
     titulo: "¿Cómo rentar mi casa en Puebla? Guía para propietarios",
