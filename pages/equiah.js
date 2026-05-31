@@ -9,18 +9,15 @@ const IMGS = {
   hero: `${BASE}/banner-vive-01.jpg`,
   hero2: `${BASE}/banner-vive-02.jpg`,
   ubicacion: `${BASE}/img-ubicacion.jpg`,
-  // Galería conoce
   conoce1: `${BASE}/carrousel-conoce-01.jpg`,
   conoce2: `${BASE}/carrousel-conoce-02.jpg`,
   conoce3: `${BASE}/carrousel-conoce-03.jpg`,
-  // Sauce planos
   sauce_plano: `${BASE}/sauce-01.png`,
   sauce1: `${BASE}/sauce-01.jpg`,
   sauce2: `${BASE}/sauce-02.jpg`,
   sauce3: `${BASE}/sauce-03.jpg`,
   sauce4: `${BASE}/sauce-04.jpg`,
   sauce5: `${BASE}/sauce-05.jpg`,
-  // Encino planos
   encino_plano: `${BASE}/encino-01.png`,
   encino1: `${BASE}/encino-01.jpg`,
   encino2: `${BASE}/encino-02.jpg`,
@@ -66,6 +63,67 @@ const GALERIA_ENCINO = [
   { src: IMGS.encino5, label: "Área exterior" },
 ];
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  "name": "Equiah Departamentos — Preventa junto a Val'Quirico, Tlaxcala",
+  "description": "Equiah Villa Sustentable: departamentos en preventa junto a Val'Quirico, Tlaxcala. Solo 7 unidades disponibles. Modelo Encino 2 recámaras desde $5,350,000 y Sauce 3 recámaras desde $8,800,000. 35,000 m² de áreas verdes, alberca techada, hípico, yoga, cancha de tenis y tecnología sustentable. A 18 km de Cholula y 15 km del aeropuerto de Puebla.",
+  "url": "https://www.emporioinmobiliario.com.mx/equiah",
+  "image": `${BASE}/banner-vive-01.jpg`,
+  "datePosted": "2025-01-01",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "MXN",
+    "price": "5350000",
+    "priceValidUntil": "2027-12-31",
+    "availability": "https://schema.org/LimitedAvailability"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Km 2 Carretera Xoxtla-Tlaxcala, Hacienda Santa Águeda",
+    "addressLocality": "San Sebastián Atlahapa",
+    "addressRegion": "Tlaxcala",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.2614",
+    "longitude": "-98.2089"
+  },
+  "numberOfRooms": "2-3",
+  "floorSize": {
+    "@type": "QuantitativeValue",
+    "minValue": "161.64",
+    "maxValue": "253",
+    "unitCode": "MTK"
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Alberca techada con carriles de nado", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Gimnasio equipado", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Sala de yoga", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Hípico Equiah", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Cancha de tenis", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "4 paneles solares por departamento", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Cerraduras inteligentes", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "35,000 m² de áreas verdes", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Terraza panorámica", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Cafetería", "value": true }
+  ],
+  "seller": {
+    "@type": "RealEstateAgent",
+    "name": "Emporio Inmobiliario",
+    "url": "https://www.emporioinmobiliario.com.mx",
+    "telephone": "+522222573237",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "5to Retorno de Osa Menor 2A, Reserva Territorial Atlixcayotl",
+      "addressLocality": "San Andrés Cholula",
+      "addressRegion": "Puebla",
+      "addressCountry": "MX"
+    }
+  }
+};
+
 function Lightbox({ items, index, onClose, onPrev, onNext }) {
   if (index === null) return null;
   return (
@@ -108,28 +166,43 @@ export default function Equiah() {
   return (
     <>
       <Head>
-        <title>Equiah Departamentos — Preventa en Hacienda Santa Águeda, Puebla-Tlaxcala</title>
-        <meta name="description" content="Equiah: 21 departamentos de 2 y 3 recámaras en preventa. 35,000 m² con casi 4,000 árboles. Alberca techada, hípico, yoga y tecnología sustentable. Junto a Val'Quirico, a 18 km de Cholula." />
-        <meta name="keywords" content="equiah departamentos, departamentos preventa puebla tlaxcala, equiah villa sustentable, departamentos val quirico, hacienda santa agueda" />
-        <meta property="og:title" content="Equiah Departamentos — Preventa Puebla-Tlaxcala" />
-        <meta property="og:description" content="21 departamentos sustentables de 2 y 3 recámaras. Junto a Val'Quirico, 18 km de Cholula." />
+        <title>Equiah Departamentos — Preventa junto a Val'Quirico | Emporio Inmobiliario</title>
+        <meta name="description" content="Equiah Villa Sustentable: 7 departamentos en preventa junto a Val'Quirico, Tlaxcala. Encino 2 rec desde $5,350,000 y Sauce 3 rec desde $8,800,000. Alberca techada, hípico, yoga, 35,000 m² verdes. A 18 km de Cholula." />
+        <meta name="keywords" content="equiah departamentos, equiah val quirico, departamentos preventa val quirico, equiah villa sustentable, departamentos tlaxcala puebla, hacienda santa agueda departamentos, departamentos sustentables puebla" />
+        <meta property="og:title" content="Equiah Departamentos — Preventa junto a Val'Quirico | Emporio Inmobiliario" />
+        <meta property="og:description" content="Solo 7 unidades disponibles. Encino desde $5,350,000 y Sauce desde $8,800,000. 35,000 m² de naturaleza junto a Val'Quirico, Tlaxcala." />
         <meta property="og:image" content={IMGS.hero} />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/equiah" />
         <meta property="og:type" content="website" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/equiah" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        />
       </Head>
 
-      <div style={{ fontFamily:"'Montserrat', sans-serif", background:"#fff" }}>
+      <div style={{ fontFamily:"'Montserrat', sans-serif", background:"#fff", overflowX:"hidden", width:"100%" }}>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <style dangerouslySetInnerHTML={{ __html:`* { box-sizing:border-box; } @media(max-width:768px){ .hero-grid{grid-template-columns:1fr!important;} .tip-grid{grid-template-columns:1fr!important;} h1{font-size:36px!important;} }` }} />
+        <style dangerouslySetInnerHTML={{ __html:`
+          * { box-sizing:border-box; margin:0; padding:0; }
+          html, body { width:100%; overflow-x:hidden; }
+          @media(max-width:768px){
+            .hero-grid{grid-template-columns:1fr!important;}
+            .tip-grid{grid-template-columns:1fr!important;}
+            .stats-bar{grid-template-columns:repeat(2,1fr)!important;}
+            .plano-grid{grid-template-columns:1fr!important;}
+            h1{font-size:36px!important;}
+            .hero-inner{padding:80px 20px 60px!important;}
+          }
+        ` }} />
         <Navbar />
 
         {/* HERO */}
-        <div style={{ position:"relative", minHeight:"90vh", display:"flex", alignItems:"center", overflow:"hidden" }}>
-          <img src={IMGS.hero} alt="Equiah Departamentos" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"center" }} />
+        <div style={{ position:"relative", minHeight:"90vh", display:"flex", alignItems:"center", overflow:"hidden", width:"100%" }}>
+          <img src={IMGS.hero} alt="Equiah Departamentos junto a Val'Quirico Tlaxcala" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"center" }} />
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(90deg, rgba(20,35,20,.92) 0%, rgba(20,35,20,.6) 60%, rgba(20,35,20,.2) 100%)" }} />
-          <div style={{ position:"relative", zIndex:1, maxWidth:1100, margin:"0 auto", padding:"100px 32px 80px", width:"100%" }}>
+          <div className="hero-inner" style={{ position:"relative", zIndex:1, maxWidth:1100, margin:"0 auto", padding:"100px 32px 80px", width:"100%" }}>
             <div style={{ maxWidth:580 }}>
               <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(100,140,80,.3)", border:"1px solid rgba(100,140,80,.5)", padding:"6px 16px", borderRadius:99, marginBottom:24 }}>
                 <span style={{ width:6, height:6, borderRadius:"50%", background:"#7cb87a", display:"inline-block" }} />
@@ -157,7 +230,7 @@ export default function Equiah() {
 
         {/* STATS */}
         <div style={{ background:"#2d3a2e" }}>
-          <div style={{ maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)" }}>
+          <div className="stats-bar" style={{ maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)" }}>
             {[
               { val:"21", label:"Departamentos" },
               { val:"35,000", label:"m² totales" },
@@ -169,6 +242,22 @@ export default function Equiah() {
                 <div style={{ fontSize:12, color:"rgba(255,255,255,.4)", marginTop:4, textTransform:"uppercase", letterSpacing:".5px" }}>{s.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* CONTEXTO SEO */}
+        <div style={{ padding:"56px 32px 0", background:"#fafafa" }}>
+          <div style={{ maxWidth:1100, margin:"0 auto" }}>
+            <div style={{ maxWidth:760, margin:"0 auto", textAlign:"center" }}>
+              <p style={{ fontSize:11, color:"#C8102E", fontWeight:700, letterSpacing:".2em", textTransform:"uppercase", margin:"0 0 12px" }}>Por qué Equiah</p>
+              <h2 style={{ fontSize:28, fontWeight:900, color:"#1a1a2e", margin:"0 0 16px" }}>El desarrollo sustentable más único cerca de Puebla</h2>
+              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.8, margin:"0 0 12px" }}>
+                Equiah Villa Sustentable es un exclusivo desarrollo habitacional ubicado junto a Val'Quirico, en Hacienda Santa Águeda, Tlaxcala. A tan solo 18 km de Cholula, 26 km de Angelópolis y 15 km del Aeropuerto Internacional de Puebla, Equiah combina conectividad metropolitana con un entorno natural de 35,000 m² y casi 4,000 árboles.
+              </p>
+              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.8, margin:0 }}>
+                Con solo 21 departamentos en total y 7 unidades disponibles, Equiah ofrece dos modelos exclusivos: Encino de 2 recámaras y 161–169 m², y Sauce de 3 recámaras y 243–253 m². Cada departamento incluye 4 paneles solares, cerraduras inteligentes, bodega y 2 cajones de estacionamiento. Un proyecto de altísima plusvalía en la zona Puebla-Tlaxcala.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -194,10 +283,8 @@ export default function Equiah() {
                   ))}
                 </div>
               </div>
-              <img src={IMGS.ubicacion} alt="Ubicación Equiah" style={{ width:"100%", borderRadius:20, objectFit:"cover", height:380 }} />
+              <img src={IMGS.ubicacion} alt="Ubicación Equiah junto a Val'Quirico" style={{ width:"100%", borderRadius:20, objectFit:"cover", height:380 }} />
             </div>
-
-            {/* Galería conoce */}
             <p style={{ fontSize:11, color:"#C8102E", fontWeight:700, letterSpacing:".2em", textTransform:"uppercase", margin:"0 0 20px" }}>El desarrollo</p>
             <GaleriaGrid items={GALERIA_CONOCE} />
           </div>
@@ -235,7 +322,7 @@ export default function Equiah() {
           </div>
         </div>
 
-        {/* TIPOLOGÍAS CON IMÁGENES */}
+        {/* TIPOLOGÍAS */}
         <div style={{ padding:"72px 32px", background:"#fff" }}>
           <div style={{ maxWidth:1100, margin:"0 auto" }}>
             <div style={{ textAlign:"center", marginBottom:48 }}>
@@ -249,16 +336,11 @@ export default function Equiah() {
                 <h3 style={{ fontSize:24, fontWeight:900, color:"#1a1a2e", margin:0, fontStyle:"italic" }}>Encino</h3>
                 <span style={{ fontSize:13, color:"#6b7280" }}>2 Recámaras · 2.5 Baños · 1 Estudio · 161–169 m²</span>
               </div>
-              <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"300px 1fr", gap:32, alignItems:"start", marginBottom:24 }}>
-                <img src={IMGS.encino_plano} alt="Plano Encino" style={{ width:"100%", borderRadius:12, border:"1px solid #f3f4f6" }} />
+              <div className="plano-grid" style={{ display:"grid", gridTemplateColumns:"300px 1fr", gap:32, alignItems:"start", marginBottom:24 }}>
+                <img src={IMGS.encino_plano} alt="Plano departamento Encino Equiah 2 recámaras" style={{ width:"100%", borderRadius:12, border:"1px solid #f3f4f6" }} />
                 <div>
                   <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:20 }}>
-                    {[
-                      "Sala / comedor", "Cocina con isla de granito", "2 terrazas",
-                      "Jardín privado (Nivel 1)", "Roof garden privado (Nivel 3)",
-                      "2 cajones de estacionamiento", "Bodega incluida",
-                      "4 paneles solares", "Cerraduras y apagadores inteligentes",
-                    ].map((item, i) => (
+                    {["Sala / comedor","Cocina con isla de granito","2 terrazas","Jardín privado (Nivel 1)","Roof garden privado (Nivel 3)","2 cajones de estacionamiento","Bodega incluida","4 paneles solares","Cerraduras y apagadores inteligentes"].map((item, i) => (
                       <div key={i} style={{ display:"flex", gap:8, alignItems:"center" }}>
                         <span style={{ color:"#C8102E", fontSize:12, flexShrink:0 }}>✓</span>
                         <span style={{ fontSize:14, color:"#374151" }}>{item}</span>
@@ -278,15 +360,11 @@ export default function Equiah() {
                 <span style={{ fontSize:13, color:"#6b7280" }}>3 Recámaras · 3.5 Baños · Family room · 243–253 m²</span>
                 <span style={{ fontSize:12, fontWeight:700, background:"#fff0f2", color:"#C8102E", padding:"4px 12px", borderRadius:99 }}>¡Solo 2 disponibles!</span>
               </div>
-              <div className="hero-grid" style={{ display:"grid", gridTemplateColumns:"300px 1fr", gap:32, alignItems:"start", marginBottom:24 }}>
-                <img src={IMGS.sauce_plano} alt="Plano Sauce" style={{ width:"100%", borderRadius:12, border:"1px solid #f3f4f6" }} />
+              <div className="plano-grid" style={{ display:"grid", gridTemplateColumns:"300px 1fr", gap:32, alignItems:"start", marginBottom:24 }}>
+                <img src={IMGS.sauce_plano} alt="Plano departamento Sauce Equiah 3 recámaras" style={{ width:"100%", borderRadius:12, border:"1px solid #f3f4f6" }} />
                 <div>
                   <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:20 }}>
-                    {[
-                      "Family room", "Sala / comedor", "Cocina con isla de granito",
-                      "3 terrazas", "Jardín privado (Nivel 1)", "Roof garden (Nivel 3)",
-                      "2 cajones de estacionamiento", "4 paneles solares", "Cerraduras inteligentes",
-                    ].map((item, i) => (
+                    {["Family room","Sala / comedor","Cocina con isla de granito","3 terrazas","Jardín privado (Nivel 1)","Roof garden (Nivel 3)","2 cajones de estacionamiento","4 paneles solares","Cerraduras inteligentes"].map((item, i) => (
                       <div key={i} style={{ display:"flex", gap:8, alignItems:"center" }}>
                         <span style={{ color:"#C8102E", fontSize:12, flexShrink:0 }}>✓</span>
                         <span style={{ fontSize:14, color:"#374151" }}>{item}</span>
