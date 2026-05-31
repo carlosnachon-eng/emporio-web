@@ -24,7 +24,6 @@ const IMGS = {
   pasillo3: `${CDN}/v1779505178/HEM4-Pasillo_3_raeyj5.png`,
   estacionamiento1: `${CDN}/v1779505178/Torre_Zaia_-_Estacionamiento_konhpf.png`,
   estacionamiento2: `${CDN}/v1779505177/Torre_Zaia_-_Estacionamiento_2_egthov.png`,
-  // Alcumbre
   alberca1: `${CDN}/v1779505165/648c7fcd769ab4d6145e0bd4_Alberca_u7k1jo.jpg`,
   alberca2: `${CDN}/v1779505167/648763762d1db0a449302fdd_Alberca_Alcumbre_lhb86n.jpg`,
   spa: `${CDN}/v1779505167/64878320912b642792176b88_SPA_mmuszf.jpg`,
@@ -40,21 +39,21 @@ const IMGS = {
 };
 
 const DISPONIBLES = [
-  { id:"102", tipo:"Alma", nivel:"N1/N2", m2:104.23, total:107.20, precio:3672720, eng20:734544, eng10:36727 },
-  { id:"106", tipo:"Armonía", nivel:"N1", m2:88.21, total:93.67, precio:3282290, eng20:656458, eng10:32823 },
-  { id:"107", tipo:"Vida I", nivel:"N1", m2:77.24, total:80.10, precio:2768910, eng20:553782, eng10:27689 },
-  { id:"302", tipo:"Alma", nivel:"N3/N4", m2:104.20, total:107.17, precio:3683008, eng20:736602, eng10:36830 },
-  { id:"304", tipo:"Calma II", nivel:"N2/N3", m2:106.19, total:109.21, precio:3703505, eng20:740701, eng10:37035 },
-  { id:"307", tipo:"Vida I", nivel:"N3", m2:77.69, total:83.37, precio:2883390, eng20:576678, eng10:28834 },
-  { id:"403", tipo:"Calma II", nivel:"N3/N4", m2:110.75, total:114.17, precio:3855265, eng20:771053, eng10:38553 },
-  { id:"407", tipo:"Vida I", nivel:"N4", m2:77.69, total:83.37, precio:2904835, eng20:580967, eng10:29048 },
-  { id:"501", tipo:"Calma I", nivel:"N4/N5", m2:119.05, total:129.41, precio:4073200, eng20:814640, eng10:40732 },
-  { id:"503", tipo:"Paz II", nivel:"N5", m2:53.80, total:65.84, precio:2595510, eng20:519102, eng10:25955 },
-  { id:"507", tipo:"Vida I", nivel:"N5", m2:77.59, total:83.38, precio:2925130, eng20:585026, eng10:29251 },
-  { id:"602", tipo:"Alma", nivel:"N6/N7", m2:107.02, total:111.97, precio:3920733, eng20:784147, eng10:39207 },
-  { id:"605", tipo:"Refugio", nivel:"N6", m2:71.86, total:73.97, precio:2800523, eng20:560105, eng10:28005 },
-  { id:"701", tipo:"Calma I", nivel:"N6/N7", m2:119.05, total:129.41, precio:4074500, eng20:814900, eng10:40745 },
-  { id:"704", tipo:"Calma II", nivel:"N6/N7", m2:103.96, total:108.66, precio:3763070, eng20:752614, eng10:37631 },
+  { id:"102", tipo:"Alma", nivel:"N1/N2", m2:104.23, total:107.20, precio:3672720, eng20:734544 },
+  { id:"106", tipo:"Armonía", nivel:"N1", m2:88.21, total:93.67, precio:3282290, eng20:656458 },
+  { id:"107", tipo:"Vida I", nivel:"N1", m2:77.24, total:80.10, precio:2768910, eng20:553782 },
+  { id:"302", tipo:"Alma", nivel:"N3/N4", m2:104.20, total:107.17, precio:3683008, eng20:736602 },
+  { id:"304", tipo:"Calma II", nivel:"N2/N3", m2:106.19, total:109.21, precio:3703505, eng20:740701 },
+  { id:"307", tipo:"Vida I", nivel:"N3", m2:77.69, total:83.37, precio:2883390, eng20:576678 },
+  { id:"403", tipo:"Calma II", nivel:"N3/N4", m2:110.75, total:114.17, precio:3855265, eng20:771053 },
+  { id:"407", tipo:"Vida I", nivel:"N4", m2:77.69, total:83.37, precio:2904835, eng20:580967 },
+  { id:"501", tipo:"Calma I", nivel:"N4/N5", m2:119.05, total:129.41, precio:4073200, eng20:814640 },
+  { id:"503", tipo:"Paz II", nivel:"N5", m2:53.80, total:65.84, precio:2595510, eng20:519102 },
+  { id:"507", tipo:"Vida I", nivel:"N5", m2:77.59, total:83.38, precio:2925130, eng20:585026 },
+  { id:"602", tipo:"Alma", nivel:"N6/N7", m2:107.02, total:111.97, precio:3920733, eng20:784147 },
+  { id:"605", tipo:"Refugio", nivel:"N6", m2:71.86, total:73.97, precio:2800523, eng20:560105 },
+  { id:"701", tipo:"Calma I", nivel:"N6/N7", m2:119.05, total:129.41, precio:4074500, eng20:814900 },
+  { id:"704", tipo:"Calma II", nivel:"N6/N7", m2:103.96, total:108.66, precio:3763070, eng20:752614 },
 ];
 
 const fmt = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", minimumFractionDigits: 0 }).format(n);
@@ -92,6 +91,65 @@ const GALERIA_ALCUMBRE = [
   { src: IMGS.isla, label: "Isla creativa" },
 ];
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  "name": "Torre Zaia — Departamentos en Preventa Lomas de Angelópolis III",
+  "description": "Torre Zaia: 40 departamentos en preventa en Lomas de Angelópolis III, Puebla. 6 tipologías desde $2,056,025 MXN. Enganche desde 10%. Entrega diciembre 2027. Amenidades premium en Parque Alcumbre: alberca, spa, gym, cine privado, ludoteca y más.",
+  "url": "https://www.emporioinmobiliario.com.mx/torre-zaia",
+  "image": `${CDN}/v1779506032/HEM4_-_Fachada_1_btjb4r.png`,
+  "datePosted": "2025-01-01",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "MXN",
+    "price": "2056025",
+    "priceValidUntil": "2027-12-31",
+    "availability": "https://schema.org/InStock"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Parque Alcumbre, Lomas de Angelópolis III",
+    "addressLocality": "San Andrés Cholula",
+    "addressRegion": "Puebla",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.0068",
+    "longitude": "-98.2421"
+  },
+  "numberOfRooms": "1-3",
+  "floorSize": {
+    "@type": "QuantitativeValue",
+    "minValue": "53.80",
+    "maxValue": "119.05",
+    "unitCode": "MTK"
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Alberca con carril de nado", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Cancha de pádel", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Gimnasio equipado", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Sala de cine VIP", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Elevador para autos", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Estacionamiento subterráneo", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Jardín Zen", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Terraza común", "value": true }
+  ],
+  "seller": {
+    "@type": "RealEstateAgent",
+    "name": "Emporio Inmobiliario",
+    "url": "https://www.emporioinmobiliario.com.mx",
+    "telephone": "+522222573237",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "5to Retorno de Osa Menor 2A, Reserva Territorial Atlixcayotl",
+      "addressLocality": "San Andrés Cholula",
+      "addressRegion": "Puebla",
+      "addressCountry": "MX"
+    }
+  }
+};
+
 function Lightbox({ items, index, onClose, onPrev, onNext }) {
   if (index === null) return null;
   return (
@@ -115,7 +173,7 @@ function GaleriaGrid({ items, titulo }) {
     <>
       <Lightbox items={items} index={lb} onClose={() => setLb(null)} onPrev={prev} onNext={next} />
       <div style={{ marginBottom:48 }}>
-        <h3 style={{ fontSize:20, fontWeight:800, color:"#1a1a2e", margin:"0 0 20px" }}>{titulo}</h3>
+        {titulo && <h3 style={{ fontSize:20, fontWeight:800, color:"#1a1a2e", margin:"0 0 20px" }}>{titulo}</h3>}
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(220px, 1fr))", gap:12 }}>
           {items.map((img, i) => (
             <div key={i} onClick={() => setLb(i)} style={{ borderRadius:12, overflow:"hidden", aspectRatio:"4/3", cursor:"zoom-in", position:"relative", background:"#f3f4f6" }}>
@@ -138,15 +196,19 @@ export default function TorreZaia() {
     <>
       <Head>
         <title>Torre Zaia — Departamentos en Preventa en Lomas de Angelópolis III, Puebla</title>
-        <meta name="description" content="Torre Zaia: departamentos en preventa en Lomas de Angelópolis III, Puebla. 40 unidades desde $2,056,025. Entrega diciembre 2027. Enganche del 10%. Emporio Inmobiliario." />
-        <meta name="keywords" content="torre zaia puebla, departamentos preventa lomas angelópolis, preventa puebla, departamentos nuevos angelópolis III" />
-        <meta property="og:title" content="Torre Zaia — Departamentos en Preventa Lomas de Angelópolis III" />
-        <meta property="og:description" content="40 departamentos en preventa desde $2,056,025. Enganche del 10%. Entrega diciembre 2027." />
+        <meta name="description" content="Torre Zaia: departamentos en preventa en Lomas de Angelópolis III, Puebla. 40 unidades, 6 tipologías desde $2,056,025. Enganche desde 10%. Entrega diciembre 2027. Parque Alcumbre con alberca, spa, cine y más." />
+        <meta name="keywords" content="torre zaia puebla, departamentos preventa lomas angelópolis III, preventa puebla 2027, departamentos nuevos angelópolis, parque alcumbre departamentos, torre zaia lomas angelópolis" />
+        <meta property="og:title" content="Torre Zaia — Departamentos en Preventa Lomas de Angelópolis III | Emporio Inmobiliario" />
+        <meta property="og:description" content="40 departamentos en preventa desde $2,056,025. 6 tipologías, enganche desde 10%. Entrega diciembre 2027. Parque Alcumbre, Lomas de Angelópolis III." />
         <meta property="og:image" content={IMGS.fachada1} />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/torre-zaia" />
         <meta property="og:type" content="website" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/torre-zaia" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+        />
       </Head>
 
       <div style={{ fontFamily:"'Montserrat', sans-serif", background:"#fff" }}>
@@ -154,9 +216,9 @@ export default function TorreZaia() {
         <style dangerouslySetInnerHTML={{ __html:`* { box-sizing:border-box; } @media(max-width:768px){ .hero-grid{grid-template-columns:1fr!important;} .stats-grid{grid-template-columns:repeat(2,1fr)!important;} .pago-grid{grid-template-columns:1fr!important;} h1{font-size:34px!important;} }` }} />
         <Navbar />
 
-        {/* HERO con imagen de fondo */}
+        {/* HERO */}
         <div style={{ position:"relative", minHeight:"90vh", display:"flex", alignItems:"center", overflow:"hidden" }}>
-          <img src={IMGS.fachada1} alt="Torre Zaia fachada principal" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }} />
+          <img src={IMGS.fachada1} alt="Torre Zaia fachada principal — Lomas de Angelópolis III" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }} />
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(90deg, rgba(10,15,25,.92) 0%, rgba(10,15,25,.6) 60%, rgba(10,15,25,.2) 100%)" }} />
           <div style={{ position:"relative", zIndex:1, maxWidth:1100, margin:"0 auto", padding:"100px 32px 80px", width:"100%" }}>
             <div style={{ maxWidth:580 }}>
@@ -200,6 +262,22 @@ export default function TorreZaia() {
           </div>
         </div>
 
+        {/* CONTEXTO SEO — texto rico para Google */}
+        <div style={{ padding:"56px 32px 0", background:"#fafafa" }}>
+          <div style={{ maxWidth:1100, margin:"0 auto" }}>
+            <div style={{ maxWidth:760, margin:"0 auto", textAlign:"center" }}>
+              <p style={{ fontSize:11, color:"#C8102E", fontWeight:700, letterSpacing:".2em", textTransform:"uppercase", margin:"0 0 12px" }}>Por qué Torre Zaia</p>
+              <h2 style={{ fontSize:28, fontWeight:900, color:"#1a1a2e", margin:"0 0 16px" }}>La mejor inversión en Lomas de Angelópolis III</h2>
+              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.8, margin:"0 0 12px" }}>
+                Torre Zaia es un proyecto de preventa ubicado en Parque Alcumbre, dentro de Lomas de Angelópolis III — la zona residencial de mayor plusvalía en San Andrés Cholula, Puebla. A solo 2 minutos del nuevo Barrio Cascatta y a 15 minutos de Angelópolis, ofrece conectividad total con el área metropolitana de Puebla.
+              </p>
+              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.8, margin:0 }}>
+                Con 40 departamentos distribuidos en 7 niveles y 6 tipologías — desde lofts tipo estudio hasta departamentos dúplex de doble altura — Torre Zaia tiene una opción para cada estilo de vida. Los precios de preventa inician en $2,056,025 MXN con enganche desde el 10% y financiamiento hasta la entrega en diciembre de 2027.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* ESQUEMA DE PAGO */}
         <div style={{ padding:"72px 32px", background:"#fafafa" }}>
           <div style={{ maxWidth:1100, margin:"0 auto" }}>
@@ -234,7 +312,7 @@ export default function TorreZaia() {
               <p style={{ fontSize:11, color:"#C8102E", fontWeight:700, letterSpacing:".2em", textTransform:"uppercase", margin:"0 0 10px" }}>Áreas comunes · Torre Zaia</p>
               <h2 style={{ fontSize:36, fontWeight:900, color:"#1a1a2e", margin:0 }}>Espacios diseñados para vivir bien.</h2>
             </div>
-            <GaleriaGrid items={GALERIA_ZAIA} titulo="" />
+            <GaleriaGrid items={GALERIA_ZAIA} />
           </div>
         </div>
 
@@ -244,9 +322,9 @@ export default function TorreZaia() {
             <div style={{ marginBottom:40 }}>
               <p style={{ fontSize:11, color:"#C8102E", fontWeight:700, letterSpacing:".2em", textTransform:"uppercase", margin:"0 0 10px" }}>Amenidades del cluster · Parque Alcumbre</p>
               <h2 style={{ fontSize:36, fontWeight:900, color:"#1a1a2e", margin:"0 0 12px" }}>Acceso a amenidades premium de nivel resort.</h2>
-              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.7 }}>Torre Zaia está ubicada dentro del cluster de Parque Alcumbre, con acceso a amenidades de primer nivel que incluyen alberca, spa, gym, cine privado, ludoteca, sala de juegos y más.</p>
+              <p style={{ fontSize:15, color:"#6b7280", lineHeight:1.7 }}>Torre Zaia está ubicada dentro del cluster de Parque Alcumbre, con acceso a amenidades de primer nivel que incluyen alberca con carril de nado, spa con vapor y jacuzzi, gimnasio equipado, cine privado VIP, ludoteca, sala de juegos con billar, cancha de pádel y más de 25 amenidades premium.</p>
             </div>
-            <GaleriaGrid items={GALERIA_ALCUMBRE} titulo="" />
+            <GaleriaGrid items={GALERIA_ALCUMBRE} />
           </div>
         </div>
 
