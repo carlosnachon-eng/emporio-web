@@ -11,6 +11,7 @@ const fmt = (n) => new Intl.NumberFormat("es-MX", {
 export default function Propiedades() {
   const router = useRouter();
   const [properties, setProperties] = useState([]);
+  const [allProperties, setAllProperties] = useState([]); // todas cuando hay orden
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [iniciado, setIniciado] = useState(false);
@@ -20,47 +21,84 @@ export default function Propiedades() {
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
   const [recamaras, setRecamaras] = useState("");
-  const [orden, setOrden] = useState(""); // "" | "precio_asc" | "precio_desc" | "reciente" | "antiguo"
+  const [orden, setOrden] = useState("");
+
+  const PAGE_SIZE = 10;
+
+  // Trae UNA página de la API
+  const fetchPage = async (params, pageNum) => {
+    const query = new URLSearchParams();
+    query.append("page", pageNum);
+    query.append("operacion", params.operacion);
+    if (params.tipo) query.append("tipo", params.tipo);
+    if (params.precioMin) query.append("precioMin", params.precioMin);
+    if (params.precioMax) query.append("precioMax", params.precioMax);
+    if (params.recamaras) query.append("recamaras", params.recamaras);
+    const res = await fetch(`/api/propiedades-eb?${query.toString()}`);
+    return await res.json();
+  };
+
+  // Trae TODAS las páginas (para ordenamiento global)
+  const fetchAll = async (params) => {
+    const first = await fetchPage(params, 1);
+    const total = first.pagination?.total || 0;
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    let all = [...(first.content || [])];
+    if (totalPages > 1) {
+      const rest = await Promise.all(
+        Array.from({ length: totalPages - 1 }, (_, i) => fetchPage(params, i + 2))
+      );
+      rest.forEach(d => { all = [...all, ...(d.content || [])] });
+    }
+    return { all, total };
+  };
+
+  const sortProps = (props, o) => {
+    if (!o) return props;
+    const sorted = [...props];
+    if (o === "precio_asc")  sorted.sort((a, b) => (a.operations?.[0]?.amount || 0) - (b.operations?.[0]?.amount || 0));
+    if (o === "precio_desc") sorted.sort((a, b) => (b.operations?.[0]?.amount || 0) - (a.operations?.[0]?.amount || 0));
+    if (o === "reciente")    sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    if (o === "antiguo")     sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    return sorted;
+  };
 
   const fetchProperties = async (params = {}) => {
     setLoading(true);
-    try {
-      const p = {
-        page: params.page ?? page,
-        operacion: params.operacion ?? operacion,
-        tipo: params.tipo ?? tipo,
-        precioMin: params.precioMin ?? precioMin,
-        precioMax: params.precioMax ?? precioMax,
-        recamaras: params.recamaras ?? recamaras,
-        orden: params.orden ?? orden,
-      };
-      const query = new URLSearchParams();
-      query.append("page", p.page);
-      query.append("operacion", p.operacion);
-      if (p.tipo) query.append("tipo", p.tipo);
-      if (p.precioMin) query.append("precioMin", p.precioMin);
-      if (p.precioMax) query.append("precioMax", p.precioMax);
-      if (p.recamaras) query.append("recamaras", p.recamaras);
-      if (p.orden) query.append("orden", p.orden);
+    const p = {
+      page: params.page ?? page,
+      operacion: params.operacion ?? operacion,
+      tipo: params.tipo ?? tipo,
+      precioMin: params.precioMin ?? precioMin,
+      precioMax: params.precioMax ?? precioMax,
+      recamaras: params.recamaras ?? recamaras,
+      orden: params.orden ?? orden,
+    };
 
-      const res = await fetch(`/api/propiedades-eb?${query.toString()}`);
-      const data = await res.json();
-      let props = data.content || [];
-      if (p.orden === "precio_asc")  props = [...props].sort((a, b) => (a.operations?.[0]?.amount || 0) - (b.operations?.[0]?.amount || 0));
-      if (p.orden === "precio_desc") props = [...props].sort((a, b) => (b.operations?.[0]?.amount || 0) - (a.operations?.[0]?.amount || 0));
-      if (p.orden === "reciente")    props = [...props].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      if (p.orden === "antiguo")     props = [...props].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-      setProperties(props);
-      setPagination(data.pagination || {});
+    try {
+      if (p.orden) {
+        // Con orden: traer todas y ordenar globalmente
+        const { all, total } = await fetchAll(p);
+        const sorted = sortProps(all, p.orden);
+        setAllProperties(sorted);
+        setPagination({ total, next_page: null }); // paginación manual
+        const start = (p.page - 1) * PAGE_SIZE;
+        setProperties(sorted.slice(start, start + PAGE_SIZE));
+      } else {
+        // Sin orden: paginación normal
+        const data = await fetchPage(p, p.page);
+        setAllProperties([]);
+        setProperties(data.content || []);
+        setPagination(data.pagination || {});
+      }
     } catch (e) { console.error(e); }
     setLoading(false);
   };
 
-  // Leer query params de la URL al cargar — fix para catálogos compartidos
+  // Leer query params al cargar
   useEffect(() => {
     if (!router.isReady || iniciado) return;
     const opParam = router.query.operacion;
-    // Mapear "venta"/"sale"/"renta"/"rental" al valor correcto para la API
     let opInicial = "rental";
     if (opParam === "sale" || opParam === "venta") opInicial = "sale";
     else if (opParam === "rental" || opParam === "renta") opInicial = "rental";
@@ -70,9 +108,7 @@ export default function Propiedades() {
   }, [router.isReady]);
 
   const handleOperacion = (op) => {
-    setOperacion(op);
-    setPage(1);
-    // Actualizar URL sin recargar
+    setOperacion(op); setPage(1);
     router.replace({ pathname: '/propiedades', query: { operacion: op } }, undefined, { shallow: true });
     fetchProperties({ operacion: op, page: 1 });
   };
@@ -82,12 +118,26 @@ export default function Propiedades() {
     setTipo(""); setPrecioMin(""); setPrecioMax(""); setRecamaras(""); setOrden(""); setPage(1);
     fetchProperties({ tipo: "", precioMin: "", precioMax: "", recamaras: "", orden: "", page: 1 });
   };
-  const handlePage = (p) => { setPage(p); fetchProperties({ page: p }); window.scrollTo(0, 0); };
+  const handlePage = (p) => {
+    setPage(p);
+    if (orden && allProperties.length > 0) {
+      // Con orden: paginar sobre el array ya ordenado
+      const start = (p - 1) * PAGE_SIZE;
+      setProperties(allProperties.slice(start, start + PAGE_SIZE));
+      window.scrollTo(0, 0);
+    } else {
+      fetchProperties({ page: p });
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const totalProps = orden ? allProperties.length : (pagination.total || 0);
+  const totalPages = Math.ceil(totalProps / PAGE_SIZE);
+  const hasNext = orden ? page < totalPages : !!pagination.next_page;
 
   const tituloSEO = operacion === "rental"
     ? "Propiedades en Renta en Puebla — Emporio Inmobiliario"
     : "Propiedades en Venta en Puebla — Emporio Inmobiliario";
-
   const descSEO = operacion === "rental"
     ? "Encuentra departamentos, casas y locales en renta en Puebla, Cholula, Lomas de Angelópolis y zona metropolitana. Más de 30 opciones activas con Emporio Inmobiliario."
     : "Casas, departamentos y terrenos en venta en Puebla. Más de 45 propiedades activas en Lomas de Angelópolis, San Andrés Cholula, Cuautlancingo y toda la zona metropolitana.";
@@ -128,15 +178,14 @@ export default function Propiedades() {
 
         <Navbar />
 
-        {/* Header */}
         <div style={{ background: "#1a1a2e", padding: "40px 32px 32px" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 8px" }}>Catálogo</p>
             <h1 style={{ margin: "0 0 6px", fontSize: 36, fontWeight: 900, color: "#fff" }}>
               {operacion === "rental" ? "🏠 Propiedades en Renta" : "🏡 Propiedades en Venta"}
             </h1>
-            {pagination.total ? (
-              <p style={{ margin: "0 0 24px", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>{pagination.total} propiedades encontradas en Puebla</p>
+            {totalProps > 0 ? (
+              <p style={{ margin: "0 0 24px", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>{totalProps} propiedades encontradas en Puebla</p>
             ) : <div style={{ marginBottom: 24 }} />}
             <div className="toggle-btns" style={{ display: "flex", gap: 8 }}>
               {[{ label: "🏠 Renta", value: "rental" }, { label: "🏡 Venta", value: "sale" }].map(op => (
@@ -146,8 +195,7 @@ export default function Propiedades() {
                   border: "2px solid",
                   borderColor: operacion === op.value ? "#C8102E" : "rgba(255,255,255,0.2)",
                   background: operacion === op.value ? "#C8102E" : "transparent",
-                  color: "#fff",
-                  transition: "all 0.15s",
+                  color: "#fff", transition: "all 0.15s",
                 }}>
                   {op.label}
                 </button>
@@ -211,15 +259,20 @@ export default function Propiedades() {
             )}
           </div>
 
-          {/* Loading */}
-          {loading && (
+          {/* Aviso cuando carga todo */}
+          {loading && orden && (
+            <div style={{ background: "#fff0f2", border: "1px solid #fecdd3", borderRadius: 10, padding: "12px 16px", marginBottom: 16, textAlign: "center" }}>
+              <p style={{ margin: 0, fontSize: 13, color: "#be123c", fontWeight: 600 }}>⏳ Cargando todas las propiedades para ordenar correctamente...</p>
+            </div>
+          )}
+
+          {loading && !orden && (
             <div style={{ textAlign: "center", padding: 80 }}>
               <div style={{ fontSize: 40, marginBottom: 16 }}>🏠</div>
               <p style={{ color: "#9ca3af", fontSize: 16, fontWeight: 500 }}>Cargando propiedades...</p>
             </div>
           )}
 
-          {/* Sin resultados */}
           {!loading && properties.length === 0 && (
             <div style={{ background: "#fff", borderRadius: 16, padding: 60, textAlign: "center", border: "1px solid #f0f0f0" }}>
               <p style={{ fontSize: 48, margin: "0 0 12px" }}>🔍</p>
@@ -230,7 +283,6 @@ export default function Propiedades() {
             </div>
           )}
 
-          {/* Lista */}
           {!loading && properties.map(p => {
             const op = p.operations?.[0];
             const precio = op?.amount || 0;
@@ -299,7 +351,7 @@ export default function Propiedades() {
           })}
 
           {/* Paginación */}
-          {pagination.total > 10 && (
+          {totalProps > PAGE_SIZE && (
             <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 32, marginBottom: 16 }}>
               {page > 1 && (
                 <button onClick={() => handlePage(page - 1)} style={{ padding: "10px 24px", background: "#fff", border: "1.5px solid #e5e7eb", borderRadius: 10, cursor: "pointer", fontWeight: 600, fontFamily: "'Montserrat', sans-serif", color: "#374151" }}>
@@ -307,9 +359,9 @@ export default function Propiedades() {
                 </button>
               )}
               <span style={{ padding: "10px 24px", background: "#C8102E", color: "#fff", borderRadius: 10, fontWeight: 700, fontFamily: "'Montserrat', sans-serif" }}>
-                Página {page} de {Math.ceil(pagination.total / 10)}
+                Página {page} de {totalPages}
               </span>
-              {pagination.next_page && (
+              {hasNext && (
                 <button onClick={() => handlePage(page + 1)} style={{ padding: "10px 24px", background: "#fff", border: "1.5px solid #e5e7eb", borderRadius: 10, cursor: "pointer", fontWeight: 600, fontFamily: "'Montserrat', sans-serif", color: "#374151" }}>
                   Siguiente →
                 </button>
