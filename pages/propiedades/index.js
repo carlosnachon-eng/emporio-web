@@ -45,7 +45,12 @@ export default function Propiedades() {
 
       const res = await fetch(`/api/propiedades-eb?${query.toString()}`);
       const data = await res.json();
-      setProperties(data.content || []);
+      let props = data.content || [];
+      if (p.orden === "precio_asc")  props = [...props].sort((a, b) => (a.operations?.[0]?.amount || 0) - (b.operations?.[0]?.amount || 0));
+      if (p.orden === "precio_desc") props = [...props].sort((a, b) => (b.operations?.[0]?.amount || 0) - (a.operations?.[0]?.amount || 0));
+      if (p.orden === "reciente")    props = [...props].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      if (p.orden === "antiguo")     props = [...props].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      setProperties(props);
       setPagination(data.pagination || {});
     } catch (e) { console.error(e); }
     setLoading(false);
