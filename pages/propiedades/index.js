@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -8,15 +9,18 @@ const fmt = (n) => new Intl.NumberFormat("es-MX", {
 }).format(n || 0);
 
 export default function Propiedades() {
+  const router = useRouter();
   const [properties, setProperties] = useState([]);
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
+  const [iniciado, setIniciado] = useState(false);
   const [page, setPage] = useState(1);
   const [operacion, setOperacion] = useState("rental");
   const [tipo, setTipo] = useState("");
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
   const [recamaras, setRecamaras] = useState("");
+  const [orden, setOrden] = useState(""); // "" | "precio_asc" | "precio_desc" | "reciente" | "antiguo"
 
   const fetchProperties = async (params = {}) => {
     setLoading(true);
@@ -28,6 +32,7 @@ export default function Propiedades() {
         precioMin: params.precioMin ?? precioMin,
         precioMax: params.precioMax ?? precioMax,
         recamaras: params.recamaras ?? recamaras,
+        orden: params.orden ?? orden,
       };
       const query = new URLSearchParams();
       query.append("page", p.page);
@@ -36,6 +41,7 @@ export default function Propiedades() {
       if (p.precioMin) query.append("precioMin", p.precioMin);
       if (p.precioMax) query.append("precioMax", p.precioMax);
       if (p.recamaras) query.append("recamaras", p.recamaras);
+      if (p.orden) query.append("orden", p.orden);
 
       const res = await fetch(`/api/propiedades-eb?${query.toString()}`);
       const data = await res.json();
@@ -45,13 +51,31 @@ export default function Propiedades() {
     setLoading(false);
   };
 
-  useEffect(() => { fetchProperties(); }, []);
+  // Leer query params de la URL al cargar — fix para catálogos compartidos
+  useEffect(() => {
+    if (!router.isReady || iniciado) return;
+    const opParam = router.query.operacion;
+    // Mapear "venta"/"sale"/"renta"/"rental" al valor correcto para la API
+    let opInicial = "rental";
+    if (opParam === "sale" || opParam === "venta") opInicial = "sale";
+    else if (opParam === "rental" || opParam === "renta") opInicial = "rental";
+    setOperacion(opInicial);
+    setIniciado(true);
+    fetchProperties({ operacion: opInicial, page: 1 });
+  }, [router.isReady]);
 
-  const handleOperacion = (op) => { setOperacion(op); setPage(1); fetchProperties({ operacion: op, page: 1 }); };
+  const handleOperacion = (op) => {
+    setOperacion(op);
+    setPage(1);
+    // Actualizar URL sin recargar
+    router.replace({ pathname: '/propiedades', query: { operacion: op } }, undefined, { shallow: true });
+    fetchProperties({ operacion: op, page: 1 });
+  };
   const handleFiltros = () => { setPage(1); fetchProperties({ page: 1 }); };
+  const handleOrden = (o) => { setOrden(o); setPage(1); fetchProperties({ orden: o, page: 1 }); };
   const handleLimpiar = () => {
-    setTipo(""); setPrecioMin(""); setPrecioMax(""); setRecamaras(""); setPage(1);
-    fetchProperties({ tipo: "", precioMin: "", precioMax: "", recamaras: "", page: 1 });
+    setTipo(""); setPrecioMin(""); setPrecioMax(""); setRecamaras(""); setOrden(""); setPage(1);
+    fetchProperties({ tipo: "", precioMin: "", precioMax: "", recamaras: "", orden: "", page: 1 });
   };
   const handlePage = (p) => { setPage(p); fetchProperties({ page: p }); window.scrollTo(0, 0); };
 
@@ -162,10 +186,20 @@ export default function Propiedades() {
                 <option value="4">4+</option>
               </select>
             </div>
+            <div>
+              <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#9ca3af", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.06em" }}>Ordenar por</label>
+              <select value={orden} onChange={e => handleOrden(e.target.value)} style={{ padding: "9px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, background: "#fff", fontFamily: "'Montserrat', sans-serif", color: "#374151" }}>
+                <option value="">Relevancia</option>
+                <option value="precio_asc">Precio: menor a mayor</option>
+                <option value="precio_desc">Precio: mayor a menor</option>
+                <option value="reciente">Más recientes</option>
+                <option value="antiguo">Más antiguos</option>
+              </select>
+            </div>
             <button onClick={handleFiltros} style={{ padding: "10px 24px", background: "#C8102E", color: "#fff", border: "none", borderRadius: 8, cursor: "pointer", fontWeight: 700, fontSize: 14, fontFamily: "'Montserrat', sans-serif" }}>
               🔍 Buscar
             </button>
-            {(tipo || precioMin || precioMax || recamaras) && (
+            {(tipo || precioMin || precioMax || recamaras || orden) && (
               <button onClick={handleLimpiar} style={{ padding: "10px 16px", background: "#f3f4f6", border: "none", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 13, color: "#6b7280", fontFamily: "'Montserrat', sans-serif" }}>
                 ✕ Limpiar
               </button>
