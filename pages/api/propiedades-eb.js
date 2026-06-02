@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   try {
-    const { page = 1, operacion = "rental", tipo, precioMin, precioMax, recamaras } = req.query;
+    const { page = 1, operacion = "rental", tipo, precioMin, precioMax, recamaras, orden } = req.query;
 
     const params = new URLSearchParams();
     params.append("limit", "10");
@@ -13,10 +13,13 @@ export default async function handler(req, res) {
     if (precioMax) params.append("search[max_price]", precioMax);
     if (recamaras) params.append("search[bedrooms_min]", recamaras);
 
+    // Ordenamiento
+    if (orden === "precio_asc")  { params.append("sort_by", "price"); params.append("sort_order", "asc"); }
+    if (orden === "precio_desc") { params.append("sort_by", "price"); params.append("sort_order", "desc"); }
+    if (orden === "reciente")    { params.append("sort_by", "created_at"); params.append("sort_order", "desc"); }
+    if (orden === "antiguo")     { params.append("sort_by", "created_at"); params.append("sort_order", "asc"); }
+
     const url = `https://api.easybroker.com/v1/properties?${params.toString()}`;
-    
-    // Log para debug
-    console.log("URL EasyBroker:", url);
 
     const response = await fetch(url, {
       headers: {
@@ -26,9 +29,7 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    
-    // Incluir la URL en la respuesta para debug
-    return res.status(200).json({ ...data, _debug_url: url });
+    return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
