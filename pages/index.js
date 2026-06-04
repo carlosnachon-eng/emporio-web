@@ -307,6 +307,42 @@ export default function Home({ propiedadesDestacadas = [] }) {
           </div>
         </div>
 
+
+        {/* VERIDADA */}
+        <div className="sec-pad" style={{ padding: "64px 32px", background: "#f8f9fa" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div style={{ background: "#fff", borderRadius: 20, padding: "40px 40px", border: "1px solid #f3f4f6", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
+              <div style={{ flex: 1, minWidth: 280 }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff0f2", border: "1px solid #fecdd3", padding: "5px 12px", borderRadius: 99, marginBottom: 16 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", display: "inline-block" }} />
+                  <span style={{ fontSize: 10, color: "#C8102E", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Nuevo · Por Emporio Inmobiliario</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  <div style={{ width: 36, height: 36, background: "#C8102E", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ color: "#fff", fontWeight: 900, fontSize: 18 }}>V</span>
+                  </div>
+                  <h3 style={{ fontSize: 22, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Veridada</h3>
+                </div>
+                <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: "0 0 8px", maxWidth: 480 }}>
+                  ¿Vas a comprar una propiedad? Antes de dar tu enganche, verifica que los documentos estén en orden.
+                  Veridada revisa escritura, predial, agua, CLG y más — y emite un sello de validación verificable.
+                </p>
+                <p style={{ fontSize: 13, color: "#9ca3af", margin: 0 }}>Validación documental inmobiliaria en Puebla.</p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" }}>
+                <a href="https://veridada.mx" target="_blank" rel="noreferrer"
+                  style={{ background: "#C8102E", color: "#fff", padding: "13px 28px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap" }}>
+                  ✅ Verificar una propiedad
+                </a>
+                <a href="https://veridada.mx/como-funciona" target="_blank" rel="noreferrer"
+                  style={{ color: "#C8102E", fontWeight: 600, fontSize: 13, textDecoration: "none" }}>
+                  ¿Cómo funciona? →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA FINAL */}
         <div className="sec-pad" style={{ padding: "72px 32px", background: "#C8102E", textAlign: "center" }}>
           <div style={{ maxWidth: 640, margin: "0 auto" }}>
