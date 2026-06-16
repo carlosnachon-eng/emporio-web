@@ -63,7 +63,7 @@ export default function RinconDeLosSupenios() {
         <div style={{ position: "relative", minHeight: "95vh", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "#0d0d0d" }}>
           {/* Imagen de fondo — render del desarrollo */}
           <img
-            src="https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0471"
+            src="https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0471.webp"
             alt="Rincón de los Sueños"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.55 }}
             onError={e => { e.target.style.display = "none"; }}
@@ -297,15 +297,15 @@ export default function RinconDeLosSupenios() {
             <h2 style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: "0 0 32px" }}>Conoce cada espacio.</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
               {[
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0479", label: "Sala — Comedor" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0487", label: "Cocina integral" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0474", label: "Recámara principal con clóset" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0475", label: "Baño con cancel de cristal templado" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0484", label: "Balcón planta alta" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0473", label: "Recámara con balcón" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0486", label: "Sala — Comedor vista 2" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0480", label: "Alcoba planta baja" },
-                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0472", label: "Fachada — Acceso" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0479.webp", label: "Sala — Comedor" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0487.webp", label: "Cocina integral" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0474.webp", label: "Recámara principal con clóset" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0475.webp", label: "Baño con cancel de cristal templado" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0484.webp", label: "Balcón planta alta" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0473.webp", label: "Recámara con balcón" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0486.webp", label: "Sala — Comedor vista 2" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0480.webp", label: "Alcoba planta baja" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0472.webp", label: "Fachada — Acceso" },
               ].map((img, i) => (
                 <div key={i} style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3", background: "#f3f4f6", position: "relative" }}>
                   <img src={img.src} alt={img.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
