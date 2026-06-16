@@ -282,7 +282,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                     ¡NUEVO!
                   </div>
                   <div style={{ height: 200, background: "#0d0d0d", position: "relative", overflow: "hidden" }}>
-                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0471.webp" alt="Rincón de los Sueños"
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1781643422/IMG_0471_tcehkb.webp" alt="Rincón de los Sueños"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,.8), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
