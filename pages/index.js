@@ -204,6 +204,109 @@ export default function Home({ propiedadesDestacadas = [] }) {
           </div>
         )}
 
+
+        {/* DESARROLLOS EN EXCLUSIVA */}
+        <div className="sec-pad" style={{ padding: "72px 32px", background: "#fafafa" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 36, flexWrap: "wrap", gap: 12 }}>
+              <div>
+                <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 8px" }}>Proyectos nuevos</p>
+                <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Desarrollos en exclusiva</h2>
+              </div>
+            </div>
+            <div className="props-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+
+              {/* Torre Zaia */}
+              <a href="/torre-zaia" style={{ textDecoration: "none" }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transition: "transform .2s" }}
+                  onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
+                  onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                  <div style={{ height: 200, background: "#1a1a2e", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/emporio/torre-zaia-hero.jpg" alt="Torre Zaia"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }}
+                      onError={e => { e.target.style.display="none"; }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.8), transparent)" }} />
+                    <div style={{ position: "absolute", top: 10, left: 10 }}>
+                      <span style={{ background: "#C8102E", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>PREVENTA</span>
+                    </div>
+                    <div style={{ position: "absolute", bottom: 14, left: 16 }}>
+                      <p style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#fff" }}>Torre Zaia</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,.7)" }}>Lomas de Angelópolis III</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 16px 20px" }}>
+                    <p style={{ margin: "0 0 6px", fontSize: 12, color: "#6b7280" }}>📍 San Andrés Cholula, Puebla</p>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Torre de 40 departamentos. Entrega Dic 2027.</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $2,056,025</span>
+                      <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              {/* Equiah */}
+              <a href="/equiah" style={{ textDecoration: "none" }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transition: "transform .2s" }}
+                  onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
+                  onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                  <div style={{ height: 200, background: "#2d3a2e", position: "relative", overflow: "hidden" }}>
+                    <img src="https://equiah.com/app-assets/images/banner-vive-01.jpg" alt="Equiah"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.8), transparent)" }} />
+                    <div style={{ position: "absolute", top: 10, left: 10 }}>
+                      <span style={{ background: "#2d3a2e", color: "#a8d4a6", border: "1px solid #a8d4a6", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>PREVENTA</span>
+                    </div>
+                    <div style={{ position: "absolute", bottom: 14, left: 16 }}>
+                      <p style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#fff" }}>Equiah</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,.7)" }}>Villa Sustentable · Nativitas, Tlaxcala</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 16px 20px" }}>
+                    <p style={{ margin: "0 0 6px", fontSize: 12, color: "#6b7280" }}>📍 Junto a Val'Quirico, 18 km de Cholula</p>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Solo 7 unidades disponibles. 35,000 m² de naturaleza.</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $5,350,000</span>
+                      <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              {/* Rincón de los Sueños */}
+              <a href="/rincon-de-los-suenos" style={{ textDecoration: "none" }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "2px solid #C8102E", boxShadow: "0 2px 12px rgba(200,16,46,0.1)", transition: "transform .2s", position: "relative" }}
+                  onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
+                  onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                  <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, background: "#C8102E", color: "#fff", padding: "4px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>
+                    ¡NUEVO!
+                  </div>
+                  <div style={{ height: 200, background: "#0d0d0d", position: "relative", overflow: "hidden" }}>
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0471" alt="Rincón de los Sueños"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,.8), transparent)" }} />
+                    <div style={{ position: "absolute", top: 10, left: 10 }}>
+                      <span style={{ background: "#065f46", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>ENTREGA INMEDIATA</span>
+                    </div>
+                    <div style={{ position: "absolute", bottom: 14, left: 16 }}>
+                      <p style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#fff" }}>Rincón de los Sueños</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,.7)" }}>Ex Hacienda Chapulco, Puebla</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 16px 20px" }}>
+                    <p style={{ margin: "0 0 6px", fontSize: 12, color: "#6b7280" }}>📍 Los Héroes de Puebla, Heroica Puebla</p>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Solo 3 casas disponibles. Privada de 7 viviendas.</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $2,089,000</span>
+                      <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
         {/* BENEFICIOS */}
         <div className="sec-pad" style={{ padding: "72px 32px", background: "#fff" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
