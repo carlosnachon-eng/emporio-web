@@ -63,7 +63,7 @@ export default function RinconDeLosSupenios() {
         <div style={{ position: "relative", minHeight: "95vh", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "#0d0d0d" }}>
           {/* Imagen de fondo — render del desarrollo */}
           <img
-            src="https://res.cloudinary.com/djq3wl79q/image/upload/v1/rincon/hero.jpg"
+            src="https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0471"
             alt="Rincón de los Sueños"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.55 }}
             onError={e => { e.target.style.display = "none"; }}
@@ -175,7 +175,7 @@ export default function RinconDeLosSupenios() {
               </div>
               <div style={{ borderRadius: 20, overflow: "hidden", height: 400 }}>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5!2d-98.268!3d18.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU5JzI0LjAiTiA5OMKwMTYnMDQuOCJX!5e0!3m2!1ses!2smx!4v1"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d951.6!2d-98.2244387!3d18.9702371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc78323d57ec5%3A0xf7e93c6!2zUmluY8OzbiBkZSBsb3MgU3Vlw7Fvcw!5e0!3m2!1ses!2smx!4v1"
                   width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
                   title="Ubicación Rincón de los Sueños"
                 />
@@ -284,6 +284,34 @@ export default function RinconDeLosSupenios() {
                 <div key={i} style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)", borderRadius: 12, padding: "20px 14px", textAlign: "center" }}>
                   <div style={{ fontSize: 26, marginBottom: 8 }}>{a.icon}</div>
                   <p style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,.7)", margin: 0, lineHeight: 1.4 }}>{a.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── GALERÍA ── */}
+        <div style={{ padding: "72px 32px", background: "#fff" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: ".2em", textTransform: "uppercase", margin: "0 0 10px" }}>Galería</p>
+            <h2 style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: "0 0 32px" }}>Conoce cada espacio.</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
+              {[
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0479", label: "Sala — Comedor" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0487", label: "Cocina integral" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0474", label: "Recámara principal con clóset" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0475", label: "Baño con cancel de cristal templado" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0484", label: "Balcón planta alta" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0473", label: "Recámara con balcón" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0486", label: "Sala — Comedor vista 2" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0480", label: "Alcoba planta baja" },
+                { src: "https://res.cloudinary.com/djq3wl79q/image/upload/rincon/IMG_0472", label: "Fachada — Acceso" },
+              ].map((img, i) => (
+                <div key={i} style={{ borderRadius: 12, overflow: "hidden", aspectRatio: "4/3", background: "#f3f4f6", position: "relative" }}>
+                  <img src={img.src} alt={img.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent, rgba(0,0,0,.5))", padding: "20px 12px 10px" }}>
+                    <span style={{ fontSize: 12, color: "#fff", fontWeight: 600 }}>{img.label}</span>
+                  </div>
                 </div>
               ))}
             </div>
