@@ -2,7 +2,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const WA = "https://wa.me/522221209245?text=Hola,%20me%20interesa%20información%20sobre%20Rincón%20de%20los%20Sueños";
+const WA = "https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Rincón%20de%20los%20Sueños";
 
 const DISPONIBLES = [
   { id: "3", modelo: "Rincón Esencial", precio: 2089000, status: "disponible", patio: true },
