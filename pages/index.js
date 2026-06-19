@@ -24,10 +24,14 @@ const PASOS = [
 
 const CSS = `
   * { box-sizing: border-box; }
+  @media (max-width: 1024px) {
+    .desarrollos-grid { grid-template-columns: 1fr 1fr !important; }
+  }
   @media (max-width: 768px) {
     .hero-grid        { grid-template-columns: 1fr !important; }
     .dos-caminos      { grid-template-columns: 1fr !important; }
     .props-grid       { grid-template-columns: 1fr !important; }
+    .desarrollos-grid { grid-template-columns: 1fr !important; }
     .beneficios-grid  { grid-template-columns: 1fr 1fr !important; }
     .pasos-grid       { grid-template-columns: 1fr 1fr !important; }
     .resenas-grid     { grid-template-columns: 1fr !important; }
@@ -214,7 +218,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                 <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Desarrollos en exclusiva</h2>
               </div>
             </div>
-            <div className="props-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+            <div className="desarrollos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
 
               {/* Torre Zaia */}
               <a href="/torre-zaia" style={{ textDecoration: "none" }}>
@@ -267,6 +271,34 @@ export default function Home({ propiedadesDestacadas = [] }) {
                     <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>Solo 7 unidades disponibles. 35,000 m² de naturaleza.</p>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $5,350,000</span>
+                      <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              {/* Bau22 */}
+              <a href="/bau22" style={{ textDecoration: "none" }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transition: "transform .2s" }}
+                  onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
+                  onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                  <div style={{ height: 200, background: "#0d0d0d", position: "relative", overflow: "hidden" }}>
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/bau22/fachada_noche.jpg" alt="Bau22"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,.8), transparent)" }} />
+                    <div style={{ position: "absolute", top: 10, left: 10 }}>
+                      <span style={{ background: "#065f46", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>ENTREGA INMEDIATA</span>
+                    </div>
+                    <div style={{ position: "absolute", bottom: 14, left: 16 }}>
+                      <p style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#fff" }}>Bau22</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,.7)" }}>Un proyecto de Valor City</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 16px 20px" }}>
+                    <p style={{ margin: "0 0 6px", fontSize: 12, color: "#6b7280" }}>📍 Lomas de Angelópolis, Puebla</p>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>4 prototipos. 6 unidades disponibles.</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $2,595,120</span>
                       <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
                     </div>
                   </div>
