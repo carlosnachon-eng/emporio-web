@@ -8,7 +8,7 @@ const CDN = "https://res.cloudinary.com/djq3wl79q/image/upload";
 const IMGS = {
   fachada_dia: `https://res.cloudinary.com/djq3wl79q/image/upload/v1781896677/fachada_dia_csan8h.jpg`,
   fachada_noche: `${CDN}/bau22/fachada_noche_znady9.jpg`,
-  fachada_aerea: `${CDN}/bau22/fachada_aerea_ctx8tt.jpg`,
+  fachada_aerea: `https://res.cloudinary.com/djq3wl79q/image/upload/v1781896677/fachada_aerea_ctx8tt.jpg`,
   charlie_cocina: `${CDN}/bau22/charlie_cocina_zndc7w.jpg`,
   charlie_recamara: `${CDN}/bau22/charlie_recamara_kgozbr.jpg`,
   charlie_plano: `${CDN}/bau22/charlie_plano_puj8lt.jpg`,
