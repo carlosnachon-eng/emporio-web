@@ -5,6 +5,8 @@ const NAV_LINKS = [
   { label: "Propiedades",     href: "/propiedades" },
   { label: "Torre Zaia",      href: "/torre-zaia" },
   { label: "Equiah",          href: "/equiah" },
+  { label: "Bau22",           href: "/bau22" },
+  { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
   { label: "Propietarios",    href: "/propietarios" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
