@@ -1,32 +1,37 @@
+// pages/api/contacto-propiedad.js
+//
+// Recibe el formulario de "¿Te interesa esta propiedad?" desde la ficha
+// individual (/propiedades/[id]) y manda un correo a ventas con los datos
+// del interesado y a qué propiedad se refiere.
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { nombre, email, whatsapp, mensaje, asunto, tipo, operacion, colonia, comentarios } = req.body;
+  const { nombre, telefono, email, mensaje, propiedad_id, propiedad_titulo } = req.body;
 
-  if (!nombre || !whatsapp) {
-    return res.status(400).json({ error: "Faltan campos requeridos" });
+  if (!nombre || !telefono) {
+    return res.status(400).json({ error: "Faltan campos requeridos (nombre y teléfono)" });
   }
 
-  const subject = asunto || "Nuevo contacto desde emporioinmobiliario.com.mx";
+  const subject = `🏠 Interesado en: ${propiedad_titulo || propiedad_id || "una propiedad"}`;
 
   const html = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #f9f9f9; border-radius: 12px;">
       <div style="text-align: center; margin-bottom: 24px;">
         <img src="https://www.emporioinmobiliario.com.mx/wp-content/uploads/2022/03/emporio-1-768x434.png" alt="Emporio Inmobiliario" style="height: 56px;" />
       </div>
-      <h2 style="color: #C8102E; margin: 0 0 24px; text-align: center;">📩 ${subject}</h2>
+      <h2 style="color: #C8102E; margin: 0 0 24px; text-align: center;">📩 Nuevo interesado en una propiedad</h2>
       <div style="background: #fff; border-radius: 8px; padding: 24px; border: 1px solid #f0f0f0;">
+        <p style="margin: 0 0 10px;"><strong>Propiedad:</strong> ${propiedad_titulo || "—"}</p>
+        <p style="margin: 0 0 10px;"><strong>ID:</strong> ${propiedad_id || "—"}</p>
+        <hr style="border: none; border-top: 1px solid #f0f0f0; margin: 14px 0;" />
         <p style="margin: 0 0 10px;"><strong>Nombre:</strong> ${nombre}</p>
-        <p style="margin: 0 0 10px;"><strong>WhatsApp:</strong> <a href="https://wa.me/52${(whatsapp || "").replace(/\D/g, "")}">${whatsapp}</a></p>
+        <p style="margin: 0 0 10px;"><strong>Teléfono:</strong> <a href="https://wa.me/52${(telefono || "").replace(/\D/g, "")}">${telefono}</a></p>
         ${email ? `<p style="margin: 0 0 10px;"><strong>Email:</strong> ${email}</p>` : ""}
-        ${colonia ? `<p style="margin: 0 0 10px;"><strong>Colonia/Zona:</strong> ${colonia}</p>` : ""}
-        ${tipo ? `<p style="margin: 0 0 10px;"><strong>Tipo de propiedad:</strong> ${tipo}</p>` : ""}
-        ${operacion ? `<p style="margin: 0 0 10px;"><strong>Operación:</strong> ${operacion}</p>` : ""}
         ${mensaje ? `<p style="margin: 0 0 10px;"><strong>Mensaje:</strong><br/>${mensaje}</p>` : ""}
-        ${comentarios ? `<p style="margin: 0 0 10px;"><strong>Comentarios:</strong><br/>${comentarios}</p>` : ""}
       </div>
       <div style="text-align: center; margin-top: 28px;">
-        <a href="https://wa.me/52${(whatsapp || "").replace(/\D/g, "")}" style="background: #25d366; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px;">
+        <a href="https://wa.me/52${(telefono || "").replace(/\D/g, "")}" style="background: #25d366; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px;">
           💬 Responder por WhatsApp
         </a>
       </div>
