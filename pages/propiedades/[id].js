@@ -2,13 +2,19 @@ import { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { createClient } from "@supabase/supabase-js";
+
+const supabasePublic = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 const fmt = (n) => new Intl.NumberFormat("es-MX", {
   style: "currency", currency: "MXN", minimumFractionDigits: 0
 }).format(n || 0);
 
 const STATUS_BADGE = {
-  published: { label: "Publicado",  bg: "#dcfce7", color: "#166534", dot: "#22c55e" },
+  published: { label: "Disponible", bg: "#dcfce7", color: "#166534", dot: "#22c55e" },
   reserved:  { label: "Reservado",  bg: "#fef9c3", color: "#854d0e", dot: "#eab308" },
   leased:    { label: "Rentado",    bg: "#fee2e2", color: "#991b1b", dot: "#ef4444" },
   sold:      { label: "Vendido",    bg: "#fee2e2", color: "#991b1b", dot: "#ef4444" },
@@ -108,6 +114,12 @@ function Galeria({ fotos, titulo }) {
   );
 }
 
+const PROTECCION_JURIDICA_LABEL = {
+  blindaje_legal: "Incluye Blindaje Legal Emporio",
+  aval: "Requiere aval",
+  otra_poliza: "Requiere póliza jurídica",
+};
+
 export default function PropiedadDetalle({ propiedad }) {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
@@ -135,36 +147,46 @@ export default function PropiedadDetalle({ propiedad }) {
     </>
   );
 
-  const op = propiedad.operations?.[0];
-  const precio = op?.amount || 0;
-  const fotos = Array.isArray(propiedad.property_images) ? propiedad.property_images : [];
-  const amenidades = Array.isArray(propiedad.amenities) ? propiedad.amenities : [];
+  const precio = propiedad.precio || 0;
+  const fotos = Array.isArray(propiedad.fotos) ? propiedad.fotos : [];
+  const amenidades = Array.isArray(propiedad.amenidades) ? propiedad.amenidades : [];
+  const creditos = Array.isArray(propiedad.creditos_aceptados) ? propiedad.creditos_aceptados : [];
   const status = propiedad.status || "published";
-  const agente = propiedad.agent?.name || propiedad.user?.name || null;
-  const agenteEmail = propiedad.agent?.email || propiedad.user?.email || null;
-  const agenteInicial = agente ? agente.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase() : null;
-  const lat = propiedad.location?.latitude;
-  const lng = propiedad.location?.longitude;
-  const direccion = [propiedad.location?.street, propiedad.location?.city_area, propiedad.location?.city, propiedad.location?.region].filter(Boolean).join(", ");
+  const esVenta = propiedad.operacion === "sale";
+  const lat = propiedad.lat;
+  const lng = propiedad.lng;
+  const direccion = [propiedad.colonia, propiedad.ciudad, propiedad.estado].filter(Boolean).join(", ");
+
+  // Datos operativos que sí aportan valor al público (nunca incluimos comisión ni ubicación de llave)
+  const datosOperativos = [
+    propiedad.servicio_gas && { label: "Gas", value: propiedad.servicio_gas },
+    propiedad.servicio_agua && { label: "Agua", value: propiedad.servicio_agua },
+    propiedad.servicio_luz && { label: "Luz", value: propiedad.servicio_luz },
+    propiedad.internet_disponible && { label: "Internet", value: propiedad.internet_disponible },
+    propiedad.cisterna_capacidad && { label: "Cisterna", value: propiedad.cisterna_capacidad },
+    propiedad.mantenimiento_aplica && { label: "Mantenimiento", value: propiedad.mantenimiento_monto ? fmt(propiedad.mantenimiento_monto) : "Aplica" },
+    propiedad.amueblado && { label: "Estado", value: propiedad.amueblado },
+    propiedad.orientacion && { label: "Orientación", value: propiedad.orientacion },
+    propiedad.antiguedad_anios != null && { label: "Antigüedad", value: `${propiedad.antiguedad_anios} años` },
+  ].filter(Boolean);
 
   // SEO dinámico por propiedad
-  const esVenta = op?.type === "sale";
   const tipoOp = esVenta ? "en venta" : "en renta";
   const precioFmt = fmt(precio);
-  const seoTitle = propiedad.title
-    ? `${propiedad.title} ${tipoOp} en Puebla — Emporio Inmobiliario`
+  const seoTitle = propiedad.titulo
+    ? `${propiedad.titulo} ${tipoOp} en Puebla — Emporio Inmobiliario`
     : `Propiedad ${tipoOp} en Puebla — Emporio Inmobiliario`;
   const seoDesc = [
-    propiedad.title,
-    tipoOp === "en venta" ? `en venta` : `en renta`,
+    propiedad.titulo,
+    tipoOp,
     precio > 0 ? `por ${precioFmt}` : "",
-    propiedad.bedrooms > 0 ? `${propiedad.bedrooms} recámaras` : "",
-    propiedad.bathrooms > 0 ? `${propiedad.bathrooms} baños` : "",
-    propiedad.construction_size > 0 ? `${propiedad.construction_size} m²` : "",
+    propiedad.recamaras > 0 ? `${propiedad.recamaras} recámaras` : "",
+    propiedad.banos > 0 ? `${propiedad.banos} baños` : "",
+    propiedad.m2_construccion > 0 ? `${propiedad.m2_construccion} m²` : "",
     direccion ? `en ${direccion}` : "en Puebla",
     "— Emporio Inmobiliario.",
   ].filter(Boolean).join(", ");
-  const seoImage = fotos[0]?.url || propiedad.title_image_full || "https://www.emporioinmobiliario.com.mx/logo.png";
+  const seoImage = fotos[0]?.url || "https://www.emporioinmobiliario.com.mx/logo.png";
   const seoUrl = `https://www.emporioinmobiliario.com.mx/propiedades/${propiedad.public_id}`;
 
   const handleContacto = async () => {
@@ -173,7 +195,7 @@ export default function PropiedadDetalle({ propiedad }) {
       await fetch("/api/contacto-propiedad", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contacto, propiedad_id: propiedad.public_id, propiedad_titulo: propiedad.title }),
+        body: JSON.stringify({ ...contacto, propiedad_id: propiedad.public_id, propiedad_titulo: propiedad.titulo }),
       });
       setEnviado(true);
     } catch (e) { console.error(e); }
@@ -182,19 +204,19 @@ export default function PropiedadDetalle({ propiedad }) {
 
   const FormularioContacto = () => (
     <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", marginBottom: isMobile ? 16 : 0 }}>
-      <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>Te interesa esta propiedad?</h3>
-      <p style={{ margin: "0 0 20px", fontSize: 13, color: "#6b7280" }}>Dejanos tus datos y te contactamos</p>
+      <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>¿Te interesa esta propiedad?</h3>
+      <p style={{ margin: "0 0 20px", fontSize: 13, color: "#6b7280" }}>Déjanos tus datos y te contactamos</p>
       {enviado ? (
         <div style={{ background: "#f0fdf4", borderRadius: 12, padding: 24, textAlign: "center" }}>
           <p style={{ fontSize: 40, margin: "0 0 8px" }}>✅</p>
-          <p style={{ margin: 0, fontWeight: 700, color: "#065f46" }}>Recibimos tu mensaje!</p>
+          <p style={{ margin: 0, fontWeight: 700, color: "#065f46" }}>¡Recibimos tu mensaje!</p>
           <p style={{ margin: "8px 0 0", fontSize: 13, color: "#6b7280" }}>Te contactaremos muy pronto</p>
         </div>
       ) : (
         <>
           {[
             { label: "Nombre completo", key: "nombre", type: "text", placeholder: "Tu nombre" },
-            { label: "Telefono", key: "telefono", type: "tel", placeholder: "2221234567" },
+            { label: "Teléfono", key: "telefono", type: "tel", placeholder: "2221234567" },
             { label: "Email", key: "email", type: "email", placeholder: "tu@email.com" },
           ].map(f => (
             <div key={f.key} style={{ marginBottom: 14 }}>
@@ -212,7 +234,7 @@ export default function PropiedadDetalle({ propiedad }) {
             style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, marginBottom: 12, fontFamily: "'Montserrat', sans-serif" }}>
             {enviando ? "Enviando..." : "📩 Enviar mensaje"}
           </button>
-          <a href={`https://wa.me/522222573237?text=Hola, me interesa la propiedad ${propiedad.public_id || ""} - ${propiedad.title || ""}`} target="_blank" rel="noreferrer"
+          <a href={`https://wa.me/522222573237?text=Hola, me interesa la propiedad ${propiedad.public_id || ""} - ${propiedad.titulo || ""}`} target="_blank" rel="noreferrer"
             style={{ display: "block", width: "100%", background: "#25d366", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: "pointer", textAlign: "center", textDecoration: "none", boxSizing: "border-box" }}>
             💬 WhatsApp
           </a>
@@ -225,10 +247,10 @@ export default function PropiedadDetalle({ propiedad }) {
   );
 
   const MapaUbicacion = () => {
-    if (lat && lng && propiedad.location?.show_exact_location) {
+    if (lat && lng && propiedad.mostrar_ubicacion_exacta) {
       return (
         <div style={{ marginTop: 24 }}>
-          <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Ubicacion</h3>
+          <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Ubicación</h3>
           <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #f0f0f0" }}>
             <iframe width="100%" height="220" frameBorder="0" scrolling="no" style={{ display: "block", width: "100%" }}
               src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`}
@@ -247,7 +269,7 @@ export default function PropiedadDetalle({ propiedad }) {
           <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Zona</h3>
           <div style={{ background: "#f8f8fa", borderRadius: 12, padding: "14px 16px", border: "1px solid #f0f0f0" }}>
             <p style={{ margin: 0, fontSize: 14, color: "#374151" }}>📍 {direccion}</p>
-            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion + ", Puebla, Mexico")}`}
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion + ", Puebla, México")}`}
               target="_blank" rel="noreferrer"
               style={{ fontSize: 12, color: "#C8102E", fontWeight: 600, display: "inline-block", marginTop: 8 }}>
               Ver en Google Maps →
@@ -255,6 +277,16 @@ export default function PropiedadDetalle({ propiedad }) {
           </div>
         </div>
       );
+    }
+    return null;
+  };
+
+  const videoEmbedUrl = (url) => {
+    if (!url) return null;
+    if (url.includes("tiktok.com")) return null; // TikTok no permite embed simple sin su SDK; mostramos link en su lugar
+    if (url.includes("youtube.com") || url.includes("youtu.be")) {
+      const id = url.includes("youtu.be") ? url.split("/").pop() : new URL(url).searchParams.get("v");
+      return id ? `https://www.youtube.com/embed/${id}` : null;
     }
     return null;
   };
@@ -269,139 +301,158 @@ export default function PropiedadDetalle({ propiedad }) {
         <meta property="og:image" content={seoImage} />
         <meta property="og:url" content={seoUrl} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={seoUrl} />
       </Head>
-      <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "'Montserrat', 'system-ui', sans-serif", overflowX: "hidden", maxWidth: "100vw", boxSizing: "border-box" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+      <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fafafa", minHeight: "100vh" }}>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <Navbar />
 
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "20px 16px", boxSizing: "border-box", width: "100%" }}>
-
-          {/* Breadcrumb */}
-          <div style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-            <a href="/" style={{ color: "#9ca3af", fontSize: 13, textDecoration: "none" }}>Inicio</a>
-            <span style={{ color: "#d1d5db", fontSize: 13 }}>›</span>
-            <a href="/propiedades" style={{ color: "#9ca3af", fontSize: 13, textDecoration: "none" }}>Propiedades</a>
-            <span style={{ color: "#d1d5db", fontSize: 13 }}>›</span>
-            <span style={{ color: "#374151", fontSize: 13, fontWeight: 600 }}>{propiedad.title || propiedad.public_id}</span>
-          </div>
-
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "16px" : "32px" }}>
           {isMobile ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <Galeria fotos={fotos} titulo={propiedad.title} />
-              <div style={{ background: "#fff", borderRadius: 20, padding: "20px", border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12, gap: 12 }}>
-                  <div style={{ flex: 1 }}>
-                    <h1 style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.title || ""}</h1>
-                    <StatusBadge status={status} />
-                  </div>
-                  <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <p style={{ margin: 0, fontSize: 22, fontWeight: 900, color: "#C8102E" }}>{fmt(precio)}</p>
-                    <p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{op?.currency || "MXN"} / {op?.unit === "total" ? "total" : "mes"}</p>
-                  </div>
+            <div>
+              <Galeria fotos={fotos} titulo={propiedad.titulo} />
+              <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
+                  <h1 style={{ margin: 0, fontSize: 19, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.titulo || ""}</h1>
+                  <StatusBadge status={status} />
                 </div>
-                {agente && (
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 0", borderTop: "1px solid #f3f4f6" }}>
-                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#C8102E", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{agenteInicial}</div>
-                    <div style={{ flex: 1 }}>
-                      <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: "#1a1a2e" }}>{agente}</p>
-                      {agenteEmail && <p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{agenteEmail}</p>}
-                    </div>
-                    <span style={{ fontSize: 11, background: "#fff0f2", color: "#C8102E", padding: "3px 8px", borderRadius: 99, fontWeight: 600 }}>Agente</span>
-                  </div>
+                <p style={{ margin: "0 0 12px", fontSize: 13, color: "#6b7280" }}>📍 {direccion}</p>
+                <p style={{ margin: "0 0 4px", fontSize: 26, fontWeight: 900, color: "#C8102E" }}>{fmt(precio)}</p>
+                <p style={{ margin: "0 0 16px", fontSize: 11, color: "#9ca3af" }}>{propiedad.moneda || "MXN"} {esVenta ? "total" : "/ mes"}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", padding: "14px 0", borderTop: "1px solid #f3f4f6" }}>
+                  {propiedad.tipo && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>{propiedad.tipo}</span>}
+                  {propiedad.recamaras > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🛏 {propiedad.recamaras} rec</span>}
+                  {propiedad.banos > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🚿 {propiedad.banos} baños</span>}
+                  {propiedad.estacionamientos > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🚗 {propiedad.estacionamientos} est</span>}
+                  {propiedad.m2_construccion > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>📐 {propiedad.m2_construccion} m²</span>}
+                  {propiedad.m2_terreno > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🌳 {propiedad.m2_terreno} m² terreno</span>}
+                </div>
+                {!esVenta && propiedad.mascotas_permitidas != null && (
+                  <p style={{ margin: "10px 0 0", fontSize: 13, color: "#374151" }}>{propiedad.mascotas_permitidas ? "🐾 Se aceptan mascotas" : "🚫 No se aceptan mascotas"}</p>
                 )}
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", padding: "12px 0", borderTop: "1px solid #f3f4f6", borderBottom: "1px solid #f3f4f6", margin: "12px 0" }}>
-                  {propiedad.property_type && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>{propiedad.property_type}</span>}
-                  {propiedad.bedrooms > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🛏 {propiedad.bedrooms} rec</span>}
-                  {propiedad.bathrooms > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🚿 {propiedad.bathrooms} baños</span>}
-                  {propiedad.parking_spaces > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🚗 {propiedad.parking_spaces} est</span>}
-                  {propiedad.construction_size > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>📐 {propiedad.construction_size} m²</span>}
-                  {propiedad.lot_size > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "5px 12px", borderRadius: 99, fontSize: 12 }}>🌳 {propiedad.lot_size} m² terreno</span>}
-                </div>
-                {propiedad.description && (
-                  <div>
-                    <h3 style={{ margin: "0 0 10px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Descripcion</h3>
-                    <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.8, whiteSpace: "pre-line", wordBreak: "break-word" }}>
-                      {typeof propiedad.description === "string" ? propiedad.description : ""}
-                    </p>
+                {!esVenta && propiedad.proteccion_juridica && (
+                  <p style={{ margin: "6px 0 0", fontSize: 13, color: "#374151" }}>🛡️ {PROTECCION_JURIDICA_LABEL[propiedad.proteccion_juridica] || ""}</p>
+                )}
+                {esVenta && creditos.length > 0 && (
+                  <p style={{ margin: "10px 0 0", fontSize: 13, color: "#374151" }}>💳 Acepta: {creditos.join(", ")}</p>
+                )}
+                {propiedad.descripcion && (
+                  <div style={{ marginTop: 16 }}>
+                    <h3 style={{ margin: "0 0 10px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Descripción</h3>
+                    <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.8, whiteSpace: "pre-line", wordBreak: "break-word" }}>{propiedad.descripcion}</p>
                   </div>
                 )}
               </div>
               <FormularioContacto />
               <MapaUbicacion />
-              {amenidades.length > 0 && (
-                <div style={{ background: "#fff", borderRadius: 20, padding: "20px", border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
-                  <h3 style={{ margin: "0 0 12px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Amenidades</h3>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {amenidades.map((a, i) => (
-                      <span key={i} style={{ background: "#f0fdf4", color: "#065f46", padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>
-                        ✓ {typeof a === "string" ? a : a.name || ""}
-                      </span>
+              {datosOperativos.length > 0 && (
+                <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginTop: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                  <h3 style={{ margin: "0 0 12px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Datos de la propiedad</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    {datosOperativos.map((d, i) => (
+                      <div key={i}><p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{d.label}</p><p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#374151" }}>{d.value}</p></div>
                     ))}
                   </div>
                 </div>
+              )}
+              {amenidades.length > 0 && (
+                <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginTop: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                  <h3 style={{ margin: "0 0 12px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Amenidades</h3>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {amenidades.map((a, i) => <span key={i} style={{ background: "#f0fdf4", color: "#065f46", padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>✓ {a}</span>)}
+                  </div>
+                </div>
+              )}
+              {videoEmbedUrl(propiedad.video_url) && (
+                <div style={{ marginTop: 16, borderRadius: 16, overflow: "hidden" }}>
+                  <iframe width="100%" height="220" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                </div>
+              )}
+              {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
+                <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", marginTop: 16, background: "#000", color: "#fff", textAlign: "center", padding: "14px", borderRadius: 12, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
+                  🎬 Ver video en TikTok
+                </a>
               )}
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 340px", gap: 24, alignItems: "start" }}>
               <div>
-                <Galeria fotos={fotos} titulo={propiedad.title} />
+                <Galeria fotos={fotos} titulo={propiedad.titulo} />
                 <div style={{ background: "#fff", borderRadius: 20, padding: "24px 28px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                     <div style={{ flex: 1, marginRight: 16 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
-                        <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.title || ""}</h1>
+                        <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.titulo || ""}</h1>
                         <StatusBadge status={status} />
                       </div>
-                      <p style={{ margin: 0, fontSize: 13, color: "#6b7280" }}>📍 {typeof propiedad.location === "string" ? propiedad.location : ""}</p>
+                      <p style={{ margin: 0, fontSize: 13, color: "#6b7280" }}>📍 {direccion}</p>
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       <p style={{ margin: 0, fontSize: 28, fontWeight: 900, color: "#C8102E" }}>{fmt(precio)}</p>
-                      <p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{op?.currency || "MXN"} / {op?.unit === "total" ? "total" : "mes"}</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{propiedad.moneda || "MXN"} {esVenta ? "total" : "/ mes"}</p>
                     </div>
                   </div>
-                  {agente && (
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 0", borderTop: "1px solid #f3f4f6", marginBottom: 4 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#C8102E", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 }}>{agenteInicial}</div>
-                      <div>
-                        <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: "#1a1a2e" }}>{agente}</p>
-                        {agenteEmail && <p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{agenteEmail}</p>}
-                      </div>
-                      <span style={{ marginLeft: "auto", fontSize: 11, background: "#fff0f2", color: "#C8102E", padding: "3px 10px", borderRadius: 99, fontWeight: 600 }}>Agente asignado</span>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap", padding: "14px 0", borderTop: "1px solid #f3f4f6", borderBottom: "1px solid #f3f4f6", marginBottom: 20 }}>
+                    {propiedad.tipo && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>{propiedad.tipo}</span>}
+                    {propiedad.recamaras > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🛏 {propiedad.recamaras} rec</span>}
+                    {propiedad.banos > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🚿 {propiedad.banos} baños</span>}
+                    {propiedad.estacionamientos > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🚗 {propiedad.estacionamientos} est</span>}
+                    {propiedad.m2_construccion > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>📐 {propiedad.m2_construccion} m²</span>}
+                    {propiedad.m2_terreno > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🌳 {propiedad.m2_terreno} m² terreno</span>}
+                  </div>
+                  {!esVenta && (propiedad.mascotas_permitidas != null || propiedad.proteccion_juridica) && (
+                    <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 16 }}>
+                      {propiedad.mascotas_permitidas != null && (
+                        <span style={{ fontSize: 13, color: "#374151" }}>{propiedad.mascotas_permitidas ? "🐾 Se aceptan mascotas" : "🚫 No se aceptan mascotas"}</span>
+                      )}
+                      {propiedad.proteccion_juridica && (
+                        <span style={{ fontSize: 13, color: "#374151" }}>🛡️ {PROTECCION_JURIDICA_LABEL[propiedad.proteccion_juridica] || ""}</span>
+                      )}
                     </div>
                   )}
-                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap", padding: "14px 0", borderTop: "1px solid #f3f4f6", borderBottom: "1px solid #f3f4f6", marginBottom: 20 }}>
-                    {propiedad.property_type && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>{propiedad.property_type}</span>}
-                    {propiedad.bedrooms > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🛏 {propiedad.bedrooms} rec</span>}
-                    {propiedad.bathrooms > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🚿 {propiedad.bathrooms} baños</span>}
-                    {propiedad.parking_spaces > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🚗 {propiedad.parking_spaces} est</span>}
-                    {propiedad.construction_size > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>📐 {propiedad.construction_size} m²</span>}
-                    {propiedad.lot_size > 0 && <span style={{ background: "#f3f4f6", color: "#374151", padding: "6px 14px", borderRadius: 99, fontSize: 13 }}>🌳 {propiedad.lot_size} m² terreno</span>}
-                  </div>
-                  {propiedad.description && (
+                  {esVenta && creditos.length > 0 && (
+                    <p style={{ margin: "0 0 16px", fontSize: 13, color: "#374151" }}>💳 Acepta crédito: {creditos.join(", ")}</p>
+                  )}
+                  {propiedad.descripcion && (
                     <div>
-                      <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>Descripcion</h3>
-                      <p style={{ margin: 0, fontSize: 14, color: "#374151", lineHeight: 1.8, whiteSpace: "pre-line", wordBreak: "break-word" }}>
-                        {typeof propiedad.description === "string" ? propiedad.description : ""}
-                      </p>
+                      <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>Descripción</h3>
+                      <p style={{ margin: 0, fontSize: 14, color: "#374151", lineHeight: 1.8, whiteSpace: "pre-line", wordBreak: "break-word" }}>{propiedad.descripcion}</p>
                     </div>
                   )}
                   <MapaUbicacion />
                 </div>
-                {amenidades.length > 0 && (
-                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px 28px", border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
-                    <h3 style={{ margin: "0 0 16px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>Amenidades</h3>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                      {amenidades.map((a, i) => (
-                        <span key={i} style={{ background: "#f0fdf4", color: "#065f46", padding: "4px 12px", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>
-                          ✓ {typeof a === "string" ? a : a.name || ""}
-                        </span>
+
+                {datosOperativos.length > 0 && (
+                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px 28px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                    <h3 style={{ margin: "0 0 16px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>Datos de la propiedad</h3>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+                      {datosOperativos.map((d, i) => (
+                        <div key={i}><p style={{ margin: 0, fontSize: 11, color: "#9ca3af" }}>{d.label}</p><p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#374151" }}>{d.value}</p></div>
                       ))}
                     </div>
                   </div>
+                )}
+
+                {amenidades.length > 0 && (
+                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px 28px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                    <h3 style={{ margin: "0 0 16px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>Amenidades</h3>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {amenidades.map((a, i) => <span key={i} style={{ background: "#f0fdf4", color: "#065f46", padding: "4px 12px", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>✓ {a}</span>)}
+                    </div>
+                  </div>
+                )}
+
+                {videoEmbedUrl(propiedad.video_url) && (
+                  <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 16 }}>
+                    <iframe width="100%" height="320" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                  </div>
+                )}
+                {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
+                  <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", background: "#000", color: "#fff", textAlign: "center", padding: "16px", borderRadius: 16, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
+                    🎬 Ver video en TikTok
+                  </a>
                 )}
               </div>
               <div style={{ position: "sticky", top: 20 }}>
@@ -420,14 +471,17 @@ export default function PropiedadDetalle({ propiedad }) {
     </>
   );
 }
-
 export async function getServerSideProps({ params }) {
   try {
-    const res = await fetch(`https://api.easybroker.com/v1/properties/${params.id}`, {
-      headers: { "X-Authorization": process.env.EASYBROKER_API_KEY, "accept": "application/json" },
-    });
-    const data = await res.json();
-    if (!data || data.error) return { props: { propiedad: null } };
+    // Acepta tanto el id interno (uuid) como el public_id (ej. "EB-XXXX" o "EMP-XXXX")
+    const { data, error } = await supabasePublic
+      .from("propiedades")
+      .select("*")
+      .eq("public_id", params.id)
+      .in("status", ["published", "reserved"])
+      .maybeSingle();
+
+    if (error || !data) return { props: { propiedad: null } };
     return { props: { propiedad: data } };
   } catch (e) {
     return { props: { propiedad: null } };
