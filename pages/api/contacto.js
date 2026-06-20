@@ -57,9 +57,17 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    if (!response.ok) return res.status(400).json({ error: data.message || "Error al enviar" });
-    return res.status(200).json({ success: true });
+
+    if (!response.ok) {
+      // Log detallado para revisar en Vercel -> Deployments -> Logs si algo vuelve a fallar
+      console.error("Resend respondió con error:", response.status, JSON.stringify(data));
+      return res.status(400).json({ error: data.message || `Resend error ${response.status}` });
+    }
+
+    console.log("Correo enviado correctamente, id de Resend:", data.id);
+    return res.status(200).json({ success: true, resendId: data.id });
   } catch (error) {
+    console.error("Excepción al enviar correo:", error.message);
     return res.status(500).json({ error: error.message });
   }
 }
