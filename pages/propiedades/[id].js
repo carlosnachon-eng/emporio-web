@@ -338,6 +338,11 @@ export default function PropiedadDetalle({ propiedad }) {
                 {esVenta && creditos.length > 0 && (
                   <p style={{ margin: "10px 0 0", fontSize: 13, color: "#374151" }}>💳 Acepta: {creditos.join(", ")}</p>
                 )}
+                {esVenta && propiedad.veridada_url && (
+                  <a href={propiedad.veridada_url} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 12, background: "#eff6ff", color: "#1e40af", padding: "8px 14px", borderRadius: 99, fontSize: 12, fontWeight: 700, textDecoration: "none" }}>
+                    🛡️ Propiedad verificada por Veridada
+                  </a>
+                )}
                 {propiedad.descripcion && (
                   <div style={{ marginTop: 16 }}>
                     <h3 style={{ margin: "0 0 10px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Descripción</h3>
@@ -414,6 +419,11 @@ export default function PropiedadDetalle({ propiedad }) {
                   )}
                   {esVenta && creditos.length > 0 && (
                     <p style={{ margin: "0 0 16px", fontSize: 13, color: "#374151" }}>💳 Acepta crédito: {creditos.join(", ")}</p>
+                  )}
+                  {esVenta && propiedad.veridada_url && (
+                    <a href={propiedad.veridada_url} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16, background: "#eff6ff", color: "#1e40af", padding: "9px 16px", borderRadius: 99, fontSize: 13, fontWeight: 700, textDecoration: "none" }}>
+                      🛡️ Propiedad verificada por Veridada — ver sello
+                    </a>
                   )}
                   {propiedad.descripcion && (
                     <div>
