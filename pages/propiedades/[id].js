@@ -115,7 +115,7 @@ function Galeria({ fotos, titulo }) {
 }
 
 const PROTECCION_JURIDICA_LABEL = {
-  blindaje_legal: "Incluye Blindaje Legal Emporio",
+  blindaje_legal: "Renta con Blindaje Legal Emporio",
   aval: "Requiere aval",
   otra_poliza: "Requiere póliza jurídica",
 };
