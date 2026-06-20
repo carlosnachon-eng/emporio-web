@@ -120,9 +120,96 @@ const PROTECCION_JURIDICA_LABEL = {
   otra_poliza: "Requiere póliza jurídica",
 };
 
+function FormularioContacto({ propiedad, contacto, setContacto, enviando, enviado, errorEnvio, onEnviar, isMobile }) {
+  return (
+    <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", marginBottom: isMobile ? 16 : 0 }}>
+      <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>¿Te interesa esta propiedad?</h3>
+      <p style={{ margin: "0 0 20px", fontSize: 13, color: "#6b7280" }}>Déjanos tus datos y te contactamos</p>
+      {enviado ? (
+        <div style={{ background: "#f0fdf4", borderRadius: 12, padding: 24, textAlign: "center" }}>
+          <p style={{ fontSize: 40, margin: "0 0 8px" }}>✅</p>
+          <p style={{ margin: 0, fontWeight: 700, color: "#065f46" }}>¡Recibimos tu mensaje!</p>
+          <p style={{ margin: "8px 0 0", fontSize: 13, color: "#6b7280" }}>Te contactaremos muy pronto</p>
+        </div>
+      ) : (
+        <>
+          {errorEnvio && (
+            <div style={{ background: "#fee2e2", border: "1px solid #fca5a5", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
+              <p style={{ margin: 0, fontSize: 13, color: "#991b1b" }}>⚠️ {errorEnvio}</p>
+            </div>
+          )}
+          {[
+            { label: "Nombre completo", key: "nombre", type: "text", placeholder: "Tu nombre" },
+            { label: "Teléfono", key: "telefono", type: "tel", placeholder: "2221234567" },
+            { label: "Email", key: "email", type: "email", placeholder: "tu@email.com" },
+          ].map(f => (
+            <div key={f.key} style={{ marginBottom: 14 }}>
+              <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>{f.label}</label>
+              <input type={f.type} placeholder={f.placeholder} value={contacto[f.key]} onChange={e => setContacto(c => ({ ...c, [f.key]: e.target.value }))}
+                style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
+            </div>
+          ))}
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>Mensaje</label>
+            <textarea placeholder={`Hola, me interesa la propiedad ${propiedad.public_id || ""}...`} value={contacto.mensaje} onChange={e => setContacto(c => ({ ...c, mensaje: e.target.value }))}
+              style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", minHeight: 80, resize: "vertical", fontFamily: "'Montserrat', sans-serif" }} />
+          </div>
+          <button onClick={onEnviar} disabled={enviando || !contacto.nombre || !contacto.telefono}
+            style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, marginBottom: 12, fontFamily: "'Montserrat', sans-serif" }}>
+            {enviando ? "Enviando..." : "📩 Enviar mensaje"}
+          </button>
+          <a href={`https://wa.me/522222573237?text=Hola, me interesa la propiedad ${propiedad.public_id || ""} - ${propiedad.titulo || ""}`} target="_blank" rel="noreferrer"
+            style={{ display: "block", width: "100%", background: "#25d366", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: "pointer", textAlign: "center", textDecoration: "none", boxSizing: "border-box" }}>
+            💬 WhatsApp
+          </a>
+        </>
+      )}
+      <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid #f3f4f6", textAlign: "center" }}>
+        <p style={{ margin: 0, fontSize: 12, color: "#9ca3af" }}>ID: {propiedad.public_id || ""}</p>
+      </div>
+    </div>
+  );
+}
+
+function MapaUbicacion({ lat, lng, mostrarExacta, direccion }) {
+  if (lat && lng && mostrarExacta) {
+    return (
+      <div style={{ marginTop: 24 }}>
+        <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Ubicación</h3>
+        <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #f0f0f0" }}>
+          <iframe width="100%" height="220" frameBorder="0" scrolling="no" style={{ display: "block", width: "100%" }}
+            src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`}
+          />
+        </div>
+        <a href={`https://www.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noreferrer"
+          style={{ fontSize: 12, color: "#6b7280", display: "block", marginTop: 6, textAlign: "right" }}>
+          Ver en Google Maps →
+        </a>
+      </div>
+    );
+  }
+  if (direccion) {
+    return (
+      <div style={{ marginTop: 24 }}>
+        <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Zona</h3>
+        <div style={{ background: "#f8f8fa", borderRadius: 12, padding: "14px 16px", border: "1px solid #f0f0f0" }}>
+          <p style={{ margin: 0, fontSize: 14, color: "#374151" }}>📍 {direccion}</p>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion + ", Puebla, México")}`}
+            target="_blank" rel="noreferrer"
+            style={{ fontSize: 12, color: "#C8102E", fontWeight: 600, display: "inline-block", marginTop: 8 }}>
+            Ver en Google Maps →
+          </a>
+        </div>
+      </div>
+    );
+  }
+  return null;
+}
+
 export default function PropiedadDetalle({ propiedad }) {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [errorEnvio, setErrorEnvio] = useState(null);
   const [contacto, setContacto] = useState({ nombre: "", telefono: "", email: "", mensaje: "" });
   const [isMobile, setIsMobile] = useState(false);
 
@@ -191,94 +278,23 @@ export default function PropiedadDetalle({ propiedad }) {
 
   const handleContacto = async () => {
     setEnviando(true);
+    setErrorEnvio(null);
     try {
-      await fetch("/api/contacto-propiedad", {
+      const res = await fetch("/api/contacto-propiedad", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...contacto, propiedad_id: propiedad.public_id, propiedad_titulo: propiedad.titulo }),
       });
-      setEnviado(true);
-    } catch (e) { console.error(e); }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setErrorEnvio(data.error || "No se pudo enviar el mensaje. Intenta por WhatsApp.");
+      } else {
+        setEnviado(true);
+      }
+    } catch (e) {
+      setErrorEnvio("Error de conexión. Intenta por WhatsApp.");
+    }
     setEnviando(false);
-  };
-
-  const FormularioContacto = () => (
-    <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", marginBottom: isMobile ? 16 : 0 }}>
-      <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>¿Te interesa esta propiedad?</h3>
-      <p style={{ margin: "0 0 20px", fontSize: 13, color: "#6b7280" }}>Déjanos tus datos y te contactamos</p>
-      {enviado ? (
-        <div style={{ background: "#f0fdf4", borderRadius: 12, padding: 24, textAlign: "center" }}>
-          <p style={{ fontSize: 40, margin: "0 0 8px" }}>✅</p>
-          <p style={{ margin: 0, fontWeight: 700, color: "#065f46" }}>¡Recibimos tu mensaje!</p>
-          <p style={{ margin: "8px 0 0", fontSize: 13, color: "#6b7280" }}>Te contactaremos muy pronto</p>
-        </div>
-      ) : (
-        <>
-          {[
-            { label: "Nombre completo", key: "nombre", type: "text", placeholder: "Tu nombre" },
-            { label: "Teléfono", key: "telefono", type: "tel", placeholder: "2221234567" },
-            { label: "Email", key: "email", type: "email", placeholder: "tu@email.com" },
-          ].map(f => (
-            <div key={f.key} style={{ marginBottom: 14 }}>
-              <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>{f.label}</label>
-              <input type={f.type} placeholder={f.placeholder} value={contacto[f.key]} onChange={e => setContacto(c => ({ ...c, [f.key]: e.target.value }))}
-                style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
-            </div>
-          ))}
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>Mensaje</label>
-            <textarea placeholder={`Hola, me interesa la propiedad ${propiedad.public_id || ""}...`} value={contacto.mensaje} onChange={e => setContacto(c => ({ ...c, mensaje: e.target.value }))}
-              style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", minHeight: 80, resize: "vertical", fontFamily: "'Montserrat', sans-serif" }} />
-          </div>
-          <button onClick={handleContacto} disabled={enviando || !contacto.nombre || !contacto.telefono}
-            style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, marginBottom: 12, fontFamily: "'Montserrat', sans-serif" }}>
-            {enviando ? "Enviando..." : "📩 Enviar mensaje"}
-          </button>
-          <a href={`https://wa.me/522222573237?text=Hola, me interesa la propiedad ${propiedad.public_id || ""} - ${propiedad.titulo || ""}`} target="_blank" rel="noreferrer"
-            style={{ display: "block", width: "100%", background: "#25d366", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: "pointer", textAlign: "center", textDecoration: "none", boxSizing: "border-box" }}>
-            💬 WhatsApp
-          </a>
-        </>
-      )}
-      <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid #f3f4f6", textAlign: "center" }}>
-        <p style={{ margin: 0, fontSize: 12, color: "#9ca3af" }}>ID: {propiedad.public_id || ""}</p>
-      </div>
-    </div>
-  );
-
-  const MapaUbicacion = () => {
-    if (lat && lng && propiedad.mostrar_ubicacion_exacta) {
-      return (
-        <div style={{ marginTop: 24 }}>
-          <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Ubicación</h3>
-          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #f0f0f0" }}>
-            <iframe width="100%" height="220" frameBorder="0" scrolling="no" style={{ display: "block", width: "100%" }}
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`}
-            />
-          </div>
-          <a href={`https://www.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noreferrer"
-            style={{ fontSize: 12, color: "#6b7280", display: "block", marginTop: 6, textAlign: "right" }}>
-            Ver en Google Maps →
-          </a>
-        </div>
-      );
-    }
-    if (direccion) {
-      return (
-        <div style={{ marginTop: 24 }}>
-          <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Zona</h3>
-          <div style={{ background: "#f8f8fa", borderRadius: 12, padding: "14px 16px", border: "1px solid #f0f0f0" }}>
-            <p style={{ margin: 0, fontSize: 14, color: "#374151" }}>📍 {direccion}</p>
-            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion + ", Puebla, México")}`}
-              target="_blank" rel="noreferrer"
-              style={{ fontSize: 12, color: "#C8102E", fontWeight: 600, display: "inline-block", marginTop: 8 }}>
-              Ver en Google Maps →
-            </a>
-          </div>
-        </div>
-      );
-    }
-    return null;
   };
 
   const videoEmbedUrl = (url) => {
@@ -350,8 +366,8 @@ export default function PropiedadDetalle({ propiedad }) {
                   </div>
                 )}
               </div>
-              <FormularioContacto />
-              <MapaUbicacion />
+              <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+              <MapaUbicacion lat={lat} lng={lng} mostrarExacta={propiedad.mostrar_ubicacion_exacta} direccion={direccion} />
               {datosOperativos.length > 0 && (
                 <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginTop: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                   <h3 style={{ margin: "0 0 12px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>Datos de la propiedad</h3>
@@ -431,7 +447,7 @@ export default function PropiedadDetalle({ propiedad }) {
                       <p style={{ margin: 0, fontSize: 14, color: "#374151", lineHeight: 1.8, whiteSpace: "pre-line", wordBreak: "break-word" }}>{propiedad.descripcion}</p>
                     </div>
                   )}
-                  <MapaUbicacion />
+                  <MapaUbicacion lat={lat} lng={lng} mostrarExacta={propiedad.mostrar_ubicacion_exacta} direccion={direccion} />
                 </div>
 
                 {datosOperativos.length > 0 && (
@@ -466,7 +482,7 @@ export default function PropiedadDetalle({ propiedad }) {
                 )}
               </div>
               <div style={{ position: "sticky", top: 20 }}>
-                <FormularioContacto />
+                <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
               </div>
             </div>
           )}
