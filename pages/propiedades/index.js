@@ -204,6 +204,13 @@ export default function Propiedades({ propiedadesIniciales }) {
                         {esVenta ? "EN VENTA" : "EN RENTA"}
                       </span>
                     </div>
+                    {p.es_exclusiva && (
+                      <div style={{ position: "absolute", top: 10, right: 10 }}>
+                        <span style={{ display: "inline-block", background: "#fff", color: "#1a1a2e", padding: "4px 12px", borderRadius: 99, fontSize: 11, fontWeight: 800, letterSpacing: "0.06em" }}>
+                          ⭐ EXCLUSIVA
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="prop-body" style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                     <div>
