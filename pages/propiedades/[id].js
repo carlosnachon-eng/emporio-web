@@ -421,6 +421,16 @@ export default function PropiedadDetalle({ propiedad }) {
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 340px", gap: 24, alignItems: "start" }}>
               <div>
                 <Galeria fotos={fotos} titulo={propiedad.titulo} />
+                {videoEmbedUrl(propiedad.video_url) && (
+                  <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 16 }}>
+                    <iframe width="100%" height="320" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                  </div>
+                )}
+                {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
+                  <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", marginBottom: 16, background: "#000", color: "#fff", textAlign: "center", padding: "16px", borderRadius: 16, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
+                    🎬 Ver video en TikTok
+                  </a>
+                )}
                 <div style={{ background: "#fff", borderRadius: 20, padding: "24px 28px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                     <div style={{ flex: 1, marginRight: 16 }}>
@@ -489,17 +499,6 @@ export default function PropiedadDetalle({ propiedad }) {
                       {amenidades.map((a, i) => <span key={i} style={{ background: "#f0fdf4", color: "#065f46", padding: "4px 12px", borderRadius: 99, fontSize: 13, fontWeight: 600 }}>✓ {a}</span>)}
                     </div>
                   </div>
-                )}
-
-                {videoEmbedUrl(propiedad.video_url) && (
-                  <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 16 }}>
-                    <iframe width="100%" height="320" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
-                  </div>
-                )}
-                {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
-                  <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", background: "#000", color: "#fff", textAlign: "center", padding: "16px", borderRadius: 16, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
-                    🎬 Ver video en TikTok
-                  </a>
                 )}
               </div>
               <div style={{ position: "sticky", top: 20 }}>
