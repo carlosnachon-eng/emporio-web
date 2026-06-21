@@ -31,6 +31,25 @@ function StatusBadge({ status }) {
   );
 }
 
+function ExclusivaBadge() {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#1a1a2e", color: "#fff", padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 700, letterSpacing: 0.3 }}>
+      ⭐ Exclusiva
+    </span>
+  );
+}
+
+function LeyendaProfeco() {
+  return (
+    <p style={{ margin: "16px 0 0", fontSize: 10.5, color: "#9ca3af", lineHeight: 1.5, textAlign: "center" }}>
+      La información presentada en este anuncio es de carácter informativo y referencial; no constituye una oferta vinculante
+      ni sustituye la información que se proporcione en el contrato correspondiente. En cumplimiento de la normatividad de la
+      Procuraduría Federal del Consumidor (PROFECO) en materia de publicidad inmobiliaria, Emporio Inmobiliario se compromete
+      a que la información aquí mostrada sea veraz y comprobable.
+    </p>
+  );
+}
+
 function Lightbox({ fotos, index, onClose, onPrev, onNext }) {
   useEffect(() => {
     const handler = (e) => {
@@ -329,10 +348,21 @@ export default function PropiedadDetalle({ propiedad }) {
           {isMobile ? (
             <div>
               <Galeria fotos={fotos} titulo={propiedad.titulo} />
+              {videoEmbedUrl(propiedad.video_url) && (
+                <div style={{ marginTop: 12, marginBottom: 16, borderRadius: 16, overflow: "hidden" }}>
+                  <iframe width="100%" height="220" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                </div>
+              )}
+              {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
+                <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", marginTop: 12, marginBottom: 16, background: "#000", color: "#fff", textAlign: "center", padding: "14px", borderRadius: 12, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
+                  🎬 Ver video en TikTok
+                </a>
+              )}
               <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
                   <h1 style={{ margin: 0, fontSize: 19, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.titulo || ""}</h1>
                   <StatusBadge status={status} />
+                  {propiedad.es_exclusiva && <ExclusivaBadge />}
                 </div>
                 <p style={{ margin: "0 0 12px", fontSize: 13, color: "#6b7280" }}>📍 {direccion}</p>
                 <p style={{ margin: "0 0 4px", fontSize: 26, fontWeight: 900, color: "#C8102E" }}>{fmt(precio)}</p>
@@ -386,16 +416,6 @@ export default function PropiedadDetalle({ propiedad }) {
                   </div>
                 </div>
               )}
-              {videoEmbedUrl(propiedad.video_url) && (
-                <div style={{ marginTop: 16, borderRadius: 16, overflow: "hidden" }}>
-                  <iframe width="100%" height="220" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
-                </div>
-              )}
-              {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
-                <a href={propiedad.video_url} target="_blank" rel="noreferrer" style={{ display: "block", marginTop: 16, background: "#000", color: "#fff", textAlign: "center", padding: "14px", borderRadius: 12, fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
-                  🎬 Ver video en TikTok
-                </a>
-              )}
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 340px", gap: 24, alignItems: "start" }}>
@@ -407,6 +427,7 @@ export default function PropiedadDetalle({ propiedad }) {
                       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
                         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.3 }}>{propiedad.titulo || ""}</h1>
                         <StatusBadge status={status} />
+                        {propiedad.es_exclusiva && <ExclusivaBadge />}
                       </div>
                       <p style={{ margin: 0, fontSize: 13, color: "#6b7280" }}>📍 {direccion}</p>
                     </div>
@@ -486,6 +507,7 @@ export default function PropiedadDetalle({ propiedad }) {
               </div>
             </div>
           )}
+          <LeyendaProfeco />
         </div>
 
         <Footer />
