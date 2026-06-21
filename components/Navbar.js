@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-const NAV_LINKS = [
+const NAV_LINKS_PRINCIPALES = [
   { label: "Inicio",          href: "/" },
   { label: "Propiedades",     href: "/propiedades" },
   { label: "Torre Zaia",      href: "/torre-zaia" },
-  { label: "Equiah",          href: "/equiah" },
   { label: "Bau22",           href: "/bau22" },
   { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
+];
+
+const NAV_LINKS_MAS = [
+  { label: "Equiah",          href: "/equiah" },
   { label: "Propietarios",    href: "/propietarios" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
@@ -16,11 +19,13 @@ const NAV_LINKS = [
   { label: "Contacto",        href: "/contacto" },
 ];
 
+const TODOS_LOS_LINKS = [...NAV_LINKS_PRINCIPALES, ...NAV_LINKS_MAS];
+
 const CSS = `
   .nav-desktop { display: flex !important; }
   .nav-burger { display: none !important; }
   .nav-link-blindaje { color: #C8102E !important; }
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     .nav-desktop { display: none !important; }
     .nav-burger { display: flex !important; }
   }
@@ -28,6 +33,7 @@ const CSS = `
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [masOpen, setMasOpen] = useState(false);
 
   return (
     <>
@@ -39,7 +45,7 @@ export default function Navbar() {
         padding: "0 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
         fontFamily: "'Montserrat', sans-serif",
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
 
           {/* Logo */}
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0 }}>
@@ -48,24 +54,57 @@ export default function Navbar() {
 
           {/* Desktop links */}
           <div className="nav-desktop" style={{ alignItems: "center", gap: 2 }}>
-            {NAV_LINKS.map(link => {
-              const isBlindaje = link.href === "/blindaje-legal";
-              return (
-                <a key={link.href} href={link.href}
-                  style={{
-                    color: isBlindaje ? "#C8102E" : "#374151",
-                    fontSize: 13, fontWeight: isBlindaje ? 700 : 600,
-                    textDecoration: "none", padding: "8px 12px", borderRadius: 8,
-                    letterSpacing: "0.02em", transition: "all 0.15s", whiteSpace: "nowrap",
-                    background: isBlindaje ? "#fff5f5" : "transparent",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.color = "#C8102E"; e.currentTarget.style.background = "#fff5f5"; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = isBlindaje ? "#C8102E" : "#374151"; e.currentTarget.style.background = isBlindaje ? "#fff5f5" : "transparent"; }}
-                >
-                  {isBlindaje ? "🛡️ " : ""}{link.label}
-                </a>
-              );
-            })}
+            {NAV_LINKS_PRINCIPALES.map(link => (
+              <a key={link.href} href={link.href}
+                style={{
+                  color: "#374151", fontSize: 13, fontWeight: 600,
+                  textDecoration: "none", padding: "8px 10px", borderRadius: 8,
+                  letterSpacing: "0.02em", transition: "all 0.15s", whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = "#C8102E"; e.currentTarget.style.background = "#fff5f5"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "#374151"; e.currentTarget.style.background = "transparent"; }}
+              >
+                {link.label}
+              </a>
+            ))}
+
+            {/* Menú "Más" con el resto de los links */}
+            <div style={{ position: "relative" }}
+              onMouseEnter={() => setMasOpen(true)}
+              onMouseLeave={() => setMasOpen(false)}>
+              <button style={{
+                color: "#374151", fontSize: 13, fontWeight: 600, background: "transparent",
+                border: "none", padding: "8px 10px", borderRadius: 8, cursor: "pointer",
+                display: "flex", alignItems: "center", gap: 4, fontFamily: "'Montserrat', sans-serif",
+              }}>
+                Más {masOpen ? "▲" : "▾"}
+              </button>
+              {masOpen && (
+                <div style={{
+                  position: "absolute", top: "100%", right: 0, background: "#fff",
+                  borderRadius: 10, boxShadow: "0 8px 30px rgba(0,0,0,0.12)", border: "1px solid #f0f0f0",
+                  minWidth: 200, padding: 6, zIndex: 60,
+                }}>
+                  {NAV_LINKS_MAS.map(link => {
+                    const isBlindaje = link.href === "/blindaje-legal";
+                    return (
+                      <a key={link.href} href={link.href} style={{
+                        display: "block", color: isBlindaje ? "#C8102E" : "#374151",
+                        fontSize: 13, fontWeight: isBlindaje ? 700 : 500,
+                        textDecoration: "none", padding: "9px 14px", borderRadius: 7,
+                        whiteSpace: "nowrap",
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = "#f9fafb"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
+                      >
+                        {isBlindaje ? "🛡️ " : ""}{link.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{
               marginLeft: 8, background: "#C8102E", color: "#fff",
               padding: "9px 18px", borderRadius: 8, fontSize: 13,
@@ -99,7 +138,7 @@ export default function Navbar() {
           </div>
 
           {/* Links */}
-          {NAV_LINKS.map(link => {
+          {TODOS_LOS_LINKS.map(link => {
             const isBlindaje = link.href === "/blindaje-legal";
             return (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)} style={{
