@@ -173,15 +173,15 @@ export default function Home({ propiedadesDestacadas = [] }) {
               </div>
               <div className="props-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
                 {propiedadesDestacadas.map(p => {
-                  const op = p.operations?.[0];
-                  const precio = op?.amount || 0;
-                  const img = p.title_image_thumb || p.title_image_full;
-                  const esVenta = op?.type === "sale";
+                  const precio = p.precio || 0;
+                  const img = Array.isArray(p.fotos) && p.fotos[0]?.url;
+                  const esVenta = p.operacion === "sale";
+                  const ubicacion = [p.colonia, p.ciudad].filter(Boolean).join(", ");
                   return (
                     <a key={p.public_id} href={`/propiedades/${p.public_id}`} style={{ textDecoration: "none" }}>
                       <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6" }}>
                         <div style={{ height: 200, background: "#f3f4f6", position: "relative", overflow: "hidden" }}>
-                          {img && <img src={img} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+                          {img && <img src={img} alt={p.titulo} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
                           <div style={{ position: "absolute", top: 10, left: 10 }}>
                             <span style={{ background: esVenta ? "#1a1a2e" : "#C8102E", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>
                               {esVenta ? "EN VENTA" : "EN RENTA"}
@@ -189,13 +189,13 @@ export default function Home({ propiedadesDestacadas = [] }) {
                           </div>
                         </div>
                         <div style={{ padding: "16px 16px 20px" }}>
-                          <h4 style={{ margin: "0 0 6px", fontSize: 14, fontWeight: 700, color: "#1a1a2e", lineHeight: 1.3 }}>{p.title}</h4>
-                          <p style={{ margin: "0 0 10px", fontSize: 11, color: "#9ca3af" }}>📍 {typeof p.location === "string" ? p.location : ""}</p>
+                          <h4 style={{ margin: "0 0 6px", fontSize: 14, fontWeight: 700, color: "#1a1a2e", lineHeight: 1.3 }}>{p.titulo}</h4>
+                          <p style={{ margin: "0 0 10px", fontSize: 11, color: "#9ca3af" }}>📍 {ubicacion}</p>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>{fmt(precio)}</span>
                             <div style={{ display: "flex", gap: 8 }}>
-                              {p.bedrooms > 0 && <span style={{ fontSize: 11, color: "#6b7280" }}>🛏 {p.bedrooms}</span>}
-                              {p.bathrooms > 0 && <span style={{ fontSize: 11, color: "#6b7280" }}>🚿 {p.bathrooms}</span>}
+                              {p.recamaras > 0 && <span style={{ fontSize: 11, color: "#6b7280" }}>🛏 {p.recamaras}</span>}
+                              {p.banos > 0 && <span style={{ fontSize: 11, color: "#6b7280" }}>🚿 {p.banos}</span>}
                             </div>
                           </div>
                         </div>
@@ -500,12 +500,26 @@ export default function Home({ propiedadesDestacadas = [] }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch("https://api.easybroker.com/v1/properties?page=1&limit=20&search[statuses][]=published", {
-      headers: { "X-Authorization": process.env.EASYBROKER_API_KEY, "accept": "application/json" },
-    });
-    const data = await res.json();
-    const todas = data.content || [];
-    const aleatorias = todas.sort(() => Math.random() - 0.5).slice(0, 3);
+    const { createClient } = await import("@supabase/supabase-js");
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const { data, error } = await supabase
+      .from("propiedades")
+      .select("*")
+      .in("status", ["published", "reserved"]);
+
+    if (error) throw error;
+
+    // Solo propiedades con al menos 1 foto se pueden volver "destacadas",
+    // para que ninguna tarjeta se vea vacía en el home. Dentro de ese grupo,
+    // la elección es al azar cada vez que se carga la página, así con el
+    // tiempo va rotando por todo el catálogo (no se queda fijo en las mismas).
+    const conFoto = (data || []).filter(p => Array.isArray(p.fotos) && p.fotos.length > 0);
+    const aleatorias = conFoto.sort(() => Math.random() - 0.5).slice(0, 3);
+
     return { props: { propiedadesDestacadas: aleatorias } };
   } catch (e) {
     return { props: { propiedadesDestacadas: [] } };
