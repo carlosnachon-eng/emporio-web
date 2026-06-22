@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.emporioinmobiliario.com.mx/sitemap.xml
