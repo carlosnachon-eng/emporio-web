@@ -2,7 +2,16 @@
 //
 // Recibe el formulario de "¿Te interesa esta propiedad?" desde la ficha
 // individual (/propiedades/[id]) y manda un correo a ventas con los datos
-// del interesado y a qué propiedad se refiere.
+// del interesado y a qué propiedad se refiere. También guarda el registro
+// en Supabase (solicitudes_contacto_propiedad) para alimentar el futuro
+// reporte mensual a propietarios.
+
+import { createClient } from "@supabase/supabase-js";
+
+const supabasePublic = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
@@ -11,6 +20,28 @@ export default async function handler(req, res) {
 
   if (!nombre || !telefono) {
     return res.status(400).json({ error: "Faltan campos requeridos (nombre y teléfono)" });
+  }
+
+  // Guardar el registro en Supabase. Esto corre antes del envío de correo
+  // y no bloquea ni cancela el flujo si llegara a fallar — lo importante
+  // para el usuario sigue siendo que el correo a ventas se mande bien.
+  try {
+    const { data: propiedad } = await supabasePublic
+      .from("propiedades")
+      .select("id")
+      .eq("public_id", propiedad_id)
+      .maybeSingle();
+
+    await supabasePublic.from("solicitudes_contacto_propiedad").insert({
+      propiedad_id: propiedad?.id || null,
+      propiedad_public_id: propiedad_id || null,
+      nombre,
+      telefono,
+      email: email || null,
+      mensaje: mensaje || null,
+    });
+  } catch (e) {
+    console.error("No se pudo guardar la solicitud de contacto:", e.message);
   }
 
   const subject = `🏠 Interesado en: ${propiedad_titulo || propiedad_id || "una propiedad"}`;
