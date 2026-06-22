@@ -433,7 +433,6 @@ export default function PropiedadDetalle({ propiedad }) {
       </Head>
 
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fafafa", minHeight: "100vh" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <Navbar />
 
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "16px" : "32px" }}>
