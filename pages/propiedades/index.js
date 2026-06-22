@@ -14,6 +14,29 @@ const fmt = (n) => new Intl.NumberFormat("es-MX", {
   style: "currency", currency: "MXN", minimumFractionDigits: 0
 }).format(n || 0);
 
+// Misma lógica que en pages/propiedades/[id].js — debe coincidir
+// exactamente para que los links del listado no generen un salto extra de
+// redirect 301 hacia la URL "correcta" (funcionaría igual, pero es
+// innecesario y más lento para el usuario).
+function generarSlug(propiedad) {
+  const partes = [];
+  partes.push(propiedad.tipo || "propiedad");
+  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
+  if (propiedad.colonia) partes.push(propiedad.colonia);
+  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
+  partes.push("puebla");
+
+  const slugBase = partes
+    .join(" ")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+  return `${slugBase}-${propiedad.public_id}`;
+}
+
 const PAGE_SIZE = 10;
 
 export default function Propiedades({ propiedadesIniciales }) {
@@ -192,7 +215,7 @@ export default function Propiedades({ propiedadesIniciales }) {
             const imgUrl = Array.isArray(p.fotos) && p.fotos[0]?.url;
             const esVenta = p.operacion === "sale";
             return (
-              <a key={p.public_id} href={`/propiedades/${p.public_id}`} style={{ textDecoration: "none" }}>
+              <a key={p.public_id} href={`/propiedades/${generarSlug(p)}`} style={{ textDecoration: "none" }}>
                 <div className="prop-card" style={{ background: "#fff", borderRadius: 20, overflow: "hidden", marginBottom: 16, border: "1px solid #f0f0f0", cursor: "pointer" }}>
                   <div className="prop-img" style={{ overflow: "hidden", flexShrink: 0, background: "#f3f4f6", position: "relative" }}>
                     {imgUrl
