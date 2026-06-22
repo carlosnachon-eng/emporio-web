@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
@@ -75,15 +76,25 @@ function Lightbox({ fotos, index, titulo, onClose, onPrev, onNext }) {
       {fotos.length > 1 && (
         <button onClick={e => { e.stopPropagation(); onPrev(); }} style={{ position: "absolute", left: 20, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: 26, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
       )}
-      <img src={fotos[index]?.url || ""} alt={altFoto(fotos, index, titulo)} onClick={e => e.stopPropagation()} style={{ maxWidth: "85vw", maxHeight: "85vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }} />
+      <div onClick={e => e.stopPropagation()} style={{ position: "relative", width: "85vw", height: "85vh", maxWidth: 1200, maxHeight: 900 }}>
+        {fotos[index]?.url && (
+          <Image
+            src={fotos[index].url}
+            alt={altFoto(fotos, index, titulo)}
+            fill
+            sizes="85vw"
+            style={{ objectFit: "contain", borderRadius: 8 }}
+          />
+        )}
+      </div>
       {fotos.length > 1 && (
         <button onClick={e => { e.stopPropagation(); onNext(); }} style={{ position: "absolute", right: 20, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: 26, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
       )}
       {fotos.length > 1 && (
         <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6, maxWidth: "90vw", overflowX: "auto", padding: "4px 8px" }}>
           {fotos.map((f, i) => (
-            <div key={i} onClick={e => e.stopPropagation()} style={{ width: 52, height: 38, borderRadius: 6, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: i === index ? "2px solid #C8102E" : "2px solid rgba(255,255,255,0.2)", opacity: i === index ? 1 : 0.55 }}>
-              <img src={f.url || ""} alt={altFoto(fotos, i, titulo)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <div key={i} onClick={e => e.stopPropagation()} style={{ position: "relative", width: 52, height: 38, borderRadius: 6, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: i === index ? "2px solid #C8102E" : "2px solid rgba(255,255,255,0.2)", opacity: i === index ? 1 : 0.55 }}>
+              {f.url && <Image src={f.url} alt={altFoto(fotos, i, titulo)} fill sizes="52px" style={{ objectFit: "cover" }} />}
             </div>
           ))}
         </div>
@@ -104,7 +115,15 @@ function Galeria({ fotos, titulo }) {
       {lightbox && <Lightbox fotos={fotos} index={actual} titulo={titulo} onClose={() => setLightbox(false)} onPrev={prev} onNext={next} />}
       <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 10, background: "#f3f4f6", height: 260, position: "relative", cursor: fotos.length > 0 ? "zoom-in" : "default", width: "100%" }}>
         {imagenPrincipal ? (
-          <img src={imagenPrincipal} alt={altFoto(fotos, actual, titulo)} onClick={() => fotos.length > 0 && setLightbox(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <Image
+            src={imagenPrincipal}
+            alt={altFoto(fotos, actual, titulo)}
+            onClick={() => fotos.length > 0 && setLightbox(true)}
+            fill
+            sizes="(max-width: 768px) 100vw, 700px"
+            style={{ objectFit: "cover" }}
+            priority
+          />
         ) : (
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 60 }}>🏠</div>
         )}
@@ -128,8 +147,8 @@ function Galeria({ fotos, titulo }) {
       {fotos.length > 1 && (
         <div style={{ display: "flex", gap: 8, overflowX: "auto", marginBottom: 20, paddingBottom: 4 }}>
           {fotos.map((foto, i) => (
-            <div key={i} onClick={() => setActual(i)} style={{ width: 84, height: 62, borderRadius: 10, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: actual === i ? "2px solid #C8102E" : "2px solid transparent", opacity: actual === i ? 1 : 0.6 }}>
-              <img src={foto.url || ""} alt={altFoto(fotos, i, titulo)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <div key={i} onClick={() => setActual(i)} style={{ position: "relative", width: 84, height: 62, borderRadius: 10, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: actual === i ? "2px solid #C8102E" : "2px solid transparent", opacity: actual === i ? 1 : 0.6 }}>
+              {foto.url && <Image src={foto.url} alt={altFoto(fotos, i, titulo)} fill sizes="84px" style={{ objectFit: "cover" }} />}
             </div>
           ))}
         </div>
