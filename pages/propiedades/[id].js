@@ -50,7 +50,12 @@ function LeyendaProfeco() {
   );
 }
 
-function Lightbox({ fotos, index, onClose, onPrev, onNext }) {
+function altFoto(fotos, i, titulo) {
+  const base = titulo ? `${titulo} — Emporio Inmobiliario` : "Propiedad en Puebla — Emporio Inmobiliario";
+  return fotos.length > 1 ? `${base}, foto ${i + 1} de ${fotos.length}` : base;
+}
+
+function Lightbox({ fotos, index, titulo, onClose, onPrev, onNext }) {
   useEffect(() => {
     const handler = (e) => {
       if (e.key === "Escape") onClose();
@@ -70,7 +75,7 @@ function Lightbox({ fotos, index, onClose, onPrev, onNext }) {
       {fotos.length > 1 && (
         <button onClick={e => { e.stopPropagation(); onPrev(); }} style={{ position: "absolute", left: 20, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: 26, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
       )}
-      <img src={fotos[index]?.url || ""} alt="" onClick={e => e.stopPropagation()} style={{ maxWidth: "85vw", maxHeight: "85vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }} />
+      <img src={fotos[index]?.url || ""} alt={altFoto(fotos, index, titulo)} onClick={e => e.stopPropagation()} style={{ maxWidth: "85vw", maxHeight: "85vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }} />
       {fotos.length > 1 && (
         <button onClick={e => { e.stopPropagation(); onNext(); }} style={{ position: "absolute", right: 20, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: 26, width: 52, height: 52, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
       )}
@@ -78,7 +83,7 @@ function Lightbox({ fotos, index, onClose, onPrev, onNext }) {
         <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6, maxWidth: "90vw", overflowX: "auto", padding: "4px 8px" }}>
           {fotos.map((f, i) => (
             <div key={i} onClick={e => e.stopPropagation()} style={{ width: 52, height: 38, borderRadius: 6, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: i === index ? "2px solid #C8102E" : "2px solid rgba(255,255,255,0.2)", opacity: i === index ? 1 : 0.55 }}>
-              <img src={f.url || ""} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img src={f.url || ""} alt={altFoto(fotos, i, titulo)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           ))}
         </div>
@@ -96,10 +101,10 @@ function Galeria({ fotos, titulo }) {
 
   return (
     <>
-      {lightbox && <Lightbox fotos={fotos} index={actual} onClose={() => setLightbox(false)} onPrev={prev} onNext={next} />}
+      {lightbox && <Lightbox fotos={fotos} index={actual} titulo={titulo} onClose={() => setLightbox(false)} onPrev={prev} onNext={next} />}
       <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 10, background: "#f3f4f6", height: 260, position: "relative", cursor: fotos.length > 0 ? "zoom-in" : "default", width: "100%" }}>
         {imagenPrincipal ? (
-          <img src={imagenPrincipal} alt={titulo || ""} onClick={() => fotos.length > 0 && setLightbox(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <img src={imagenPrincipal} alt={altFoto(fotos, actual, titulo)} onClick={() => fotos.length > 0 && setLightbox(true)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         ) : (
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 60 }}>🏠</div>
         )}
@@ -124,7 +129,7 @@ function Galeria({ fotos, titulo }) {
         <div style={{ display: "flex", gap: 8, overflowX: "auto", marginBottom: 20, paddingBottom: 4 }}>
           {fotos.map((foto, i) => (
             <div key={i} onClick={() => setActual(i)} style={{ width: 84, height: 62, borderRadius: 10, overflow: "hidden", flexShrink: 0, cursor: "pointer", border: actual === i ? "2px solid #C8102E" : "2px solid transparent", opacity: actual === i ? 1 : 0.6 }}>
-              <img src={foto.url || ""} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img src={foto.url || ""} alt={altFoto(fotos, i, titulo)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           ))}
         </div>
@@ -295,6 +300,66 @@ export default function PropiedadDetalle({ propiedad }) {
   const seoImage = fotos[0]?.url || "https://www.emporioinmobiliario.com.mx/logo.png";
   const seoUrl = `https://www.emporioinmobiliario.com.mx/propiedades/${propiedad.public_id}`;
 
+  // ── Datos estructurados (Schema.org) ──────────────────────────────────
+  // Regla estricta: nunca se inventa un valor. Cada campo solo se incluye
+  // si existe un dato real en Supabase; si falta, simplemente se omite esa
+  // propiedad del JSON-LD (Google tolera campos faltantes, pero no
+  // tolera bien datos falsos o de relleno).
+  const directionMap = { sale: "Buy", lease: "Rent" };
+  const businessFunction = directionMap[propiedad.operacion];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "@id": seoUrl,
+    url: seoUrl,
+    ...(propiedad.titulo && { name: propiedad.titulo }),
+    ...(seoDesc && { description: seoDesc }),
+    ...(fotos.length > 0 && { image: fotos.map((f) => f.url).filter(Boolean) }),
+    ...(propiedad.created_at && { datePosted: propiedad.created_at.split("T")[0] }),
+  };
+
+  // Dirección — solo si hay al menos ciudad o colonia reales (nunca se
+  // rellena con "Puebla" genérico si el dato no vino de Supabase).
+  if (propiedad.ciudad || propiedad.colonia || propiedad.estado) {
+    jsonLd.address = {
+      "@type": "PostalAddress",
+      ...(propiedad.colonia && { addressLocality: propiedad.colonia }),
+      ...(propiedad.ciudad && { addressRegion: propiedad.ciudad }),
+      ...(propiedad.estado && { addressCountry: "MX" }),
+    };
+  }
+
+  // Coordenadas — solo si la propiedad tiene lat/lng reales capturados.
+  if (lat != null && lng != null) {
+    jsonLd.geo = { "@type": "GeoCoordinates", latitude: lat, longitude: lng };
+  }
+
+  // Precio — solo si hay un precio mayor a 0 capturado.
+  if (precio > 0) {
+    jsonLd.offers = {
+      "@type": "Offer",
+      price: precio,
+      priceCurrency: "MXN",
+      ...(businessFunction && { businessFunction: `http://purl.org/goodrelations/v1#${businessFunction}` }),
+      availability: "https://schema.org/InStock",
+      url: seoUrl,
+    };
+  }
+
+  // Características físicas — solo las que tengan un valor numérico real.
+  if (propiedad.recamaras > 0) jsonLd.numberOfRooms = propiedad.recamaras;
+  if (propiedad.banos > 0) jsonLd.numberOfBathroomsTotal = propiedad.banos;
+  if (propiedad.m2_construccion > 0) {
+    jsonLd.floorSize = { "@type": "QuantitativeValue", value: propiedad.m2_construccion, unitCode: "MTK" };
+  }
+
+  jsonLd.broker = {
+    "@type": "RealEstateAgent",
+    name: "Emporio Inmobiliario",
+    url: "https://www.emporioinmobiliario.com.mx",
+  };
+
   const handleContacto = async () => {
     setEnviando(true);
     setErrorEnvio(null);
@@ -336,8 +401,16 @@ export default function PropiedadDetalle({ propiedad }) {
         <meta property="og:image" content={seoImage} />
         <meta property="og:url" content={seoUrl} />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDesc} />
+        <meta name="twitter:image" content={seoImage} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={seoUrl} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </Head>
 
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fafafa", minHeight: "100vh" }}>
