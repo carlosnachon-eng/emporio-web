@@ -518,7 +518,7 @@ export default function PropiedadDetalle({ propiedad }) {
     </>
   );
 }
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
   try {
     // Acepta tanto el id interno (uuid) como el public_id (ej. "EB-XXXX" o "EMP-XXXX")
     const { data, error } = await supabasePublic
@@ -529,6 +529,28 @@ export async function getServerSideProps({ params }) {
       .maybeSingle();
 
     if (error || !data) return { props: { propiedad: null } };
+
+    // Registrar la visita (para el futuro reporte a propietarios). Filtro
+    // básico de bots/crawlers conocidos por user-agent, para no inflar las
+    // estadísticas con tráfico que no es de prospectos reales.
+    const userAgent = (req?.headers?.["user-agent"] || "").toLowerCase();
+    const esBotConocido = /bot|crawl|spider|facebookexternalhit|whatsapp|slurp|bingpreview/.test(userAgent);
+    if (!esBotConocido) {
+      const referrer = req?.headers?.referer || req?.headers?.referrer || "";
+      let origen = "directo";
+      if (referrer.includes("facebook.com") || referrer.includes("instagram.com")) origen = "redes";
+      else if (referrer.includes("google.")) origen = "google";
+      else if (referrer && !referrer.includes("emporioinmobiliario")) origen = "otro";
+
+      // No bloqueamos la respuesta si el insert falla — es analítica, no
+      // debe afectar la carga de la página para el visitante.
+      supabasePublic
+        .from("visitas_propiedad")
+        .insert({ propiedad_id: data.id, propiedad_public_id: data.public_id, origen })
+        .then(() => {})
+        .catch(() => {});
+    }
+
     return { props: { propiedad: data } };
   } catch (e) {
     return { props: { propiedad: null } };
