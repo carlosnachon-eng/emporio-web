@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
@@ -219,7 +220,7 @@ export default function Propiedades({ propiedadesIniciales }) {
                 <div className="prop-card" style={{ background: "#fff", borderRadius: 20, overflow: "hidden", marginBottom: 16, border: "1px solid #f0f0f0", cursor: "pointer" }}>
                   <div className="prop-img" style={{ overflow: "hidden", flexShrink: 0, background: "#f3f4f6", position: "relative" }}>
                     {imgUrl
-                      ? <img src={imgUrl} alt={p.titulo} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      ? <Image src={imgUrl} alt={p.titulo} fill sizes="(max-width: 768px) 100vw, 280px" style={{ objectFit: "cover" }} />
                       : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40 }}>🏠</div>
                     }
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
