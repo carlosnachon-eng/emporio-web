@@ -77,6 +77,28 @@ function escaparXml(texto) {
     .replace(/>/g, "&gt;");
 }
 
+// Misma función que en pages/propiedades/[id].js — debe generar exactamente
+// el mismo slug en ambos lados, o el sitemap apuntaría a una URL que el
+// propio [id].js redirigiría (301) a otra distinta.
+function generarSlug(propiedad) {
+  const partes = [];
+  partes.push(propiedad.tipo || "propiedad");
+  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
+  if (propiedad.colonia) partes.push(propiedad.colonia);
+  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
+  partes.push("puebla");
+
+  const slugBase = partes
+    .join(" ")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+  return `${slugBase}-${propiedad.public_id}`;
+}
+
 function urlTag({ loc, changefreq, priority, lastmod }) {
   return `  <url>
     <loc>${escaparXml(loc)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
@@ -90,7 +112,7 @@ export async function getServerSideProps({ res }) {
   // sitio (pages/propiedades/[id].js, pages/propiedades/index.js).
   const { data: propiedades, error } = await supabasePublic
     .from("propiedades")
-    .select("public_id, updated_at, created_at")
+    .select("public_id, updated_at, created_at, tipo, operacion, colonia, ciudad")
     .in("status", ["published", "reserved"])
     .not("public_id", "is", null);
 
@@ -106,7 +128,7 @@ export async function getServerSideProps({ res }) {
 
   const urlsPropiedades = (propiedades || []).map((p) =>
     urlTag({
-      loc: `${SITE_URL}/propiedades/${p.public_id}`,
+      loc: `${SITE_URL}/propiedades/${generarSlug(p)}`,
       changefreq: "weekly",
       priority: "0.9",
       lastmod: (p.updated_at || p.created_at || "").split("T")[0] || undefined,
