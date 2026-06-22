@@ -298,7 +298,7 @@ export default function PropiedadDetalle({ propiedad }) {
     "— Emporio Inmobiliario.",
   ].filter(Boolean).join(", ");
   const seoImage = fotos[0]?.url || "https://www.emporioinmobiliario.com.mx/logo.png";
-  const seoUrl = `https://www.emporioinmobiliario.com.mx/propiedades/${propiedad.public_id}`;
+  const seoUrl = `https://www.emporioinmobiliario.com.mx/propiedades/${generarSlug(propiedad)}`;
 
   // ── Datos estructurados (Schema.org) ──────────────────────────────────
   // Regla estricta: nunca se inventa un valor. Cada campo solo se incluye
@@ -591,17 +591,64 @@ export default function PropiedadDetalle({ propiedad }) {
     </>
   );
 }
-export async function getServerSideProps({ params, req }) {
+// Construye el slug ideal a partir de los datos actuales de la propiedad.
+// Si el título, operación o ciudad cambian después, el slug "correcto"
+// cambia también — getServerSideProps se encarga de redirigir (301) hacia
+// la versión vigente cada vez que detecta que la URL recibida no coincide.
+function generarSlug(propiedad) {
+  const partes = [];
+  partes.push(propiedad.tipo || "propiedad");
+  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
+  if (propiedad.colonia) partes.push(propiedad.colonia);
+  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
+  partes.push("puebla");
+
+  const slugBase = partes
+    .join(" ")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita acentos
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+  return `${slugBase}-${propiedad.public_id}`;
+}
+
+// El public_id siempre tiene el formato EB-XXXX o EMP-XXXX al final de la
+// URL, sin importar qué slug venga antes. Esta función lo extrae de forma
+// confiable tanto de la URL vieja (solo el ID) como de la nueva (slug+ID).
+function extraerPublicId(param) {
+  const match = String(param).match(/((?:EB|EMP)-[A-Z0-9]+)$/i);
+  return match ? match[1].toUpperCase() : param;
+}
+
+export async function getServerSideProps({ params, req, resolvedUrl }) {
   try {
-    // Acepta tanto el id interno (uuid) como el public_id (ej. "EB-XXXX" o "EMP-XXXX")
+    const publicIdSolicitado = extraerPublicId(params.id);
+
     const { data, error } = await supabasePublic
       .from("propiedades")
       .select("*")
-      .eq("public_id", params.id)
+      .eq("public_id", publicIdSolicitado)
       .in("status", ["published", "reserved"])
       .maybeSingle();
 
     if (error || !data) return { props: { propiedad: null } };
+
+    // Si la URL recibida no es exactamente el slug vigente (porque venía
+    // sin slug, con un slug viejo, o cualquier variante), redirigimos de
+    // forma permanente (301) a la versión correcta. Esto preserva el valor
+    // SEO de los links viejos en vez de simplemente mostrar la página bajo
+    // cualquier URL (lo cual generaría contenido duplicado a ojos de Google).
+    const slugCorrecto = generarSlug(data);
+    if (params.id !== slugCorrecto) {
+      return {
+        redirect: {
+          destination: `/propiedades/${slugCorrecto}`,
+          permanent: true,
+        },
+      };
+    }
 
     // Registrar la visita (para el futuro reporte a propietarios). Filtro
     // básico de bots/crawlers conocidos por user-agent, para no inflar las
