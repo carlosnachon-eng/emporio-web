@@ -4,10 +4,6 @@ export default function Document() {
   return (
     <Html lang="es">
       <Head>
-        {/* Fuentes */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
 
@@ -37,7 +33,11 @@ export default function Document() {
         {/* Google Search Console — agregar tu código aquí cuando lo tengas */}
         {/* <meta name="google-site-verification" content="TU_CODIGO_AQUI" /> */}
       </Head>
-      <body>
+      {/* La variable --font-montserrat la inyecta next/font/google
+          automáticamente (declarada en pages/_app.js) — esto reemplaza el
+          <link> a fonts.googleapis.com que antes bloqueaba el render en
+          cada página individual. */}
+      <body style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
         <Main />
         <NextScript />
       </body>
