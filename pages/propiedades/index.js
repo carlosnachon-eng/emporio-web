@@ -108,7 +108,6 @@ export default function Propiedades({ propiedadesIniciales }) {
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/propiedades" />
       </Head>
       <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "'Montserrat', 'system-ui', sans-serif" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: `
           * { box-sizing: border-box; }
           .prop-card { display: flex; flex-direction: row; }
