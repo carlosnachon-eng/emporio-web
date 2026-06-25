@@ -1,6 +1,12 @@
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
   const CSS = `
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.25fr 1.2fr; gap: 40px; }
+    .footer-link { transition: color 0.15s ease; }
+    @media (max-width: 1050px) {
+      .footer-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 32px !important; }
+      .footer-brand { grid-column: 1 / -1 !important; }
+    }
     @media (max-width: 768px) {
       .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
       .footer-brand { grid-column: 1 / -1 !important; }
@@ -46,24 +52,40 @@ export default function Footer() {
           {[
             { label: "Inicio", href: "/" },
             { label: "Propiedades", href: "/propiedades" },
-            { label: "Torre Zaia", href: "/torre-zaia" },
-            { label: "Equiah", href: "/equiah" },
+            { label: "Propiedades en venta", href: "/propiedades?operacion=sale" },
+            { label: "Propiedades en renta", href: "/propiedades?operacion=rental" },
             { label: "Propietarios", href: "/propietarios" },
             { label: "Arrendatarios", href: "/arrendatarios" },
             { label: "Blog", href: "/blog" },
             { label: "Nosotros", href: "/nosotros" },
             { label: "Contacto", href: "/contacto" },
           ].map(l => (
-            <a key={l.href} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
+            <a className="footer-link" key={l.href} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
               onMouseEnter={e => e.target.style.color = "#fff"}
               onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
             >{l.label}</a>
           ))}
         </div>
 
+        {/* Proyectos */}
+        <div>
+          <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Proyectos</h4>
+          {[
+            { label: "Torre Zaia", href: "/torre-zaia" },
+            { label: "Equiah", href: "/equiah" },
+            { label: "Bau22", href: "/bau22" },
+            { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
+          ].map(l => (
+            <a className="footer-link" key={l.href} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
+              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.55)"}
+            >{l.label}</a>
+          ))}
+        </div>
+
         {/* Servicios */}
         <div>
-          <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Servicios</h4>
+          <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Servicios y portales</h4>
           {[
             { label: "Emporio Blindaje Legal", href: "/blindaje-legal" },
             { label: "Administración de Inmuebles", href: "/administracion" },
@@ -73,7 +95,7 @@ export default function Footer() {
             { label: "Portal propietario", href: "https://app.emporioinmobiliario.com.mx/propietario" },
             { label: "Aviso de privacidad", href: "/aviso-privacidad" },
           ].map(l => (
-            <a key={l.label} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
+            <a className="footer-link" key={l.label} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: 14, textDecoration: "none", marginBottom: 10 }}
               onMouseEnter={e => e.target.style.color = "#fff"}
               onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
             >{l.label}</a>
@@ -98,7 +120,7 @@ export default function Footer() {
       </div>
 
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", maxWidth: 1200, margin: "0 auto", flexWrap: "wrap", gap: 8 }}>
-        <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,0.3)" }}>© 2025 Emporio Inmobiliario · Grupo Inmobiliario Nachón Torres S.A. de C.V.</p>
+        <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,0.3)" }}>© {currentYear} Emporio Inmobiliario · Grupo Inmobiliario Nachón Torres S.A. de C.V.</p>
         <a href="/aviso-privacidad" style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>Aviso de privacidad</a>
       </div>
     </footer>
