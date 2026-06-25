@@ -90,11 +90,11 @@ export default function RinconDeLosSupenios() {
             </p>
             <p style={{ fontSize: 26, fontWeight: 900, color: "#f59e0b", margin: "0 0 36px" }}>Desde $2,089,000</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href={WA} target="_blank" rel="noreferrer"
+              <a href={WA} target="_blank" rel="noreferrer" data-proyecto-cta="hero-whatsapp"
                 style={{ background: "#C8102E", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 800, fontSize: 15, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}>
                 💬 Quiero información
               </a>
-              <a href="#disponibilidad"
+              <a href="#disponibilidad" data-proyecto-cta="hero-disponibilidad"
                 style={{ background: "rgba(255,255,255,.1)", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,.2)" }}>
                 Ver unidades →
               </a>
@@ -219,7 +219,7 @@ export default function RinconDeLosSupenios() {
                       </div>
                     ))}
                   </div>
-                  <a href={WA} target="_blank" rel="noreferrer"
+                  <a href={WA} target="_blank" rel="noreferrer" data-proyecto-cta="modelo-esencial-whatsapp"
                     style={{ display: "block", textAlign: "center", background: "#C8102E", color: "#fff", padding: "13px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
                     Solicitar información
                   </a>
@@ -255,7 +255,7 @@ export default function RinconDeLosSupenios() {
                       </div>
                     ))}
                   </div>
-                  <a href={WA} target="_blank" rel="noreferrer"
+                  <a href={WA} target="_blank" rel="noreferrer" data-proyecto-cta="modelo-plenitud-whatsapp"
                     style={{ display: "block", textAlign: "center", background: "#C8102E", color: "#fff", padding: "13px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
                     Solicitar información
                   </a>
@@ -372,7 +372,7 @@ export default function RinconDeLosSupenios() {
                     <div style={{ fontSize: 12, color: "#374151" }}>✓ Cisterna 5,000 lts</div>
                     <div style={{ fontSize: 12, color: "#374151" }}>✓ Entrega inmediata</div>
                   </div>
-                  <a href={WA} target="_blank" rel="noreferrer"
+                  <a href={WA} target="_blank" rel="noreferrer" data-proyecto-cta={`unidad-${u.id}-whatsapp`}
                     style={{ display: "block", textAlign: "center", background: "#C8102E", color: "#fff", padding: "12px", borderRadius: 10, fontWeight: 800, fontSize: 13, textDecoration: "none" }}>
                     Apartar esta unidad
                   </a>
@@ -391,7 +391,7 @@ export default function RinconDeLosSupenios() {
             <p style={{ fontSize: 16, color: "rgba(255,255,255,.8)", margin: "0 0 32px", lineHeight: 1.7 }}>
               Comercializado exclusivamente por Emporio Inmobiliario. Nuestro equipo te acompaña desde la primera visita hasta la entrega de llaves.
             </p>
-            <a href={WA} target="_blank" rel="noreferrer"
+            <a href={WA} target="_blank" rel="noreferrer" data-proyecto-cta="cta-final-whatsapp"
               style={{ background: "#fff", color: "#C8102E", padding: "16px 36px", borderRadius: 14, fontWeight: 900, fontSize: 16, textDecoration: "none", display: "inline-block" }}>
               💬 Hablar con un asesor
             </a>

@@ -16,6 +16,7 @@
 // real termina de cargar.
 
 import { Montserrat } from "next/font/google";
+import ProyectosAnalytics from "../components/ProyectosAnalytics";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }) {
   // display, etc. en su elemento raíz interno).
   return (
     <div className={montserrat.variable}>
+      <ProyectosAnalytics />
       <Component {...pageProps} />
     </div>
   );

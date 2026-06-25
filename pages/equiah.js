@@ -217,11 +217,11 @@ export default function Equiah() {
               </p>
               <p style={{ fontSize:22, fontWeight:900, color:"#f59e0b", margin:"0 0 32px" }}>Encino desde $5,350,000 · Sauce desde $8,800,000</p>
               <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
-                <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer"
+                <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer" data-proyecto-cta="hero-whatsapp"
                   style={{ background:"#C8102E", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:800, fontSize:15, textDecoration:"none" }}>
                   💬 Quiero información
                 </a>
-                <a href="#disponibilidad" style={{ background:"rgba(255,255,255,.12)", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:700, fontSize:15, textDecoration:"none", border:"1px solid rgba(255,255,255,.25)" }}>
+                <a href="#disponibilidad" data-proyecto-cta="hero-disponibilidad" style={{ background:"rgba(255,255,255,.12)", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:700, fontSize:15, textDecoration:"none", border:"1px solid rgba(255,255,255,.25)" }}>
                   Ver disponibilidad →
                 </a>
               </div>
@@ -452,7 +452,7 @@ export default function Equiah() {
             <p style={{ fontSize:12, color:"#9ca3af", fontStyle:"italic", marginBottom:32 }}>*Precios en MXN + IVA. Sujetos a cambio. Las condiciones pueden adaptarse al esquema de pago.</p>
 
             <div style={{ textAlign:"center" }}>
-              <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer"
+              <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer" data-proyecto-cta="disponibilidad-whatsapp"
                 style={{ display:"inline-block", background:"#C8102E", color:"#fff", padding:"14px 32px", borderRadius:12, fontWeight:800, fontSize:15, textDecoration:"none" }}>
                 💬 Apartar mi departamento en Equiah
               </a>
@@ -466,11 +466,11 @@ export default function Equiah() {
             <h2 style={{ fontSize:36, fontWeight:900, color:"#fff", margin:"0 0 16px", lineHeight:1.1 }}>7 unidades. Sin segunda oportunidad.</h2>
             <p style={{ fontSize:16, color:"rgba(255,255,255,.7)", margin:"0 0 32px", lineHeight:1.7 }}>Equiah ya está prácticamente vendido. Si te interesa vivir en uno de los proyectos sustentables más únicos cerca de Puebla, habla con nosotros hoy.</p>
             <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
-              <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer"
+              <a href="https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Equiah%20Departamentos" target="_blank" rel="noreferrer" data-proyecto-cta="cta-final-whatsapp"
                 style={{ background:"#C8102E", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:800, fontSize:15, textDecoration:"none" }}>
                 💬 Hablar por WhatsApp
               </a>
-              <a href="tel:+522222573237" style={{ background:"rgba(255,255,255,.12)", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:700, fontSize:15, textDecoration:"none", border:"1px solid rgba(255,255,255,.25)" }}>
+              <a href="tel:+522222573237" data-proyecto-cta="cta-final-telefono" style={{ background:"rgba(255,255,255,.12)", color:"#fff", padding:"14px 28px", borderRadius:12, fontWeight:700, fontSize:15, textDecoration:"none", border:"1px solid rgba(255,255,255,.25)" }}>
                 📞 222 257 3237
               </a>
             </div>
@@ -479,7 +479,7 @@ export default function Equiah() {
 
         <LeyendaProfeco />
         <Footer />
-        <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer"
+        <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" data-proyecto-cta="flotante-whatsapp"
           style={{ position:"fixed", bottom:24, right:24, background:"#25d366", color:"#fff", width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, boxShadow:"0 4px 16px rgba(0,0,0,.2)", textDecoration:"none", zIndex:100 }}>
           💬
         </a>
