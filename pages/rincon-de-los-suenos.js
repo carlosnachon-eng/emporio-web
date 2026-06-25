@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import LeyendaProfeco from "../components/LeyendaProfeco";
 
 const WA = "https://wa.me/522222573237?text=Hola,%20me%20interesa%20información%20sobre%20Rincón%20de%20los%20Sueños";
 
@@ -400,6 +401,7 @@ export default function RinconDeLosSupenios() {
           </div>
         </div>
 
+        <LeyendaProfeco />
         <Footer />
       </div>
     </>

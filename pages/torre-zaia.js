@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import LeyendaProfeco from "../components/LeyendaProfeco";
 
 const CDN = "https://res.cloudinary.com/djq3wl79q/image/upload";
 
@@ -381,6 +382,7 @@ export default function TorreZaia() {
           </div>
         </div>
 
+        <LeyendaProfeco />
         <Footer />
         <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer"
           style={{ position:"fixed", bottom:24, right:24, background:"#25d366", color:"#fff", width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, boxShadow:"0 4px 16px rgba(0,0,0,.2)", textDecoration:"none", zIndex:100 }}>
