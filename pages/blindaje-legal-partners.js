@@ -149,8 +149,8 @@ export default function BlindajeLegalPartners() {
                   Conviértete en partner de Emporio Blindaje Legal y ofrece investigación, contratos, pagarés, firma y seguimiento aunque trabajes solo, desde casa o sin oficina.
                 </p>
                 <div className="hero-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-                  <a href={REGISTER_URL} className="btn-primary">Quiero ser Partner</a>
-                  <a href={LOGIN_URL} className="btn-secondary">Ya soy partner</a>
+                  <a href={REGISTER_URL} className="btn-primary" data-proyecto-cta="hero-registro-partner">Quiero ser Partner</a>
+                  <a href={LOGIN_URL} className="btn-secondary" data-proyecto-cta="hero-login-partner">Ya soy partner</a>
                 </div>
                 <div className="metric-row" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12, marginTop: 34, maxWidth: 640 }}>
                   <div className="metric">
@@ -295,7 +295,7 @@ export default function BlindajeLegalPartners() {
               <p style={{ color: "rgba(255,255,255,0.68)", fontSize: 16, lineHeight: 1.75, maxWidth: 680, margin: "0 auto 30px" }}>
                 Regístrate, espera aprobación de Emporio y empieza a enviar operaciones con ligas personalizadas para tus clientes.
               </p>
-              <a href={REGISTER_URL} className="btn-primary">Quiero ser Partner</a>
+              <a href={REGISTER_URL} className="btn-primary" data-proyecto-cta="cta-final-registro-partner">Quiero ser Partner</a>
             </div>
           </section>
         </main>

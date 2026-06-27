@@ -10,6 +10,8 @@ function clasificarEnlace(anchor) {
 
   if (href.includes("wa.me/")) return "whatsapp";
   if (href.startsWith("tel:")) return "telefono";
+  if (href.includes("/partners/registro")) return "registro_partner";
+  if (href.includes("/partners/login")) return "login_partner";
   if (href === "#disponibilidad" || href.endsWith("#disponibilidad")) {
     return "disponibilidad";
   }
