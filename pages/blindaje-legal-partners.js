@@ -58,16 +58,16 @@ const CSS = `
 
 const BENEFITS = [
   {
-    title: "Gana comisión sin crear un área jurídica",
-    desc: "Conservas la relación comercial con tu cliente y recibes comisión por cada póliza cobrada y activa.",
+    title: "Gana comisión por cada póliza activa",
+    desc: "Conservas la relación con tu cliente, Emporio opera el blindaje y tú recibes comisión cuando la póliza se cobra y queda activa.",
   },
   {
     title: "Tu cliente llena la solicitud",
     desc: "Le compartes una liga personalizada. Nosotros recibimos el expediente en el flujo normal de Blindaje Legal.",
   },
   {
-    title: "Emporio opera el proceso",
-    desc: "Investigación, dictamen, contrato, pagarés, firma, renovaciones y seguimiento quedan en manos de nuestro equipo.",
+    title: "Te damos respaldo para cerrar mejor",
+    desc: "Aunque trabajes solo o sin oficina, puedes ofrecer investigación, contratos, pagarés, firma y seguimiento con un equipo jurídico detrás.",
   },
 ];
 
@@ -86,7 +86,7 @@ const STEPS = [
   ["01", "Solicitas acceso", "Registras tu inmobiliaria, equipo comercial o perfil de asesor. Emporio valida y activa la cuenta."],
   ["02", "Creas una operación", "Capturas renta, inmueble y datos mínimos. El sistema calcula la póliza estimada."],
   ["03", "Compartes las ligas", "El inquilino y propietario llenan sus formularios con tu marca visible."],
-  ["04", "Emporio hace el trabajo jurídico", "Nuestro equipo revisa, investiga, dictamina, negocia y prepara documentos."],
+  ["04", "Emporio toma el expediente", "Nuestro equipo revisa, investiga, dictamina, negocia y prepara documentos."],
   ["05", "Das seguimiento y cobras", "Ves avances, fechas, documentos finales y comisión cuando la póliza queda activa."],
 ];
 
@@ -99,7 +99,7 @@ export default function BlindajeLegalPartners() {
           name="description"
           content="Conviértete en partner de Emporio Blindaje Legal. Tú consigues la operación; nosotros hacemos investigación, contratos, pagarés, firma y seguimiento jurídico."
         />
-        <meta name="keywords" content="partner inmobiliario, asesor inmobiliario, póliza jurídica inmobiliarias, departamento jurídico inmobiliaria, blindaje legal partners, comisiones póliza jurídica" />
+        <meta name="keywords" content="partner inmobiliario, asesor inmobiliario, póliza jurídica inmobiliarias, blindaje legal partners, comisiones póliza jurídica, asesores independientes" />
         <meta property="og:title" content="Emporio Blindaje Legal Partner" />
         <meta property="og:description" content="Tú consigues la operación. Nosotros hacemos todo el proceso jurídico." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blindaje-legal-partners" />
@@ -123,7 +123,7 @@ export default function BlindajeLegalPartners() {
                   Tú consigues la operación. Nosotros hacemos todo el proceso jurídico.
                 </h1>
                 <p style={{ color: "rgba(255,255,255,0.74)", fontSize: 17, lineHeight: 1.75, margin: "0 0 30px", maxWidth: 650 }}>
-                  Conviértete en partner de Emporio Blindaje Legal y ofrece investigación, contratos, pagarés, firma y seguimiento a tus clientes sin contratar un departamento jurídico propio.
+                  Conviértete en partner de Emporio Blindaje Legal y ofrece investigación, contratos, pagarés, firma y seguimiento aunque trabajes solo, desde casa o sin oficina.
                 </p>
                 <div className="hero-actions" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                   <a href={REGISTER_URL} className="btn-primary">Quiero ser Partner</a>
@@ -140,7 +140,7 @@ export default function BlindajeLegalPartners() {
                   </div>
                   <div className="metric">
                     <p style={{ color: "#fff", fontSize: 24, fontWeight: 900, margin: 0 }}>Sin</p>
-                    <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Abogado interno</p>
+                    <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Oficina necesaria</p>
                   </div>
                 </div>
               </div>
@@ -150,9 +150,9 @@ export default function BlindajeLegalPartners() {
           <section className="section" style={{ background: "#fafafa" }}>
             <div className="wrap">
               <p className="eyebrow">Para inmobiliarias y asesores independientes</p>
-              <h2 className="title">Somos tu departamento jurídico externo.</h2>
+              <h2 className="title">Dale respaldo profesional a tus rentas, aunque trabajes por tu cuenta.</h2>
               <p className="lead">
-                Tú consigues la operación y mantienes la relación con tu cliente. Emporio toma el proceso jurídico para que puedas ofrecer un servicio más completo sin contratar abogados ni perseguir documentos por tu cuenta.
+                Tú consigues la operación y mantienes la relación con tu cliente. Emporio revisa al inquilino, pide faltantes, prepara documentos y te ayuda a que la operación avance con más confianza.
               </p>
               <div className="grid-3" style={{ marginTop: 34 }}>
                 {BENEFITS.map((item) => (
@@ -170,7 +170,7 @@ export default function BlindajeLegalPartners() {
               <div className="grid-2" style={{ alignItems: "center" }}>
                 <div>
                   <p className="eyebrow">Qué hacemos por ti</p>
-                  <h2 className="title">Emporio toma el expediente cuando empieza lo jurídico.</h2>
+                  <h2 className="title">Emporio entra cuando la operación necesita respaldo.</h2>
                   <p className="lead">
                     Tú mantienes la relación comercial con tu cliente. Nosotros hacemos la revisión, pedimos faltantes, elaboramos documentos y damos continuidad hasta firma y renovación.
                   </p>
@@ -242,7 +242,7 @@ export default function BlindajeLegalPartners() {
             <div className="wrap" style={{ textAlign: "center" }}>
               <p style={{ color: "#fca5a5", fontSize: 11, fontWeight: 900, letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 12px" }}>Empieza hoy</p>
               <h2 style={{ color: "#fff", fontSize: 42, fontWeight: 900, lineHeight: 1.12, maxWidth: 820, margin: "0 auto 18px" }}>
-                Ofrece blindaje jurídico profesional sin contratar un equipo legal propio.
+                Ofrece blindaje jurídico profesional aunque seas asesor independiente o tengas una operación pequeña.
               </h2>
               <p style={{ color: "rgba(255,255,255,0.68)", fontSize: 16, lineHeight: 1.75, maxWidth: 680, margin: "0 auto 30px" }}>
                 Regístrate, espera aprobación de Emporio y empieza a enviar operaciones con ligas personalizadas para tus clientes.
