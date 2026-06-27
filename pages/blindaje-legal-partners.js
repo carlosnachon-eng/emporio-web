@@ -135,12 +135,12 @@ export default function BlindajeLegalPartners() {
                     <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Comisión base</p>
                   </div>
                   <div className="metric">
-                    <p style={{ color: "#fff", fontSize: 24, fontWeight: 900, margin: 0 }}>100%</p>
+                    <p style={{ color: "#fff", fontSize: 24, fontWeight: 900, margin: 0 }}>Portal</p>
                     <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Seguimiento digital</p>
                   </div>
                   <div className="metric">
-                    <p style={{ color: "#fff", fontSize: 24, fontWeight: 900, margin: 0 }}>0</p>
-                    <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Área legal interna</p>
+                    <p style={{ color: "#fff", fontSize: 24, fontWeight: 900, margin: 0 }}>Sin</p>
+                    <p style={{ color: "rgba(255,255,255,0.58)", fontSize: 12, margin: "5px 0 0" }}>Abogado interno</p>
                   </div>
                 </div>
               </div>
