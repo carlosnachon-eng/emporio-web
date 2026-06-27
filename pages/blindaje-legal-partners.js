@@ -82,6 +82,21 @@ const SERVICES = [
   "Portal digital para seguimiento",
 ];
 
+const DIFFERENCE = [
+  {
+    pain: "Te venden la póliza y luego desaparecen",
+    answer: "En Emporio damos seguimiento real al expediente, desde la solicitud hasta firma, renovación o cualquier problema posterior.",
+  },
+  {
+    pain: "Cuando surge un problema te dejan solo",
+    answer: "Somos una empresa establecida en Puebla. Sabes dónde encontrarnos y tienes un equipo que responde cuando la operación necesita atención.",
+  },
+  {
+    pain: "Nadie sabe dónde quedó tu expediente",
+    answer: "Cada operación queda organizada en el portal. Puedes consultar estatus, observaciones, fechas y documentos finales cuando los necesites.",
+  },
+];
+
 const STEPS = [
   ["01", "Solicitas acceso", "Registras tu inmobiliaria, equipo comercial o perfil de asesor. Emporio valida y activa la cuenta."],
   ["02", "Creas una operación", "Capturas renta, inmueble y datos mínimos. El sistema calcula la póliza estimada."],
@@ -152,7 +167,7 @@ export default function BlindajeLegalPartners() {
               <p className="eyebrow">Para inmobiliarias y asesores independientes</p>
               <h2 className="title">Dale respaldo profesional a tus rentas, aunque trabajes por tu cuenta.</h2>
               <p className="lead">
-                Tú consigues la operación y mantienes la relación con tu cliente. Emporio revisa al inquilino, pide faltantes, prepara documentos y te ayuda a que la operación avance con más confianza.
+                Tú consigues la operación y mantienes la relación con tu cliente. Emporio revisa al inquilino, pide faltantes, prepara documentos y te ayuda a que la operación avance con más confianza, seguimiento y orden.
               </p>
               <div className="grid-3" style={{ marginTop: 34 }}>
                 {BENEFITS.map((item) => (
@@ -161,6 +176,31 @@ export default function BlindajeLegalPartners() {
                     <p style={{ color: "#6b7280", fontSize: 14, lineHeight: 1.75, margin: 0 }}>{item.desc}</p>
                   </article>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="wrap">
+              <div className="grid-2" style={{ alignItems: "start" }}>
+                <div>
+                  <p className="eyebrow">Lo que cambia contigo</p>
+                  <h2 className="title">No vendes una póliza que desaparece después del pago.</h2>
+                  <p className="lead">
+                    Muchos asesores ya han vivido lo mismo: la póliza se cobra, después nadie da seguimiento, nadie sabe dónde está el expediente y cuando aparece un problema no hay quién responda.
+                  </p>
+                  <p className="lead">
+                    Con Emporio Blindaje Legal Partner, tus operaciones quedan ordenadas y siempre tienes una ruta clara para consultar, dar seguimiento y pedir respuesta.
+                  </p>
+                </div>
+                <div style={{ display: "grid", gap: 12 }}>
+                  {DIFFERENCE.map((item) => (
+                    <article key={item.pain} className="card" style={{ padding: 22 }}>
+                      <p style={{ color: "#991b1b", fontSize: 13, fontWeight: 900, lineHeight: 1.45, margin: "0 0 8px" }}>{item.pain}</p>
+                      <p style={{ color: "#374151", fontSize: 14, lineHeight: 1.7, margin: 0 }}>{item.answer}</p>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
