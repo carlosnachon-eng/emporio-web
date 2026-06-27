@@ -88,6 +88,7 @@ export default function Footer() {
           <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Servicios y portales</h4>
           {[
             { label: "Emporio Blindaje Legal", href: "/blindaje-legal" },
+            { label: "Blindaje Legal Partners", href: "/blindaje-legal-partners" },
             { label: "Administración de Inmuebles", href: "/administracion" },
             { label: "Solicitud de arrendamiento", href: "https://app.emporioinmobiliario.com.mx/solicitud" },
             { label: "Simulador de crédito", href: "https://socasesores.com/simulador-credito-hipotecario/?q=NUCAE" },

@@ -13,6 +13,7 @@ const NAV_LINKS_MAS = [
   { label: "Propietarios",    href: "/propietarios" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
+  { label: "BL Partners",     href: "/blindaje-legal-partners" },
   { label: "Administración",  href: "/administracion" },
   { label: "Blog",            href: "/blog" },
   { label: "Nosotros",        href: "/nosotros" },
@@ -86,7 +87,7 @@ export default function Navbar() {
                   minWidth: 200, padding: 6, zIndex: 60,
                 }}>
                   {NAV_LINKS_MAS.map(link => {
-                    const isBlindaje = link.href === "/blindaje-legal";
+                    const isBlindaje = link.href === "/blindaje-legal" || link.href === "/blindaje-legal-partners";
                     return (
                       <a key={link.href} href={link.href} style={{
                         display: "block", color: isBlindaje ? "#C8102E" : "#374151",
@@ -139,7 +140,7 @@ export default function Navbar() {
 
           {/* Links */}
           {TODOS_LOS_LINKS.map(link => {
-            const isBlindaje = link.href === "/blindaje-legal";
+            const isBlindaje = link.href === "/blindaje-legal" || link.href === "/blindaje-legal-partners";
             return (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)} style={{
                 display: "block",
