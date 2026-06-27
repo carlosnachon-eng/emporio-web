@@ -69,6 +69,10 @@ const BENEFITS = [
     title: "Te damos respaldo para cerrar mejor",
     desc: "Aunque trabajes solo o sin oficina, puedes ofrecer investigación, contratos, pagarés, firma y seguimiento con un equipo jurídico detrás.",
   },
+  {
+    title: "No pierdas renovaciones",
+    desc: "El sistema te avisa cuando una operación se acerca a renovación para que vuelvas a contactar a tu cliente y generes una nueva comisión.",
+  },
 ];
 
 const SERVICES = [
@@ -94,6 +98,10 @@ const DIFFERENCE = [
   {
     pain: "Nadie sabe dónde quedó tu expediente",
     answer: "Cada operación queda organizada en el portal. Puedes consultar estatus, observaciones, fechas y documentos finales cuando los necesites.",
+  },
+  {
+    pain: "Se te pasan las renovaciones y pierdes ingresos",
+    answer: "No tienes que acordarte de memoria. El sistema te muestra renovaciones próximas para que puedas dar seguimiento a tiempo.",
   },
 ];
 
@@ -169,7 +177,7 @@ export default function BlindajeLegalPartners() {
               <p className="lead">
                 Tú consigues la operación y mantienes la relación con tu cliente. Emporio revisa al inquilino, pide faltantes, prepara documentos y te ayuda a que la operación avance con más confianza, seguimiento y orden.
               </p>
-              <div className="grid-3" style={{ marginTop: 34 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 18, marginTop: 34 }}>
                 {BENEFITS.map((item) => (
                   <article key={item.title} className="card">
                     <h3 style={{ color: "#1a1a2e", fontSize: 18, fontWeight: 900, lineHeight: 1.25, margin: "0 0 10px" }}>{item.title}</h3>
@@ -266,7 +274,7 @@ export default function BlindajeLegalPartners() {
                 <div className="card">
                   <h3 style={{ color: "#1a1a2e", fontSize: 22, fontWeight: 900, margin: "0 0 18px" }}>Tu portal te permite ver:</h3>
                   <div style={{ display: "grid", gap: 12 }}>
-                    {["Tus operaciones", "Estatus del expediente", "Observaciones y faltantes", "Fechas de firma, inicio y vigencia", "Documentos finales", "Comisión estimada, generada y pagada"].map((item) => (
+                    {["Tus operaciones", "Estatus del expediente", "Observaciones y faltantes", "Fechas de firma, inicio y vigencia", "Renovaciones próximas", "Documentos finales", "Comisión estimada, generada y pagada"].map((item) => (
                       <div key={item} style={{ display: "flex", gap: 10, alignItems: "center" }}>
                         <span style={{ width: 22, height: 22, borderRadius: 999, background: "#f0fdf4", color: "#065f46", display: "grid", placeItems: "center", fontSize: 12, fontWeight: 900 }}>✓</span>
                         <span style={{ color: "#374151", fontSize: 14, fontWeight: 700 }}>{item}</span>
