@@ -15,6 +15,7 @@
 // en el Pages Router.
 
 import { createClient } from "@supabase/supabase-js";
+import { CASAS_NUEVAS } from "../lib/casasNuevas";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -28,6 +29,7 @@ const SITE_URL = "https://www.emporioinmobiliario.com.mx";
 const PAGINAS_ESTATICAS = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
   { loc: "/propiedades", changefreq: "daily", priority: "0.95" },
+  { loc: "/casas-nuevas", changefreq: "weekly", priority: "0.95" },
   { loc: "/torre-zaia", changefreq: "weekly", priority: "0.95" },
   { loc: "/equiah", changefreq: "weekly", priority: "0.95" },
   { loc: "/propietarios", changefreq: "monthly", priority: "0.9" },
@@ -127,6 +129,10 @@ export async function getServerSideProps({ res }) {
     urlTag({ loc: `${SITE_URL}/blog/${slug}`, changefreq: "monthly", priority: "0.8" })
   );
 
+  const urlsCasasNuevas = CASAS_NUEVAS.map((coleccion) =>
+    urlTag({ loc: `${SITE_URL}/casas-nuevas/${coleccion.slug}`, changefreq: "weekly", priority: "0.9" })
+  );
+
   const urlsPropiedades = (propiedades || []).map((p) =>
     urlTag({
       loc: `${SITE_URL}/propiedades/${generarSlug(p)}`,
@@ -140,6 +146,7 @@ export async function getServerSideProps({ res }) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlsEstaticas.join("\n")}
 ${urlsBlog.join("\n")}
+${urlsCasasNuevas.join("\n")}
 ${urlsPropiedades.join("\n")}
 </urlset>`;
 

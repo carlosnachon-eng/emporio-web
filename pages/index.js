@@ -220,6 +220,34 @@ export default function Home({ propiedadesDestacadas = [] }) {
             </div>
             <div className="desarrollos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
 
+              {/* Casas Nuevas */}
+              <a href="/casas-nuevas" style={{ textDecoration: "none" }}>
+                <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "2px solid #C8102E", boxShadow: "0 2px 12px rgba(200,16,46,0.1)", transition: "transform .2s" }}
+                  onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
+                  onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                  <div style={{ height: 200, background: "#1a1a2e", position: "relative", overflow: "hidden" }}>
+                    <img src="/images/casas-nuevas/granjas/fachada-general.jpg" alt="Casas nuevas en Puebla"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.78 }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.82), transparent)" }} />
+                    <div style={{ position: "absolute", top: 10, left: 10 }}>
+                      <span style={{ background: "#C8102E", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>NUEVO INVENTARIO</span>
+                    </div>
+                    <div style={{ position: "absolute", bottom: 14, left: 16 }}>
+                      <p style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#fff" }}>Casas Nuevas</p>
+                      <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,.7)" }}>Granjas y Bugambilias</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: "16px 16px 20px" }}>
+                    <p style={{ margin: "0 0 6px", fontSize: 12, color: "#6b7280" }}>📍 Puebla</p>
+                    <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280", lineHeight: 1.5 }}>5 casas nuevas agrupadas por zona.</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontSize: 17, fontWeight: 900, color: "#C8102E" }}>Desde $2,800,000</span>
+                      <span style={{ fontSize: 12, color: "#C8102E", fontWeight: 700 }}>Ver más →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
               {/* Torre Zaia */}
               <a href="/torre-zaia" style={{ textDecoration: "none" }}>
                 <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transition: "transform .2s" }}

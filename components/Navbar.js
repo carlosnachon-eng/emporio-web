@@ -3,6 +3,7 @@ import { useState } from "react";
 const NAV_LINKS_PRINCIPALES = [
   { label: "Inicio",          href: "/" },
   { label: "Propiedades",     href: "/propiedades" },
+  { label: "Casas Nuevas",    href: "/casas-nuevas" },
   { label: "Torre Zaia",      href: "/torre-zaia" },
   { label: "Bau22",           href: "/bau22" },
   { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },

@@ -52,6 +52,7 @@ export default function Footer() {
           {[
             { label: "Inicio", href: "/" },
             { label: "Propiedades", href: "/propiedades" },
+            { label: "Casas Nuevas", href: "/casas-nuevas" },
             { label: "Propiedades en venta", href: "/propiedades?operacion=sale" },
             { label: "Propiedades en renta", href: "/propiedades?operacion=rental" },
             { label: "Propietarios", href: "/propietarios" },
@@ -71,6 +72,8 @@ export default function Footer() {
         <div>
           <h4 style={{ fontSize: 11, fontWeight: 700, color: "#C8102E", letterSpacing: "0.15em", textTransform: "uppercase", margin: "0 0 20px" }}>Proyectos</h4>
           {[
+            { label: "Casas Nuevas en Granjas", href: "/casas-nuevas/granjas" },
+            { label: "Casas Nuevas en Bugambilias", href: "/casas-nuevas/bugambilias" },
             { label: "Torre Zaia", href: "/torre-zaia" },
             { label: "Equiah", href: "/equiah" },
             { label: "Bau22", href: "/bau22" },
