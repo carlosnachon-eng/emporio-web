@@ -226,7 +226,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
                   onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
                   <div style={{ height: 200, background: "#1a1a2e", position: "relative", overflow: "hidden" }}>
-                    <img src="/images/casas-nuevas/granjas/fachada-general.jpg" alt="Casas nuevas en Puebla"
+                    <img src="/images/casas-nuevas/granjas/render-fachada-calle.jpg" alt="Casas nuevas en Puebla"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.78 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.82), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
