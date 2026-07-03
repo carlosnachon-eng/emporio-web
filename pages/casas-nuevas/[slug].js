@@ -161,9 +161,9 @@ export default function CasasNuevasDetalle({ coleccion, propiedades }) {
               {coleccion.distribucionImagen && (
                 <section style={panelStyle}>
                   <p style={eyebrowStyle}>Distribución</p>
-                  <h2 style={sectionTitleStyle}>Render superior del modelo</h2>
+                  <h2 style={sectionTitleStyle}>Distribución real coloreada</h2>
                   <p style={{ ...bodyStyle, marginBottom: 16 }}>
-                    Vista ilustrativa amueblada para leer rápido cómo se reparte la casa por nivel y visualizar acabados. Es material de apoyo comercial; las medidas y detalles finales se confirman en la ficha y visita.
+                    Plano comercial basado en la distribución arquitectónica real para leer rápido cómo se reparte la casa por nivel. Los colores y acabados son ilustrativos; las medidas y detalles finales se confirman en la ficha y visita.
                   </p>
                   <div style={{ border: "1px solid #f0f0f0", borderRadius: 12, overflow: "hidden", background: "#f8f8fa" }}>
                     <img
