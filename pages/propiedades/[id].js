@@ -187,14 +187,14 @@ function FormularioContacto({ propiedad, contacto, setContacto, enviando, enviad
             { label: "Email", key: "email", type: "email", placeholder: "tu@email.com" },
           ].map(f => (
             <div key={f.key} style={{ marginBottom: 14 }}>
-              <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>{f.label}</label>
-              <input type={f.type} placeholder={f.placeholder} value={contacto[f.key]} onChange={e => setContacto(c => ({ ...c, [f.key]: e.target.value }))}
+              <label htmlFor={`propiedad-${f.key}`} style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>{f.label}</label>
+              <input id={`propiedad-${f.key}`} name={f.key} type={f.type} placeholder={f.placeholder} value={contacto[f.key]} onChange={e => setContacto(c => ({ ...c, [f.key]: e.target.value }))}
                 style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
             </div>
           ))}
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>Mensaje</label>
-            <textarea placeholder={`Hola, me interesa la propiedad ${propiedad.public_id || ""}...`} value={contacto.mensaje} onChange={e => setContacto(c => ({ ...c, mensaje: e.target.value }))}
+            <label htmlFor="propiedad-mensaje" style={{ display: "block", fontSize: 12, fontWeight: 700, color: "#374151", marginBottom: 4 }}>Mensaje</label>
+            <textarea id="propiedad-mensaje" name="mensaje" placeholder={`Hola, me interesa la propiedad ${propiedad.public_id || ""}...`} value={contacto.mensaje} onChange={e => setContacto(c => ({ ...c, mensaje: e.target.value }))}
               style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", minHeight: 80, resize: "vertical", fontFamily: "'Montserrat', sans-serif" }} />
           </div>
           <button onClick={onEnviar} disabled={enviando || !contacto.nombre || !contacto.telefono}
@@ -220,7 +220,7 @@ function MapaUbicacion({ lat, lng, mostrarExacta, direccion }) {
       <div style={{ marginTop: 24 }}>
         <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Ubicación</h3>
         <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #f0f0f0" }}>
-          <iframe width="100%" height="220" frameBorder="0" scrolling="no" style={{ display: "block", width: "100%" }}
+          <iframe title={`Mapa de ${direccion}`} loading="lazy" width="100%" height="220" frameBorder="0" scrolling="no" style={{ display: "block", width: "100%" }}
             src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`}
           />
         </div>
@@ -441,7 +441,7 @@ export default function PropiedadDetalle({ propiedad }) {
               <Galeria fotos={fotos} titulo={propiedad.titulo} />
               {videoEmbedUrl(propiedad.video_url) && (
                 <div style={{ marginTop: 12, marginBottom: 16, borderRadius: 16, overflow: "hidden" }}>
-                  <iframe width="100%" height="220" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                  <iframe title={`Video de ${propiedad.titulo || "la propiedad"}`} loading="lazy" width="100%" height="220" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
                 </div>
               )}
               {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (
@@ -514,7 +514,7 @@ export default function PropiedadDetalle({ propiedad }) {
                 <Galeria fotos={fotos} titulo={propiedad.titulo} />
                 {videoEmbedUrl(propiedad.video_url) && (
                   <div style={{ borderRadius: 20, overflow: "hidden", marginBottom: 16 }}>
-                    <iframe width="100%" height="320" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
+                    <iframe title={`Video de ${propiedad.titulo || "la propiedad"}`} loading="lazy" width="100%" height="320" src={videoEmbedUrl(propiedad.video_url)} frameBorder="0" allowFullScreen style={{ display: "block" }} />
                   </div>
                 )}
                 {propiedad.video_url && propiedad.video_url.includes("tiktok.com") && (

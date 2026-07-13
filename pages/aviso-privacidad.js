@@ -47,7 +47,6 @@ export default function AvisoPrivacidad() {
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/aviso-privacidad" />
       </Head>
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       <div style={{ background: "#1a1a2e" }}><Navbar transparent={false} /></div>
 
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "80px 32px" }}>

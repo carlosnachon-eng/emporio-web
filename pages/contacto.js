@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -27,7 +28,10 @@ export default function Contacto() {
 
   return (
     <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      <Head>
+        <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/contacto" />
+        <meta name="robots" content="index, follow" />
+      </Head>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <Navbar />
 
@@ -98,14 +102,14 @@ export default function Contacto() {
                     { label: "WhatsApp", key: "whatsapp", type: "tel", placeholder: "2221234567" },
                   ].map(f => (
                     <div key={f.key} style={{ marginBottom: 16 }}>
-                      <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>{f.label}</label>
-                      <input type={f.type} placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(v => ({ ...v, [f.key]: e.target.value }))}
+                      <label htmlFor={`contacto-${f.key}`} style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>{f.label}</label>
+                      <input id={`contacto-${f.key}`} name={f.key} type={f.type} placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(v => ({ ...v, [f.key]: e.target.value }))}
                         style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                     </div>
                   ))}
                   <div style={{ marginBottom: 22 }}>
-                    <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>Mensaje</label>
-                    <textarea placeholder="¿En qué podemos ayudarte?" value={form.mensaje} onChange={e => setForm(v => ({ ...v, mensaje: e.target.value }))}
+                    <label htmlFor="contacto-mensaje" style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>Mensaje</label>
+                    <textarea id="contacto-mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" value={form.mensaje} onChange={e => setForm(v => ({ ...v, mensaje: e.target.value }))}
                       style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 110, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                   </div>
                   <button onClick={handleEnviar} disabled={enviando || !form.nombre || !form.whatsapp}

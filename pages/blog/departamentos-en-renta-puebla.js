@@ -42,7 +42,6 @@ export default function ArticuloDeptosRenta() {
       </Head>
 
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <Navbar />
 
         <div style={{ background: "linear-gradient(120deg, #1a1a2e 0%, #0f1520 100%)", padding: "64px 32px 56px", position: "relative", overflow: "hidden" }}>

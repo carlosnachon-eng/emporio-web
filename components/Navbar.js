@@ -51,7 +51,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0 }}>
-            <img src="/logo.png" alt="Emporio Inmobiliario" style={{ height: 44, width: "auto", objectFit: "contain" }} />
+            <img src="/logo.png" alt="Emporio Inmobiliario" width="83" height="44" decoding="async" style={{ height: 44, width: "auto", objectFit: "contain" }} />
           </a>
 
           {/* Desktop links */}
@@ -74,7 +74,7 @@ export default function Navbar() {
             <div style={{ position: "relative" }}
               onMouseEnter={() => setMasOpen(true)}
               onMouseLeave={() => setMasOpen(false)}>
-              <button style={{
+              <button aria-label="Abrir menú Más" aria-haspopup="true" aria-expanded={masOpen} onClick={() => setMasOpen((valor) => !valor)} style={{
                 color: "#374151", fontSize: 13, fontWeight: 600, background: "transparent",
                 border: "none", padding: "8px 10px", borderRadius: 8, cursor: "pointer",
                 display: "flex", alignItems: "center", gap: 4, fontFamily: "'Montserrat', sans-serif",
@@ -115,7 +115,7 @@ export default function Navbar() {
           </div>
 
           {/* Burger button móvil */}
-          <button className="nav-burger" onClick={() => setOpen(true)} style={{
+          <button className="nav-burger" aria-label="Abrir menú de navegación" aria-expanded={open} onClick={() => setOpen(true)} style={{
             background: "none", border: "none", cursor: "pointer",
             display: "flex", flexDirection: "column", gap: 5, padding: 8,
           }}>
@@ -135,8 +135,8 @@ export default function Navbar() {
         }}>
           {/* Header del menú */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: 68, borderBottom: "1px solid #f3f4f6", marginBottom: 24 }}>
-            <img src="/logo.png" alt="Emporio" style={{ height: 44 }} />
-            <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", fontSize: 28, cursor: "pointer", color: "#1a1a2e", lineHeight: 1 }}>✕</button>
+            <img src="/logo.png" alt="Emporio" width="83" height="44" decoding="async" style={{ height: 44, width: "auto" }} />
+            <button aria-label="Cerrar menú de navegación" onClick={() => setOpen(false)} style={{ background: "none", border: "none", fontSize: 28, cursor: "pointer", color: "#1a1a2e", lineHeight: 1 }}>✕</button>
           </div>
 
           {/* Links */}

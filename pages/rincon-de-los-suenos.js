@@ -47,7 +47,6 @@ export default function RinconDeLosSupenios() {
       </Head>
 
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff", color: "#1a1a2e" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: `
           * { box-sizing: border-box; }
           @media(max-width: 768px) {
@@ -176,6 +175,8 @@ export default function RinconDeLosSupenios() {
               </div>
               <div style={{ borderRadius: 20, overflow: "hidden", height: 400 }}>
                 <iframe
+                  title="Recorrido virtual de Rincón de los Sueños"
+                  loading="lazy"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d951.6!2d-98.2244387!3d18.9702371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc78323d57ec5%3A0xf7e93c6!2zUmluY8OzbiBkZSBsb3MgU3Vlw7Fvcw!5e0!3m2!1ses!2smx!4v1"
                   width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
                   title="Ubicación Rincón de los Sueños"

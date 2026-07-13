@@ -18,7 +18,6 @@ export default function VerificarCarta({ carta }) {
       <Head>
         <title>{carta ? `Carta ${carta.folio} — Emporio Inmobiliario` : "Verificación — Emporio Inmobiliario"}</title>
         <meta name="robots" content="noindex" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
       </Head>
 
       <div style={{ minHeight: "100vh", background: "#f4f5f7", fontFamily: "'Montserrat', sans-serif", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>

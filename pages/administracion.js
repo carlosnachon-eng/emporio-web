@@ -61,7 +61,6 @@ export default function Administracion() {
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/administracion" />
       </Head>
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
         <Navbar />
 

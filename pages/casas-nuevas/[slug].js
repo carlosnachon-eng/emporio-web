@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import {
@@ -36,7 +37,7 @@ function PropiedadCard({ propiedad }) {
       <article className="cn-prop-card" style={{ background: "#fff", border: "1px solid #f0f0f0", borderRadius: 16, overflow: "hidden", marginBottom: 16 }}>
         <div className="cn-prop-img" style={{ height: 190, background: "#f3f4f6", position: "relative", overflow: "hidden" }}>
           {img ? (
-            <img src={img} alt={propiedad.titulo} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <Image src={img} alt={propiedad.titulo} fill sizes="(max-width: 880px) 100vw, 220px" style={{ objectFit: "cover" }} />
           ) : (
             <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#9ca3af", fontSize: 14 }}>Sin foto</div>
           )}
@@ -130,9 +131,9 @@ export default function CasasNuevasDetalle({ coleccion, propiedades }) {
                 <span style={darkPill}>Desde {fmt(coleccion.precioDesde)}</span>
               </div>
             </div>
-            <div style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,.12)", height: 280, background: "#111827" }}>
+            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,.12)", height: 280, background: "#111827" }}>
               {coleccion.imagen ? (
-                <img src={coleccion.imagen} alt={coleccion.nombre} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <Image src={coleccion.imagen} alt={coleccion.nombre} fill priority sizes="(max-width: 880px) 100vw, 380px" style={{ objectFit: "cover" }} />
               ) : (
                 <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #111827 0%, #374151 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ color: "rgba(255,255,255,.72)", fontSize: 14, fontWeight: 800 }}>Imagen por confirmar</span>
@@ -169,6 +170,8 @@ export default function CasasNuevasDetalle({ coleccion, propiedades }) {
                     <img
                       src={coleccion.distribucionImagen}
                       alt={`Distribución del modelo ${coleccion.nombre}`}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: "100%", display: "block" }}
                     />
                   </div>
@@ -181,8 +184,8 @@ export default function CasasNuevasDetalle({ coleccion, propiedades }) {
                   <h2 style={sectionTitleStyle}>Fotos del proyecto</h2>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
                     {coleccion.imagenes.map((imagen, index) => (
-                      <div key={imagen} style={{ height: index === 0 ? 250 : 180, gridColumn: index === 0 ? "1 / -1" : "auto", borderRadius: 12, overflow: "hidden", background: "#f3f4f6" }}>
-                        <img src={imagen} alt={`${coleccion.nombre} foto ${index + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <div key={imagen} style={{ position: "relative", height: index === 0 ? 250 : 180, gridColumn: index === 0 ? "1 / -1" : "auto", borderRadius: 12, overflow: "hidden", background: "#f3f4f6" }}>
+                        <Image src={imagen} alt={`${coleccion.nombre} foto ${index + 1}`} fill sizes="(max-width: 880px) 100vw, 520px" style={{ objectFit: "cover" }} />
                       </div>
                     ))}
                   </div>

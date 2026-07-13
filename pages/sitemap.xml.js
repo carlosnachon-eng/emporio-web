@@ -32,6 +32,8 @@ const PAGINAS_ESTATICAS = [
   { loc: "/casas-nuevas", changefreq: "weekly", priority: "0.95" },
   { loc: "/torre-zaia", changefreq: "weekly", priority: "0.95" },
   { loc: "/equiah", changefreq: "weekly", priority: "0.95" },
+  { loc: "/bau22", changefreq: "weekly", priority: "0.9" },
+  { loc: "/rincon-de-los-suenos", changefreq: "weekly", priority: "0.9" },
   { loc: "/propietarios", changefreq: "monthly", priority: "0.9" },
   { loc: "/arrendatarios", changefreq: "monthly", priority: "0.9" },
   { loc: "/blindaje-legal", changefreq: "monthly", priority: "0.9" },

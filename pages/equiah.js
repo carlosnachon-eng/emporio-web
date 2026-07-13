@@ -184,7 +184,6 @@ export default function Equiah() {
       </Head>
 
       <div style={{ fontFamily:"'Montserrat', sans-serif", background:"#fff", overflowX:"hidden", width:"100%" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html:`
           * { box-sizing:border-box; margin:0; padding:0; }
           html, body { width:100%; overflow-x:hidden; }

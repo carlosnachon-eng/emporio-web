@@ -101,7 +101,6 @@ export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto,
         <link rel="canonical" href={canonicalUrl} />
       </Head>
       <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "'Montserrat', sans-serif" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <Navbar />
 
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 20px" }}>

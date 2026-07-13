@@ -27,15 +27,6 @@ function RutaContextual({ pathname }) {
 
   return (
     <nav aria-label="Guías relacionadas" style={{ background: "#f8f8fa", borderTop: "1px solid #eee", padding: "32px 24px" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.emporioinmobiliario.com.mx/" },
-          { "@type": "ListItem", position: 2, name: pathname.startsWith("/blog/") ? "Blog inmobiliario" : "Servicios", item: pathname.startsWith("/blog/") ? "https://www.emporioinmobiliario.com.mx/blog" : "https://www.emporioinmobiliario.com.mx/propietarios" },
-          { "@type": "ListItem", position: 3, name: esPoliza ? "Póliza jurídica" : "Servicios para propietarios", item: `https://www.emporioinmobiliario.com.mx${pathname}` },
-        ],
-      }) }} />
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <p style={{ margin: "0 0 14px", color: "#1a1a2e", fontSize: 16, fontWeight: 800 }}>
           Siguiente paso recomendado
@@ -79,7 +70,7 @@ export default function Footer() {
 
         {/* Brand */}
         <div className="footer-brand">
-          <img src="/logo.png" alt="Emporio Inmobiliario" style={{ height: 52, marginBottom: 20, filter: "brightness(0) invert(1)" }} />
+          <img src="/logo.png" alt="Emporio Inmobiliario" width="98" height="52" loading="lazy" decoding="async" style={{ height: 52, width: "auto", marginBottom: 20, filter: "brightness(0) invert(1)" }} />
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.8, maxWidth: 280, margin: "0 0 24px" }}>
             Más de 20 años ayudando a familias y empresas a vender, rentar o encontrar su propiedad ideal en Puebla.
           </p>

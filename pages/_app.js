@@ -17,6 +17,7 @@
 
 import { Montserrat } from "next/font/google";
 import ProyectosAnalytics from "../components/ProyectosAnalytics";
+import StructuredData from "../components/StructuredData";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }) {
   return (
     <div className={montserrat.variable}>
       <ProyectosAnalytics />
+      <StructuredData />
       <Component {...pageProps} />
     </div>
   );

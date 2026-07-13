@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { CASAS_NUEVAS, SITE_URL, fmt } from "../../lib/casasNuevas";
@@ -73,7 +74,7 @@ export default function CasasNuevas() {
                 <article className="cn-card" style={{ background: "#fff", border: "1px solid #f0f0f0", borderRadius: 16, overflow: "hidden", transition: "all .18s ease" }}>
                   <div style={{ height: 280, position: "relative", background: "#e5e7eb", overflow: "hidden" }}>
                     {coleccion.imagen ? (
-                      <img src={coleccion.imagen} alt={coleccion.nombre} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <Image src={coleccion.imagen} alt={coleccion.nombre} fill sizes="(max-width: 760px) 100vw, 550px" style={{ objectFit: "cover" }} />
                     ) : (
                       <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1a2e 0%, #374151 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <span style={{ color: "rgba(255,255,255,.72)", fontSize: 14, fontWeight: 800 }}>Imagen por confirmar</span>

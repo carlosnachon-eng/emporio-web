@@ -213,7 +213,6 @@ export default function TorreZaia() {
       </Head>
 
       <div style={{ fontFamily:"'Montserrat', sans-serif", background:"#fff" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html:`* { box-sizing:border-box; } @media(max-width:768px){ .hero-grid{grid-template-columns:1fr!important;} .stats-grid{grid-template-columns:repeat(2,1fr)!important;} .pago-grid{grid-template-columns:1fr!important;} h1{font-size:34px!important;} }` }} />
         <Navbar />
 

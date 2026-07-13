@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { generarSlugPropiedad } from "../lib/casasNuevas";
 
 const fmt = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", minimumFractionDigits: 0 }).format(n || 0);
 
@@ -70,7 +71,6 @@ export default function Home({ propiedadesDestacadas = [] }) {
       </Head>
 
       <div style={{ fontFamily: "'Montserrat', sans-serif", background: "#fff" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
         <Navbar />
 
@@ -178,10 +178,10 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   const esVenta = p.operacion === "sale";
                   const ubicacion = [p.colonia, p.ciudad].filter(Boolean).join(", ");
                   return (
-                    <a key={p.public_id} href={`/propiedades/${p.public_id}`} style={{ textDecoration: "none" }}>
+                    <a key={p.public_id} href={`/propiedades/${generarSlugPropiedad(p)}`} style={{ textDecoration: "none" }}>
                       <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff", border: "1px solid #f3f4f6" }}>
                         <div style={{ height: 200, background: "#f3f4f6", position: "relative", overflow: "hidden" }}>
-                          {img && <img src={img} alt={p.titulo} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+                          {img && <img src={img} alt={p.titulo} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
                           <div style={{ position: "absolute", top: 10, left: 10 }}>
                             <span style={{ background: esVenta ? "#1a1a2e" : "#C8102E", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>
                               {esVenta ? "EN VENTA" : "EN RENTA"}
@@ -226,7 +226,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
                   onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
                   <div style={{ height: 200, background: "#1a1a2e", position: "relative", overflow: "hidden" }}>
-                    <img src="/images/casas-nuevas/granjas/render-fachada-calle.jpg" alt="Casas nuevas en Puebla"
+                    <img src="/images/casas-nuevas/granjas/render-fachada-calle.jpg" alt="Casas nuevas en Puebla" loading="lazy" decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.78 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.82), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
@@ -254,7 +254,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
                   onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
                   <div style={{ height: 200, background: "#1a1a2e", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1779506032/HEM4_-_Fachada_1_btjb4r.png" alt="Torre Zaia"
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1779506032/HEM4_-_Fachada_1_btjb4r.png" alt="Torre Zaia" loading="lazy" decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }}
                       onError={e => { e.target.style.display="none"; }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.8), transparent)" }} />
@@ -283,7 +283,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
                   onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
                   <div style={{ height: 200, background: "#2d3a2e", position: "relative", overflow: "hidden" }}>
-                    <img src="https://equiah.com/app-assets/images/banner-vive-01.jpg" alt="Equiah"
+                    <img src="https://equiah.com/app-assets/images/banner-vive-01.jpg" alt="Equiah" loading="lazy" decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,46,.8), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
@@ -311,7 +311,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   onMouseOver={e => e.currentTarget.style.transform="translateY(-4px)"}
                   onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
                   <div style={{ height: 200, background: "#0d0d0d", position: "relative", overflow: "hidden" }}>
-                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/bau22/fachada_noche.jpg" alt="Bau22"
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1781896677/fachada_noche_znady9.jpg" alt="Bau22" loading="lazy" decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,.8), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
@@ -342,7 +342,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                     ¡NUEVO!
                   </div>
                   <div style={{ height: 200, background: "#0d0d0d", position: "relative", overflow: "hidden" }}>
-                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1781643422/IMG_0471_tcehkb.webp" alt="Rincón de los Sueños"
+                    <img src="https://res.cloudinary.com/djq3wl79q/image/upload/v1781643422/IMG_0471_tcehkb.webp" alt="Rincón de los Sueños" loading="lazy" decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75 }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,.8), transparent)" }} />
                     <div style={{ position: "absolute", top: 10, left: 10 }}>
