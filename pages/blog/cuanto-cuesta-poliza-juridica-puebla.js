@@ -24,19 +24,20 @@ export default function ArticuloPolizaPrecio() {
   return (
     <>
       <Head>
-        <title>¿Cuánto cuesta una póliza jurídica en Puebla? Precios 2025 — Emporio Inmobiliario</title>
-        <meta name="description" content="Tabla de precios actualizada de la póliza jurídica de arrendamiento en Puebla. Desde $2,800 + IVA según el monto de tu renta mensual. Vigencia 12 meses." />
+        <title>¿Cuánto cuesta una póliza jurídica en Puebla?</title>
+        <meta name="description" content="Consulta el precio de una póliza jurídica de arrendamiento en Puebla según la renta, qué incluye, su vigencia y quién debe pagarla." />
         <meta name="keywords" content="póliza jurídica puebla precio, cuánto cuesta póliza jurídica, póliza jurídica arrendamiento costo, precio póliza jurídica puebla 2025" />
-        <meta property="og:title" content="¿Cuánto cuesta una póliza jurídica en Puebla? Precios 2025" />
-        <meta property="og:description" content="Tabla de precios actualizada. Desde $2,800 + IVA. Vigencia 12 meses. Emporio Inmobiliario Puebla." />
+        <meta property="og:title" content="¿Cuánto cuesta una póliza jurídica en Puebla?" />
+        <meta property="og:description" content="Precio según el monto de renta, cobertura, vigencia y quién debe pagarla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/cuanto-cuesta-poliza-juridica-puebla" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/cuanto-cuesta-poliza-juridica-puebla" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cuánto cuesta una póliza jurídica en Puebla? Precios 2025",
+          "headline": "¿Cuánto cuesta una póliza jurídica en Puebla?",
           "description": "Tabla de precios actualizada de la póliza jurídica de arrendamiento en Puebla.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },

@@ -48,13 +48,15 @@ export default function Administracion() {
   return (
     <>
       <Head>
-        <title>Administración de Inmuebles en Puebla — Emporio Inmobiliario</title>
-        <meta name="description" content="Servicio completo de administración de propiedades en Puebla. Cobranza, mantenimiento, reportes mensuales y representación ante inquilinos. Solo 10% de la renta mensual." />
+        <title>Administración de Inmuebles y Rentas en Puebla</title>
+        <meta name="description" content="Administramos tu propiedad en Puebla: cobranza, mantenimiento, reportes y atención al inquilino por 10% de la renta. Solicita una evaluación." />
         <meta name="keywords" content="administración de inmuebles puebla, administradora de rentas puebla, gestión de propiedades puebla, administración departamentos puebla, cobro de renta puebla" />
         <meta property="og:title" content="Administración de Inmuebles en Puebla — Emporio Inmobiliario" />
         <meta property="og:description" content="Nos encargamos de todo: cobranza, mantenimiento, reportes y representación. Tú recibes tu renta, nosotros gestionamos lo demás." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/administracion" />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Administración de Inmuebles y Rentas en Puebla" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/administracion" />
       </Head>

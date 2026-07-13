@@ -12,19 +12,20 @@ export default function ArticuloRequisitosRentar() {
   return (
     <>
       <Head>
-        <title>Requisitos para rentar una propiedad en Puebla — Guía para propietarios 2025</title>
-        <meta name="description" content="Todo lo que necesitas tener listo para rentar tu propiedad en Puebla: documentos, contrato, depósito, póliza jurídica y obligaciones fiscales del propietario." />
+        <title>Requisitos para rentar una casa en Puebla | Propietarios</title>
+        <meta name="description" content="Lista de requisitos para rentar tu casa en Puebla: documentos, contrato, depósito, póliza jurídica y obligaciones del propietario." />
         <meta name="keywords" content="requisitos rentar propiedad puebla, documentos para rentar casa puebla, qué necesito para rentar mi propiedad puebla, obligaciones propietario arrendamiento puebla" />
-        <meta property="og:title" content="Requisitos para rentar una propiedad en Puebla — Guía para propietarios 2025" />
+        <meta property="og:title" content="Requisitos para rentar una casa en Puebla | Propietarios" />
         <meta property="og:description" content="Documentos, contrato, depósito y todo lo que necesitas para rentar tu propiedad en Puebla correctamente." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/requisitos-rentar-propiedad-puebla-propietario" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/requisitos-rentar-propiedad-puebla-propietario" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Requisitos para rentar una propiedad en Puebla — Guía para propietarios 2025",
+          "headline": "Requisitos para rentar una casa en Puebla: guía para propietarios",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-09-04",

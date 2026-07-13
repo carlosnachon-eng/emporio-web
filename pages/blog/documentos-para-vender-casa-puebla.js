@@ -109,6 +109,11 @@ property="og:description"
 content="Conoce los documentos necesarios para vender una casa y evitar retrasos."
 />
 
+<meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/documentos-para-vender-casa-puebla" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index, follow" />
+
 <link
 rel="canonical"
 href="https://www.emporioinmobiliario.com.mx/blog/documentos-para-vender-casa-puebla"

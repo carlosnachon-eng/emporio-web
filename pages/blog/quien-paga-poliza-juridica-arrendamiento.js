@@ -12,13 +12,15 @@ export default function ArticuloQuienPaga() {
   return (
     <>
       <Head>
-        <title>¿Quién paga la póliza jurídica: el propietario o el inquilino? — Emporio Inmobiliario</title>
-        <meta name="description" content="En Puebla, la póliza jurídica generalmente la paga el inquilino como alternativa al aval. Te explicamos por qué funciona así y qué incluye ese costo." />
+        <title>¿Quién paga la póliza jurídica de arrendamiento?</title>
+        <meta name="description" content="Generalmente la paga el inquilino, pero puede negociarse. Conoce quién paga la póliza jurídica, cuánto cuesta y qué protege en Puebla." />
         <meta name="keywords" content="quién paga la póliza jurídica, póliza jurídica quién la paga, póliza jurídica arrendamiento quién paga, inquilino paga póliza jurídica puebla" />
         <meta property="og:title" content="¿Quién paga la póliza jurídica: el propietario o el inquilino?" />
         <meta property="og:description" content="En Puebla la póliza jurídica generalmente la paga el inquilino. Te explicamos por qué y qué incluye." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/quien-paga-poliza-juridica-arrendamiento" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="¿Quién paga la póliza jurídica de arrendamiento?" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/quien-paga-poliza-juridica-arrendamiento" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

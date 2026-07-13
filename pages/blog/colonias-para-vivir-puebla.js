@@ -70,19 +70,21 @@ export default function ArticuloColonias() {
   return (
     <>
       <Head>
-        <title>Las mejores colonias para vivir en Puebla en 2025 — Emporio Inmobiliario</title>
-        <meta name="description" content="Guía completa de las mejores zonas para vivir en Puebla: Lomas de Angelópolis, Cholula, Cuautlancingo, Centro Histórico y más. Precios de renta y compra por colonia 2025." />
+        <title>Mejores colonias y zonas para vivir en Puebla</title>
+        <meta name="description" content="Compara las mejores colonias para vivir en Puebla: Lomas de Angelópolis, Cholula, Cuautlancingo y Centro. Perfil, ventajas y precios por zona." />
         <meta name="keywords" content="mejores colonias puebla, dónde vivir en puebla, colonias seguras puebla, lomas angelópolis renta, san andrés cholula departamentos, cuautlancingo renta" />
-        <meta property="og:title" content="Las mejores colonias para vivir en Puebla en 2025" />
-        <meta property="og:description" content="Guía de las mejores zonas para vivir en Puebla con precios de renta y compra actualizados 2025." />
+        <meta property="og:title" content="Mejores colonias y zonas para vivir en Puebla" />
+        <meta property="og:description" content="Compara zonas de Puebla por perfil, ventajas y precios de renta y compra." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/colonias-para-vivir-puebla" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mejores colonias y zonas para vivir en Puebla" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/colonias-para-vivir-puebla" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Las mejores colonias para vivir en Puebla en 2025",
+          "headline": "Mejores colonias y zonas para vivir en Puebla",
           "description": "Guía de las mejores zonas para vivir en Puebla con precios actualizados.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },

@@ -12,19 +12,20 @@ export default function ArticuloCuantoCobra() {
   return (
     <>
       <Head>
-        <title>¿Cuánto cobra una inmobiliaria en Puebla? Comisiones 2025 — Emporio Inmobiliario</title>
-        <meta name="description" content="Conoce cuánto cobra una inmobiliaria en Puebla por renta, venta y administración. Comisiones reales del mercado y qué incluye cada servicio." />
+        <title>¿Cuánto cobra una inmobiliaria en Puebla?</title>
+        <meta name="description" content="Conoce la comisión de una inmobiliaria en Puebla por vender, rentar o administrar una propiedad, qué incluye y cuándo se paga." />
         <meta name="keywords" content="cuánto cobra inmobiliaria puebla, comisión inmobiliaria puebla, honorarios inmobiliaria puebla, costo inmobiliaria renta venta puebla" />
-        <meta property="og:title" content="¿Cuánto cobra una inmobiliaria en Puebla? Comisiones 2025" />
-        <meta property="og:description" content="Comisiones reales de inmobiliarias en Puebla para renta, venta y administración. Actualizado 2025." />
+        <meta property="og:title" content="¿Cuánto cobra una inmobiliaria en Puebla?" />
+        <meta property="og:description" content="Comisiones por vender, rentar y administrar una propiedad en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/cuanto-cobra-inmobiliaria-puebla" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/cuanto-cobra-inmobiliaria-puebla" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cuánto cobra una inmobiliaria en Puebla? Comisiones 2025",
+          "headline": "¿Cuánto cobra una inmobiliaria en Puebla?",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-08-14",

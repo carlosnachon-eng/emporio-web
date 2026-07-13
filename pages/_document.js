@@ -7,18 +7,12 @@ export default function Document() {
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
 
-        {/* Meta básico */}
-        <meta name="description" content="Emporio Inmobiliario — Vende, renta o encuentra tu próxima propiedad en Puebla. Más de 20 años de experiencia, sin costo hasta cerrar." />
-        <meta name="keywords" content="inmobiliaria puebla, renta puebla, venta casas puebla, departamentos puebla, emporio inmobiliario" />
+        {/* Metadatos compartidos; title, description y URL se definen por página. */}
         <meta name="author" content="Emporio Inmobiliario" />
-        <meta name="robots" content="index, follow" />
 
         {/* Open Graph — vista previa en WhatsApp, Facebook, etc. */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Emporio Inmobiliario" />
-        <meta property="og:title" content="Emporio Inmobiliario — Tu propiedad en Puebla" />
-        <meta property="og:description" content="Vende, renta o encuentra tu próxima propiedad en Puebla. Más de 20 años de experiencia, sin costo hasta cerrar." />
-        <meta property="og:url" content="https://www.emporioinmobiliario.com.mx" />
         <meta property="og:image" content="https://www.emporioinmobiliario.com.mx/logo.png" />
         <meta property="og:image:width" content="768" />
         <meta property="og:image:height" content="434" />
@@ -26,8 +20,6 @@ export default function Document() {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Emporio Inmobiliario — Tu propiedad en Puebla" />
-        <meta name="twitter:description" content="Vende, renta o encuentra tu próxima propiedad en Puebla. Más de 20 años de experiencia." />
         <meta name="twitter:image" content="https://www.emporioinmobiliario.com.mx/logo.png" />
 
         {/* Google Search Console — agregar tu código aquí cuando lo tengas */}

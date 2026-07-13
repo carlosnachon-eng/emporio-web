@@ -29,20 +29,21 @@ export default function ArticuloCuantoVale() {
   return (
     <>
       <Head>
-        <title>¿Cuánto vale mi casa en Puebla? Precios por zona 2025 — Emporio Inmobiliario</title>
-        <meta name="description" content="Conoce el valor de tu propiedad en Puebla. Precios de casas, departamentos y terrenos por zona en 2025. Factores que determinan el precio y cómo hacer un avalúo." />
+        <title>¿Cuánto vale mi casa en Puebla? Guía de valuación</title>
+        <meta name="description" content="Estima cuánto vale tu casa en Puebla: factores, precios por zona y diferencia entre opinión de valor y avalúo. Solicita una valuación." />
         <meta name="keywords" content="cuánto vale mi casa puebla, precio casas puebla 2025, valor propiedad puebla, avalúo inmueble puebla, precio m2 puebla, lomas angelópolis precio" />
-        <meta property="og:title" content="¿Cuánto vale mi casa en Puebla? Precios por zona 2025" />
-        <meta property="og:description" content="Precios de casas, departamentos y terrenos en Puebla por zona. Actualizado 2025." />
+        <meta property="og:title" content="¿Cuánto vale mi casa en Puebla? Guía de valuación" />
+        <meta property="og:description" content="Factores, precios por zona y opciones para conocer el valor de tu inmueble." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/cuanto-vale-mi-casa-puebla" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/cuanto-vale-mi-casa-puebla" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cuánto vale mi casa en Puebla? Precios por zona 2025",
-          "description": "Precios de casas, departamentos y terrenos en Puebla por zona. Actualizado 2025.",
+          "headline": "¿Cuánto vale mi casa en Puebla? Guía de valuación",
+          "description": "Factores y precios por zona para estimar el valor de una propiedad en Puebla.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-07-03",

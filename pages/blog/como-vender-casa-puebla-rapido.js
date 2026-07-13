@@ -12,19 +12,20 @@ export default function ArticuloVenderCasa() {
   return (
     <>
       <Head>
-        <title>¿Cómo vender una casa en Puebla rápido? Guía 2025 — Emporio Inmobiliario</title>
-        <meta name="description" content="Guía completa para vender tu casa en Puebla: precio correcto, preparación, canales de difusión y errores que evitar. Con inmobiliaria o sin ella." />
+        <title>Cómo vender una casa en Puebla rápido y al mejor precio</title>
+        <meta name="description" content="Pasos para vender tu casa en Puebla: valuación, documentos, preparación, difusión y comisión. Solicita una estrategia de venta." />
         <meta name="keywords" content="cómo vender casa puebla, vender propiedad puebla rápido, vender inmueble puebla, inmobiliaria venta puebla, vender departamento puebla 2025" />
-        <meta property="og:title" content="¿Cómo vender una casa en Puebla rápido? Guía 2025" />
+        <meta property="og:title" content="Cómo vender una casa en Puebla rápido y al mejor precio" />
         <meta property="og:description" content="Todo lo que necesitas saber para vender tu propiedad en Puebla de forma rápida y al mejor precio." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/como-vender-casa-puebla-rapido" />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.emporioinmobiliario.com.mx/blog/como-vender-casa-puebla-rapido" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cómo vender una casa en Puebla rápido? Guía 2025",
+          "headline": "Cómo vender una casa en Puebla rápido y al mejor precio",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-07-10",

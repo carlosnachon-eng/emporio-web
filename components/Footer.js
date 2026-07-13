@@ -1,4 +1,59 @@
+import { useRouter } from "next/router";
+
+const RUTAS_SEO = {
+  poliza: [
+    ["Quién paga la póliza jurídica", "/blog/quien-paga-poliza-juridica-arrendamiento"],
+    ["Cuánto cuesta una póliza jurídica", "/blog/cuanto-cuesta-poliza-juridica-puebla"],
+    ["Póliza jurídica vs. aval", "/blog/poliza-juridica-vs-aval-puebla"],
+    ["Cómo rentar una propiedad", "/blog/como-rentar-mi-casa-puebla"],
+    ["Administración de inmuebles", "/administracion"],
+    ["Propiedades disponibles en renta", "/propiedades?operacion=rental"],
+  ],
+  propietarios: [
+    ["Cómo vender una casa en Puebla", "/blog/como-vender-casa-puebla-rapido"],
+    ["Cuánto vale mi casa", "/blog/cuanto-vale-mi-casa-puebla"],
+    ["Documentos para vender", "/blog/documentos-para-vender-casa-puebla"],
+    ["Comisión de una inmobiliaria", "/blog/cuanto-cobra-inmobiliaria-puebla"],
+    ["Administración de rentas", "/administracion"],
+    ["Quiero vender o rentar mi inmueble", "/propietarios"],
+  ],
+};
+
+function RutaContextual({ pathname }) {
+  const esPoliza = /poliza|blindaje|rentar-departamento|inquilino/.test(pathname);
+  const esPropietario = /vender|vale-mi-casa|documentos-para-vender|cuanto-cobra|administracion|propietarios|rentar-mi-casa|requisitos-rentar-propiedad/.test(pathname);
+  const enlaces = esPoliza ? RUTAS_SEO.poliza : esPropietario ? RUTAS_SEO.propietarios : null;
+  if (!enlaces) return null;
+
+  return (
+    <nav aria-label="Guías relacionadas" style={{ background: "#f8f8fa", borderTop: "1px solid #eee", padding: "32px 24px" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.emporioinmobiliario.com.mx/" },
+          { "@type": "ListItem", position: 2, name: pathname.startsWith("/blog/") ? "Blog inmobiliario" : "Servicios", item: pathname.startsWith("/blog/") ? "https://www.emporioinmobiliario.com.mx/blog" : "https://www.emporioinmobiliario.com.mx/propietarios" },
+          { "@type": "ListItem", position: 3, name: esPoliza ? "Póliza jurídica" : "Servicios para propietarios", item: `https://www.emporioinmobiliario.com.mx${pathname}` },
+        ],
+      }) }} />
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <p style={{ margin: "0 0 14px", color: "#1a1a2e", fontSize: 16, fontWeight: 800 }}>
+          Siguiente paso recomendado
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          {enlaces.filter(([, href]) => href.split("?")[0] !== pathname).map(([label, href]) => (
+            <a key={href} href={href} style={{ color: "#1a1a2e", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 9, padding: "10px 14px", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>
+              {label} <span aria-hidden="true" style={{ color: "#C8102E" }}>→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 export default function Footer() {
+  const { pathname } = useRouter();
   const currentYear = new Date().getFullYear();
   const CSS = `
     .footer-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.25fr 1.2fr; gap: 40px; }
@@ -16,6 +71,8 @@ export default function Footer() {
     }
   `;
   return (
+    <>
+    <RutaContextual pathname={pathname} />
     <footer style={{ background: "#1a1a2e", color: "#fff", fontFamily: "'Montserrat', sans-serif", paddingTop: 56 }}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px 48px" }}>
@@ -128,5 +185,6 @@ export default function Footer() {
         <a href="/aviso-privacidad" style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>Aviso de privacidad</a>
       </div>
     </footer>
+    </>
   );
 }
