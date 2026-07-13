@@ -3,8 +3,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
-  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla en 2025?", emoji: "🏠" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla?", emoji: "🏠" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
   { slug: "quien-paga-poliza-juridica-arrendamiento", titulo: "¿Quién paga la póliza jurídica: el propietario o el inquilino?", emoji: "💰" },
 ];
 
@@ -20,11 +20,11 @@ export default function ArticuloDeptosRenta() {
   return (
     <>
       <Head>
-        <title>Departamentos en Renta en Puebla 2025 — Zonas, precios y requisitos — Emporio Inmobiliario</title>
-        <meta name="description" content="Encuentra departamentos en renta en Puebla. Precios por zona, requisitos para rentar y las mejores colonias en 2025. Lomas de Angelópolis, Cholula, Cuautlancingo y más." />
-        <meta name="keywords" content="departamentos en renta puebla, departamentos renta cholula, renta lomas angelópolis, departamentos cuautlancingo renta, renta puebla 2025, apartamentos en renta puebla" />
-        <meta property="og:title" content="Departamentos en Renta en Puebla 2025 — Zonas, precios y requisitos" />
-        <meta property="og:description" content="Precios de renta por zona en Puebla y requisitos para rentar. Guía actualizada 2025." />
+        <title>Departamentos en Renta en Puebla — Zonas, precios y requisitos — Emporio Inmobiliario</title>
+        <meta name="description" content="Encuentra departamentos en renta en Puebla. Conoce zonas, rangos de renta orientativos y requisitos en Lomas de Angelópolis, Cholula, Cuautlancingo y más." />
+        <meta name="keywords" content="departamentos en renta puebla, departamentos renta cholula, renta lomas angelópolis, departamentos cuautlancingo renta, apartamentos en renta puebla" />
+        <meta property="og:title" content="Departamentos en Renta en Puebla — Zonas, precios y requisitos" />
+        <meta property="og:description" content="Zonas, rangos de renta orientativos y requisitos para rentar en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/departamentos-en-renta-puebla" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow" />
@@ -32,8 +32,8 @@ export default function ArticuloDeptosRenta() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Departamentos en Renta en Puebla 2025 — Zonas, precios y requisitos",
-          "description": "Precios de renta por zona en Puebla y requisitos para rentar. Guía 2025.",
+          "headline": "Departamentos en Renta en Puebla — Zonas, precios y requisitos",
+          "description": "Zonas, rangos de renta orientativos y requisitos para rentar en Puebla.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-07-31",
@@ -58,10 +58,10 @@ export default function ArticuloDeptosRenta() {
               <span style={{ fontSize: 11, color: "#fca5a5", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Guía para inquilinos</span>
             </div>
             <h1 style={{ fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 900, color: "#fff", margin: "0 0 20px", lineHeight: 1.15 }}>
-              Departamentos en renta en Puebla — Zonas, precios y requisitos 2025
+              Departamentos en renta en Puebla — Zonas, precios y requisitos
             </h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", margin: "0 0 28px", lineHeight: 1.7 }}>
-              Guía completa con precios de renta por colonia, requisitos para rentar y cómo encontrar el departamento ideal en Puebla en 2025.
+              Guía con rangos de renta por colonia, requisitos y criterios para encontrar el departamento adecuado en Puebla.
             </p>
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>📅 31 de julio, 2025</span>
@@ -78,7 +78,7 @@ export default function ArticuloDeptosRenta() {
           </p>
 
           {/* Zonas */}
-          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px" }}>Precios de renta por zona en Puebla 2025</h2>
+          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px" }}>Rangos de renta por zona en Puebla</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 48 }}>
             {ZONAS.map((z, i) => (
               <div key={i} style={{ border: "1px solid #f3f4f6", borderRadius: 16, overflow: "hidden" }}>

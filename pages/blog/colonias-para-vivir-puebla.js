@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
-  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla en 2025?", emoji: "🏠" },
+  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla?", emoji: "🏠" },
   { slug: "cuanto-cuesta-poliza-juridica-puebla", titulo: "¿Cuánto cuesta una póliza jurídica en Puebla?", emoji: "🛡️" },
   { slug: "administracion-inmuebles-puebla", titulo: "¿Vale la pena contratar administración de inmuebles en Puebla?", emoji: "⚙️" },
 ];
@@ -111,7 +111,7 @@ export default function ArticuloColonias() {
               <span style={{ fontSize: 11, color: "#fca5a5", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Mercado Inmobiliario</span>
             </div>
             <h1 style={{ fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 900, color: "#fff", margin: "0 0 20px", lineHeight: 1.15 }}>
-              Las mejores colonias para vivir en Puebla en 2025
+              Las mejores colonias para vivir en Puebla
             </h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", margin: "0 0 28px", lineHeight: 1.7 }}>
               Desde Lomas de Angelópolis hasta el Centro Histórico. Comparamos las zonas más buscadas con precios de renta, compra y el perfil de cada colonia para que encuentres la que mejor se adapta a ti.

@@ -125,7 +125,7 @@ const ARTICULOS = [
   },
   {
     slug: "como-rentar-departamento-puebla",
-    titulo: "¿Cómo rentar un departamento en Puebla en 2025?",
+    titulo: "¿Cómo rentar un departamento en Puebla?",
     descripcion: "Guía completa para inquilinos: requisitos, zonas más buscadas, precios promedio y cómo evitar fraudes al rentar en Puebla.",
     categoria: "Guías",
     fecha: "12 de junio, 2025",
@@ -135,7 +135,7 @@ const ARTICULOS = [
   },
   {
     slug: "colonias-para-vivir-puebla",
-    titulo: "Las mejores colonias para vivir en Puebla en 2025",
+    titulo: "Las mejores colonias para vivir en Puebla",
     descripcion: "Desde Lomas de Angelópolis hasta Cholula. Comparamos las zonas más buscadas para rentar o comprar en Puebla según tu estilo de vida y presupuesto.",
     categoria: "Mercado Inmobiliario",
     fecha: "19 de junio, 2025",
@@ -155,8 +155,8 @@ const ARTICULOS = [
   },
   {
     slug: "cuanto-vale-mi-casa-puebla",
-    titulo: "¿Cuánto vale mi casa en Puebla? Precios por zona 2025",
-    descripcion: "Conoce el valor de tu propiedad en Puebla. Precios de casas, departamentos y terrenos por zona en 2025.",
+    titulo: "¿Cuánto vale mi casa en Puebla? Guía de valuación",
+    descripcion: "Conoce los factores que influyen en el valor de casas, departamentos y terrenos en Puebla.",
     categoria: "Mercado Inmobiliario",
     fecha: "3 de julio, 2025",
     lectura: "5 min",
@@ -185,8 +185,8 @@ const ARTICULOS = [
   },
   {
     slug: "casas-en-venta-puebla",
-    titulo: "Casas en venta en Puebla — Guía completa 2025",
-    descripcion: "Precios por zona, tipos de propiedad, opciones de crédito y todo lo que necesitas saber para comprar casa en Puebla en 2025.",
+    titulo: "Casas en venta en Puebla — Guía completa",
+    descripcion: "Zonas, tipos de propiedad, opciones de crédito y lo que necesitas revisar antes de comprar casa en Puebla.",
     categoria: "Guías",
     fecha: "24 de julio, 2025",
     lectura: "6 min",
@@ -195,8 +195,8 @@ const ARTICULOS = [
   },
   {
     slug: "departamentos-en-renta-puebla",
-    titulo: "Departamentos en renta en Puebla — Zonas, precios y requisitos 2025",
-    descripcion: "Guía completa con precios de renta por colonia, requisitos para rentar y cómo encontrar el departamento ideal en Puebla en 2025.",
+    titulo: "Departamentos en renta en Puebla — Zonas, precios y requisitos",
+    descripcion: "Guía con rangos de renta por colonia, requisitos y criterios para encontrar departamento en Puebla.",
     categoria: "Guías",
     fecha: "31 de julio, 2025",
     lectura: "5 min",
@@ -215,7 +215,7 @@ const ARTICULOS = [
   },
   {
     slug: "cuanto-cobra-inmobiliaria-puebla",
-    titulo: "¿Cuánto cobra una inmobiliaria en Puebla? Comisiones 2025",
+    titulo: "¿Cuánto cobra una inmobiliaria en Puebla?",
     descripcion: "Comisiones reales del mercado para renta, venta y administración en Puebla.",
     categoria: "Para propietarios",
     fecha: "14 de agosto, 2025",

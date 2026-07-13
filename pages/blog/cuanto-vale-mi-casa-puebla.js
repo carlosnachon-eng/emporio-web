@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
   { slug: "como-vender-casa-puebla-rapido", titulo: "¿Cómo vender una casa en Puebla rápido?", emoji: "🏡" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
   { slug: "preventa-departamentos-puebla", titulo: "Departamentos en preventa en Puebla — qué considerar", emoji: "🏗️" },
 ];
 
@@ -31,7 +31,7 @@ export default function ArticuloCuantoVale() {
       <Head>
         <title>¿Cuánto vale mi casa en Puebla? Guía de valuación</title>
         <meta name="description" content="Estima cuánto vale tu casa en Puebla: factores, precios por zona y diferencia entre opinión de valor y avalúo. Solicita una valuación." />
-        <meta name="keywords" content="cuánto vale mi casa puebla, precio casas puebla 2025, valor propiedad puebla, avalúo inmueble puebla, precio m2 puebla, lomas angelópolis precio" />
+        <meta name="keywords" content="cuánto vale mi casa puebla, precio casas puebla, valor propiedad puebla, avalúo inmueble puebla, precio m2 puebla, lomas angelópolis precio" />
         <meta property="og:title" content="¿Cuánto vale mi casa en Puebla? Guía de valuación" />
         <meta property="og:description" content="Factores, precios por zona y opciones para conocer el valor de tu inmueble." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/cuanto-vale-mi-casa-puebla" />
@@ -100,7 +100,7 @@ export default function ArticuloCuantoVale() {
             ))}
           </div>
 
-          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>Precios por zona en Puebla 2025</h2>
+          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>Referencias de valor por zona en Puebla</h2>
           <p style={{ fontSize: 15, color: "#6b7280", margin: "0 0 20px", lineHeight: 1.7 }}>Rangos aproximados de mercado para propiedades en buen estado de conservación.</p>
           <div style={{ border: "1px solid #f3f4f6", borderRadius: 16, overflow: "hidden", marginBottom: 12, boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr", background: "#C8102E" }}>

@@ -3,8 +3,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
-  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Precios por zona 2025", emoji: "💰" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Guía de valuación", emoji: "💰" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
   { slug: "preventa-departamentos-puebla", titulo: "Departamentos en preventa en Puebla — qué considerar", emoji: "🏗️" },
 ];
 
@@ -14,7 +14,7 @@ export default function ArticuloVenderCasa() {
       <Head>
         <title>Cómo vender una casa en Puebla rápido y al mejor precio</title>
         <meta name="description" content="Pasos para vender tu casa en Puebla: valuación, documentos, preparación, difusión y comisión. Solicita una estrategia de venta." />
-        <meta name="keywords" content="cómo vender casa puebla, vender propiedad puebla rápido, vender inmueble puebla, inmobiliaria venta puebla, vender departamento puebla 2025" />
+        <meta name="keywords" content="cómo vender casa puebla, vender propiedad puebla rápido, vender inmueble puebla, inmobiliaria venta puebla, vender departamento puebla" />
         <meta property="og:title" content="Cómo vender una casa en Puebla rápido y al mejor precio" />
         <meta property="og:description" content="Todo lo que necesitas saber para vender tu propiedad en Puebla de forma rápida y al mejor precio." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/como-vender-casa-puebla-rapido" />

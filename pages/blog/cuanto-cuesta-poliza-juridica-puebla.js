@@ -17,7 +17,7 @@ const PRECIOS = [
 const ARTICULOS_RELACIONADOS = [
   { slug: "poliza-juridica-vs-aval-puebla", titulo: "Póliza jurídica vs aval: ¿cuál conviene más en Puebla?", emoji: "⚖️" },
   { slug: "quien-paga-poliza-juridica-arrendamiento", titulo: "¿Quién paga la póliza jurídica: el propietario o el inquilino?", emoji: "💰" },
-  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla en 2025?", emoji: "🏠" },
+  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla?", emoji: "🏠" },
 ];
 
 export default function ArticuloPolizaPrecio() {
@@ -26,7 +26,7 @@ export default function ArticuloPolizaPrecio() {
       <Head>
         <title>¿Cuánto cuesta una póliza jurídica en Puebla?</title>
         <meta name="description" content="Consulta el precio de una póliza jurídica de arrendamiento en Puebla según la renta, qué incluye, su vigencia y quién debe pagarla." />
-        <meta name="keywords" content="póliza jurídica puebla precio, cuánto cuesta póliza jurídica, póliza jurídica arrendamiento costo, precio póliza jurídica puebla 2025" />
+        <meta name="keywords" content="póliza jurídica puebla precio, cuánto cuesta póliza jurídica, póliza jurídica arrendamiento costo, precio póliza jurídica puebla" />
         <meta property="og:title" content="¿Cuánto cuesta una póliza jurídica en Puebla?" />
         <meta property="og:description" content="Precio según el monto de renta, cobertura, vigencia y quién debe pagarla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/cuanto-cuesta-poliza-juridica-puebla" />
@@ -68,7 +68,7 @@ export default function ArticuloPolizaPrecio() {
               ¿Cuánto cuesta una póliza jurídica en Puebla?
             </h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", margin: "0 0 28px", lineHeight: 1.7 }}>
-              Tabla de precios actualizada 2025. Desde $2,800 + IVA según el monto de tu renta mensual.
+              Consulta el costo según el monto de tu renta mensual. Planes desde $2,800 + IVA.
             </p>
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>📅 22 de mayo, 2025</span>
@@ -99,7 +99,7 @@ export default function ArticuloPolizaPrecio() {
 
           {/* Tabla de precios */}
           <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 8px" }}>
-            Tabla de precios — Póliza Jurídica Puebla 2025
+            Tabla de precios de Póliza Jurídica en Puebla
           </h2>
           <p style={{ fontSize: 15, color: "#6b7280", margin: "0 0 24px", lineHeight: 1.7 }}>
             Los precios varían según el monto de la renta mensual del inmueble. La póliza tiene vigencia de 12 meses.

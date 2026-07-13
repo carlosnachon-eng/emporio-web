@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 const ARTICULOS_RELACIONADOS = [
   { slug: "cuanto-cuesta-poliza-juridica-puebla", titulo: "¿Cuánto cuesta una póliza jurídica en Puebla?", emoji: "🛡️" },
   { slug: "poliza-juridica-vs-aval-puebla", titulo: "Póliza jurídica vs aval: ¿cuál conviene más en Puebla?", emoji: "⚖️" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
 ];
 
 const ZONAS = [
@@ -20,11 +20,11 @@ export default function ArticuloComoRentar() {
   return (
     <>
       <Head>
-        <title>¿Cómo rentar un departamento en Puebla en 2025? Guía completa — Emporio Inmobiliario</title>
-        <meta name="description" content="Guía paso a paso para rentar en Puebla: requisitos, zonas más buscadas, precios promedio por colonia y cómo evitar fraudes. Actualizada 2025." />
-        <meta name="keywords" content="cómo rentar departamento puebla, requisitos para rentar en puebla, departamentos en renta puebla, rentar casa puebla 2025, guía renta puebla" />
-        <meta property="og:title" content="¿Cómo rentar un departamento en Puebla en 2025? Guía completa" />
-        <meta property="og:description" content="Requisitos, zonas, precios y consejos para rentar en Puebla. Guía actualizada 2025." />
+        <title>¿Cómo rentar un departamento en Puebla? Guía completa — Emporio Inmobiliario</title>
+        <meta name="description" content="Guía paso a paso para rentar en Puebla: requisitos, zonas más buscadas, rangos de renta por colonia y cómo evitar fraudes." />
+        <meta name="keywords" content="cómo rentar departamento puebla, requisitos para rentar en puebla, departamentos en renta puebla, rentar casa puebla, guía renta puebla" />
+        <meta property="og:title" content="¿Cómo rentar un departamento en Puebla? Guía completa" />
+        <meta property="og:description" content="Requisitos, zonas, rangos de renta y consejos para rentar en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/como-rentar-departamento-puebla" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow" />
@@ -32,7 +32,7 @@ export default function ArticuloComoRentar() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cómo rentar un departamento en Puebla en 2025? Guía completa",
+          "headline": "¿Cómo rentar un departamento en Puebla? Guía completa",
           "description": "Guía paso a paso para rentar en Puebla: requisitos, zonas, precios y consejos.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
@@ -59,7 +59,7 @@ export default function ArticuloComoRentar() {
               <span style={{ fontSize: 11, color: "#fca5a5", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Guía para inquilinos</span>
             </div>
             <h1 style={{ fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 900, color: "#fff", margin: "0 0 20px", lineHeight: 1.15 }}>
-              ¿Cómo rentar un departamento en Puebla en 2025?
+              ¿Cómo rentar un departamento en Puebla?
             </h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", margin: "0 0 28px", lineHeight: 1.7 }}>
               Guía completa con requisitos, zonas más buscadas, precios por colonia y consejos para evitar fraudes. Todo lo que necesitas saber antes de firmar un contrato en Puebla.
@@ -128,7 +128,7 @@ export default function ArticuloComoRentar() {
 
           {/* Precios por zona */}
           <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>
-            Precios de renta por zona en Puebla 2025
+            Rangos de renta por zona en Puebla
           </h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.9, margin: "0 0 20px" }}>
             Los precios varían significativamente según la zona. Estos son los rangos aproximados para departamentos de 2 recámaras en las zonas más buscadas:

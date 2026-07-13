@@ -3,8 +3,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
-  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Precios por zona 2025", emoji: "💰" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Guía de valuación", emoji: "💰" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
   { slug: "como-vender-casa-puebla-rapido", titulo: "¿Cómo vender una casa en Puebla rápido?", emoji: "🏡" },
 ];
 
@@ -13,10 +13,10 @@ export default function ArticuloPreventa() {
     <>
       <Head>
         <title>Departamentos en preventa en Puebla — qué considerar antes de comprar — Emporio Inmobiliario</title>
-        <meta name="description" content="Guía completa para comprar departamentos en preventa en Puebla. Ventajas, riesgos, qué revisar y las mejores zonas de preventa en 2025. Torre Zaia en Lomas de Angelópolis III." />
+        <meta name="description" content="Guía para comprar departamentos en preventa en Puebla. Conoce ventajas, riesgos, qué revisar y zonas con oferta de preventa, incluyendo Torre Zaia." />
         <meta name="keywords" content="departamentos en preventa puebla, preventa lomas angelópolis, torre zaia puebla, departamentos nuevos puebla, inversión inmobiliaria puebla preventa" />
         <meta property="og:title" content="Departamentos en preventa en Puebla — qué considerar antes de comprar" />
-        <meta property="og:description" content="Ventajas, riesgos y qué revisar al comprar en preventa en Puebla. Zonas con mejor plusvalía 2025." />
+        <meta property="og:description" content="Ventajas, riesgos y qué revisar al comprar en preventa en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/preventa-departamentos-puebla" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow" />

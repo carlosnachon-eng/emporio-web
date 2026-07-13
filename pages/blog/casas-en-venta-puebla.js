@@ -3,8 +3,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const ARTICULOS_RELACIONADOS = [
-  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Precios por zona 2025", emoji: "💰" },
-  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla en 2025", emoji: "📍" },
+  { slug: "cuanto-vale-mi-casa-puebla", titulo: "¿Cuánto vale mi casa en Puebla? Guía de valuación", emoji: "💰" },
+  { slug: "colonias-para-vivir-puebla", titulo: "Las mejores colonias para vivir en Puebla", emoji: "📍" },
   { slug: "preventa-departamentos-puebla", titulo: "Departamentos en preventa en Puebla — qué considerar", emoji: "🏗️" },
 ];
 
@@ -28,11 +28,11 @@ export default function ArticuloCasasVenta() {
   return (
     <>
       <Head>
-        <title>Casas en Venta en Puebla 2025 — Guía completa para compradores — Emporio Inmobiliario</title>
-        <meta name="description" content="Guía completa para comprar casa en Puebla en 2025. Precios por zona, tipos de propiedad, cómo usar crédito hipotecario y las mejores colonias para invertir." />
-        <meta name="keywords" content="casas en venta puebla, comprar casa puebla, casas puebla 2025, venta inmuebles puebla, casas lomas angelópolis, casas cholula venta, precio casas puebla" />
-        <meta property="og:title" content="Casas en Venta en Puebla 2025 — Guía completa para compradores" />
-        <meta property="og:description" content="Precios, zonas y proceso para comprar casa en Puebla. Guía actualizada 2025." />
+        <title>Casas en Venta en Puebla — Guía completa para compradores — Emporio Inmobiliario</title>
+        <meta name="description" content="Guía para comprar casa en Puebla. Compara zonas, tipos de propiedad, opciones de crédito hipotecario y aspectos que debes revisar antes de decidir." />
+        <meta name="keywords" content="casas en venta puebla, comprar casa puebla, venta inmuebles puebla, casas lomas angelópolis, casas cholula venta, precio casas puebla" />
+        <meta property="og:title" content="Casas en Venta en Puebla — Guía completa para compradores" />
+        <meta property="og:description" content="Zonas, tipos de propiedad y proceso para comprar casa en Puebla." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/casas-en-venta-puebla" />
         <meta property="og:type" content="article" />
         <meta name="robots" content="index, follow" />
@@ -40,8 +40,8 @@ export default function ArticuloCasasVenta() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "Casas en Venta en Puebla 2025 — Guía completa para compradores",
-          "description": "Guía completa para comprar casa en Puebla en 2025.",
+          "headline": "Casas en Venta en Puebla — Guía completa para compradores",
+          "description": "Guía completa para comprar casa en Puebla.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },
           "datePublished": "2025-07-24",
@@ -66,10 +66,10 @@ export default function ArticuloCasasVenta() {
               <span style={{ fontSize: 11, color: "#fca5a5", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Guía para compradores</span>
             </div>
             <h1 style={{ fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 900, color: "#fff", margin: "0 0 20px", lineHeight: 1.15 }}>
-              Casas en venta en Puebla — Guía completa 2025
+              Casas en venta en Puebla — Guía completa
             </h1>
             <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", margin: "0 0 28px", lineHeight: 1.7 }}>
-              Precios por zona, tipos de propiedad, cómo usar crédito hipotecario y todo lo que necesitas saber para comprar casa en Puebla en 2025.
+              Zonas, tipos de propiedad, opciones de crédito hipotecario y lo que necesitas revisar antes de comprar casa en Puebla.
             </p>
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>📅 24 de julio, 2025</span>

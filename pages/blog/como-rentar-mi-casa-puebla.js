@@ -12,10 +12,10 @@ export default function ArticuloComoRentarMiCasa() {
   return (
     <>
       <Head>
-        <title>¿Cómo rentar mi casa en Puebla? Guía para propietarios 2025 — Emporio Inmobiliario</title>
+        <title>¿Cómo rentar mi casa en Puebla? Guía para propietarios — Emporio Inmobiliario</title>
         <meta name="description" content="Guía completa para propietarios que quieren rentar su casa en Puebla. Requisitos, precios de renta por zona, cómo encontrar buenos inquilinos y cómo proteger tu patrimonio." />
         <meta name="keywords" content="cómo rentar mi casa puebla, rentar propiedad puebla, poner casa en renta puebla, arrendar inmueble puebla, requisitos rentar casa puebla propietario" />
-        <meta property="og:title" content="¿Cómo rentar mi casa en Puebla? Guía para propietarios 2025" />
+        <meta property="og:title" content="¿Cómo rentar mi casa en Puebla? Guía para propietarios" />
         <meta property="og:description" content="Todo lo que necesitas saber para rentar tu propiedad en Puebla de forma segura y al mejor precio." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/blog/como-rentar-mi-casa-puebla" />
         <meta property="og:type" content="article" />
@@ -24,7 +24,7 @@ export default function ArticuloComoRentarMiCasa() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "¿Cómo rentar mi casa en Puebla? Guía para propietarios 2025",
+          "headline": "¿Cómo rentar mi casa en Puebla? Guía para propietarios",
           "description": "Guía completa para propietarios que quieren rentar su casa en Puebla.",
           "author": { "@type": "Organization", "name": "Emporio Inmobiliario" },
           "publisher": { "@type": "Organization", "name": "Emporio Inmobiliario", "url": "https://www.emporioinmobiliario.com.mx" },

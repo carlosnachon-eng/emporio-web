@@ -66,7 +66,7 @@ export default function ArticuloCuantoCobra() {
             Una de las primeras preguntas que se hace un propietario al considerar trabajar con una inmobiliaria es cuánto le va a costar. La respuesta depende del tipo de servicio — no es lo mismo contratar a alguien para encontrar un inquilino que para administrar la propiedad de forma continua. Aquí te explicamos las comisiones reales del mercado en Puebla.
           </p>
 
-          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px" }}>Tabla de comisiones — mercado Puebla 2025</h2>
+          <h2 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px" }}>Comisiones habituales en el mercado de Puebla</h2>
           <div style={{ border: "1px solid #f3f4f6", borderRadius: 16, overflow: "hidden", marginBottom: 48, boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", background: "#C8102E" }}>
               {["Servicio", "Comisión típica", "Quién paga"].map((h, i) => (

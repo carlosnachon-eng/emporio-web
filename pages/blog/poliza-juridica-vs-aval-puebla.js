@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 const ARTICULOS_RELACIONADOS = [
   { slug: "cuanto-cuesta-poliza-juridica-puebla", titulo: "¿Cuánto cuesta una póliza jurídica en Puebla?", emoji: "🛡️" },
   { slug: "quien-paga-poliza-juridica-arrendamiento", titulo: "¿Quién paga la póliza jurídica: el propietario o el inquilino?", emoji: "💰" },
-  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla en 2025?", emoji: "🏠" },
+  { slug: "como-rentar-departamento-puebla", titulo: "¿Cómo rentar un departamento en Puebla?", emoji: "🏠" },
 ];
 
 export default function ArticuloPolizaVsAval() {
