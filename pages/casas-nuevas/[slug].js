@@ -206,15 +206,20 @@ export default function CasasNuevasDetalle({ coleccion, propiedades }) {
 
               <section style={panelStyle}>
                 <p style={eyebrowStyle}>Disponibles</p>
-                <h2 style={sectionTitleStyle}>Propiedades dentro de esta colección</h2>
+                <h2 style={sectionTitleStyle}>Casas disponibles</h2>
                 {propiedades.length > 0 ? (
                   propiedades.map((propiedad) => <PropiedadCard key={propiedad.public_id} propiedad={propiedad} />)
                 ) : (
-                  <div style={{ background: "#fff7ed", border: "1px solid #fed7aa", borderRadius: 14, padding: 20 }}>
-                    <p style={{ margin: "0 0 8px", color: "#9a3412", fontWeight: 800, fontSize: 14 }}>Aún faltan las fichas individuales.</p>
-                    <p style={{ margin: 0, color: "#7c2d12", fontSize: 13, lineHeight: 1.7 }}>
-                      Cuando las propiedades estén cargadas en Supabase, márcalas con <strong>grupo_propiedad_tipo = casas_nuevas</strong> y <strong>grupo_propiedad_slug = {coleccion.slug}</strong> para que aparezcan aquí automáticamente.
+                  <div style={{ background: "#fafafa", border: "1px solid #f0f0f0", borderRadius: 14, padding: 20 }}>
+                    <p style={{ margin: "0 0 8px", color: "#1a1a2e", fontWeight: 900, fontSize: 15 }}>
+                      {unidadesMostradas} {unidadesMostradas === 1 ? "casa disponible" : "casas disponibles"} desde {fmt(coleccion.precioDesde)}
                     </p>
+                    <p style={{ margin: "0 0 16px", color: "#6b7280", fontSize: 13, lineHeight: 1.7 }}>
+                      Te compartimos disponibilidad actual, diferencias entre unidades y agenda de visita directamente por WhatsApp.
+                    </p>
+                    <a href={`https://wa.me/522222573237?text=${encodeURIComponent(`Hola, me interesa revisar disponibilidad de ${coleccion.nombre}`)}`} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "#C8102E", color: "#fff", padding: "11px 14px", borderRadius: 10, fontWeight: 900, fontSize: 13, textDecoration: "none" }}>
+                      Pedir disponibilidad
+                    </a>
                   </div>
                 )}
               </section>
