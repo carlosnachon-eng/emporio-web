@@ -167,7 +167,13 @@ export default function Nosotros() {
                   <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                     <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#C8102E", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 900, flexShrink: 0 }}>{persona.inicial}</div>
                     <div>
-                      <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e" }}>{persona.nombre}</h3>
+                      <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e" }}>
+                        {persona.nombre === "Carlos Nachón" ? (
+                          <a href="/carlos-alejandro-nachon-saldivar" style={{ color: "inherit", textDecoration: "none" }}>
+                            {persona.nombre}
+                          </a>
+                        ) : persona.nombre}
+                      </h3>
                       <p style={{ margin: "4px 0 0", fontSize: 13, color: "#C8102E", fontWeight: 600 }}>{persona.rol}</p>
                     </div>
                   </div>

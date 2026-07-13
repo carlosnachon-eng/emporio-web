@@ -13,6 +13,7 @@ const LABELS = {
   nosotros: "Nosotros",
   "blindaje-legal": "Blindaje Legal",
   "blindaje-legal-partners": "Blindaje Legal Partners",
+  "carlos-alejandro-nachon-saldivar": "Carlos Alejandro Nachón Saldívar",
 };
 
 function nombreSegmento(segmento) {

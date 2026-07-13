@@ -40,6 +40,7 @@ const PAGINAS_ESTATICAS = [
   { loc: "/blindaje-legal-partners", changefreq: "monthly", priority: "0.9" },
   { loc: "/administracion", changefreq: "monthly", priority: "0.9" },
   { loc: "/nosotros", changefreq: "monthly", priority: "0.7" },
+  { loc: "/carlos-alejandro-nachon-saldivar", changefreq: "monthly", priority: "0.7" },
   { loc: "/contacto", changefreq: "monthly", priority: "0.8" },
   { loc: "/blog", changefreq: "weekly", priority: "0.85" },
 ];
