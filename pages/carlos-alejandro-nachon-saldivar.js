@@ -4,15 +4,19 @@ import Footer from "../components/Footer";
 
 const SITE_URL = "https://www.emporioinmobiliario.com.mx";
 const PAGE_URL = `${SITE_URL}/carlos-alejandro-nachon-saldivar`;
+const IMAGE_URL = `${SITE_URL}/images/carlos-alejandro-nachon-saldivar-fundador.jpg`;
 
 const CSS = `
   * { box-sizing: border-box; }
   .carlos-hero { padding: 76px 28px 72px; }
+  .carlos-hero-inner { display: grid; grid-template-columns: minmax(0, .86fr) minmax(480px, 1.14fr); gap: 52px; align-items: center; }
+  .carlos-portrait { border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 24px 60px rgba(0,0,0,.28); }
   .carlos-content { padding: 76px 28px 88px; }
   .carlos-section { padding-top: 44px; margin-top: 44px; border-top: 1px solid #ececf0; }
   .carlos-section:first-child { padding-top: 0; margin-top: 0; border-top: 0; }
   @media (max-width: 820px) {
     .carlos-hero { padding: 54px 22px 56px; }
+    .carlos-hero-inner { grid-template-columns: 1fr; gap: 36px; }
     .carlos-content { padding: 56px 22px 68px; }
   }
   @media (max-width: 480px) {
@@ -32,7 +36,17 @@ const structuredData = {
       name: "Carlos Alejandro Nachón Saldívar",
       isPartOf: { "@id": `${SITE_URL}/#organization` },
       mainEntity: { "@id": `${PAGE_URL}#person` },
+      primaryImageOfPage: { "@id": `${PAGE_URL}#primaryimage` },
       inLanguage: "es-MX",
+    },
+    {
+      "@type": "ImageObject",
+      "@id": `${PAGE_URL}#primaryimage`,
+      url: IMAGE_URL,
+      contentUrl: IMAGE_URL,
+      width: 1537,
+      height: 1023,
+      caption: "Carlos Alejandro Nachón Saldívar, Fundador y Director General de Emporio Inmobiliario",
     },
     {
       "@type": "Person",
@@ -40,6 +54,7 @@ const structuredData = {
       name: "Carlos Alejandro Nachón Saldívar",
       jobTitle: "Fundador y Director General de Emporio Inmobiliario",
       url: PAGE_URL,
+      image: { "@id": `${PAGE_URL}#primaryimage` },
       worksFor: { "@id": `${SITE_URL}/#organization` },
       affiliation: { "@id": `${SITE_URL}/#organization` },
     },
@@ -68,11 +83,18 @@ export default function CarlosAlejandroNachonSaldivar() {
         <meta property="og:title" content="Carlos Alejandro Nachón Saldívar | Fundador de Emporio Inmobiliario" />
         <meta property="og:description" content="Emporio nació con una idea muy sencilla: las personas merecen una mejor experiencia cuando toman decisiones sobre su patrimonio." />
         <meta property="og:url" content={PAGE_URL} />
+        <meta property="og:image" content={IMAGE_URL} />
+        <meta property="og:image:secure_url" content={IMAGE_URL} />
+        <meta property="og:image:width" content="1537" />
+        <meta property="og:image:height" content="1023" />
+        <meta property="og:image:alt" content="Carlos Alejandro Nachón Saldívar, Fundador y Director General de Emporio Inmobiliario" />
         <meta property="profile:first_name" content="Carlos Alejandro" />
         <meta property="profile:last_name" content="Nachón Saldívar" />
 
         <meta name="twitter:title" content="Carlos Alejandro Nachón Saldívar | Emporio Inmobiliario" />
         <meta name="twitter:description" content="Emporio nació con una idea muy sencilla: las personas merecen una mejor experiencia cuando toman decisiones sobre su patrimonio." />
+        <meta name="twitter:image" content={IMAGE_URL} />
+        <meta name="twitter:image:alt" content="Carlos Alejandro Nachón Saldívar, Fundador y Director General de Emporio Inmobiliario" />
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
@@ -84,13 +106,28 @@ export default function CarlosAlejandroNachonSaldivar() {
         <main>
           <header className="carlos-hero" style={{ background: "linear-gradient(125deg, #171729 0%, #23233b 72%, #3a1722 100%)", position: "relative", overflow: "hidden" }}>
             <div aria-hidden="true" style={{ position: "absolute", width: 440, height: 440, borderRadius: "50%", right: -150, top: -210, background: "radial-gradient(circle, rgba(200,16,46,.34) 0%, rgba(200,16,46,0) 70%)" }} />
-            <div style={{ maxWidth: 960, margin: "0 auto", position: "relative" }}>
-              <h1 style={{ margin: 0, maxWidth: 850, color: "#fff", fontSize: "clamp(2.2rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-.035em", fontWeight: 900 }}>
-                Carlos Alejandro Nachón Saldívar
-              </h1>
-              <p style={{ margin: "22px 0 0", color: "#f4a2b0", fontSize: 13, lineHeight: 1.6, fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase" }}>
-                Fundador y Director General de Emporio Inmobiliario
-              </p>
+            <div className="carlos-hero-inner" style={{ maxWidth: 1240, margin: "0 auto", position: "relative" }}>
+              <div>
+                <h1 style={{ margin: 0, maxWidth: 650, color: "#fff", fontSize: "clamp(2.2rem, 5vw, 4.25rem)", lineHeight: 1.05, letterSpacing: "-.035em", fontWeight: 900 }}>
+                  Carlos Alejandro Nachón Saldívar
+                </h1>
+                <p style={{ margin: "22px 0 0", color: "#f4a2b0", fontSize: 13, lineHeight: 1.6, fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase" }}>
+                  Fundador y Director General de Emporio Inmobiliario
+                </p>
+              </div>
+              <div className="carlos-portrait">
+                <img
+                  src="/images/carlos-alejandro-nachon-saldivar-fundador.jpg"
+                  srcSet="/images/carlos-alejandro-nachon-saldivar-fundador-768.jpg 768w, /images/carlos-alejandro-nachon-saldivar-fundador-1200.jpg 1200w, /images/carlos-alejandro-nachon-saldivar-fundador.jpg 1537w"
+                  alt="Carlos Alejandro Nachón Saldívar, Fundador y Director General de Emporio Inmobiliario"
+                  width="1537"
+                  height="1023"
+                  loading="eager"
+                  decoding="async"
+                  sizes="(max-width: 820px) calc(100vw - 44px), 56vw"
+                  style={{ display: "block", width: "100%", height: "auto" }}
+                />
+              </div>
             </div>
           </header>
 
