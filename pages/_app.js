@@ -16,6 +16,7 @@
 // real termina de cargar.
 
 import { Montserrat } from "next/font/google";
+import GoogleAnalytics from "../components/GoogleAnalytics";
 import ProyectosAnalytics from "../components/ProyectosAnalytics";
 import StructuredData from "../components/StructuredData";
 
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }) {
   // display, etc. en su elemento raíz interno).
   return (
     <div className={montserrat.variable}>
+      <GoogleAnalytics />
       <ProyectosAnalytics />
       <StructuredData />
       <Component {...pageProps} />

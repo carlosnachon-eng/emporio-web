@@ -41,7 +41,7 @@ const ECOSISTEMA = [
   { icon: "🏠", title: "Emporio Inmobiliario", desc: "Promoción y acompañamiento para vender, rentar o comprar propiedades en Puebla." },
   { icon: "🛡️", title: "Blindaje Legal", desc: "Investigación del candidato, dictamen, contrato y respaldo jurídico para arrendamientos." },
   { icon: "✅", title: "Veridada", desc: "Revisión documental de inmuebles antes de una compra y emisión de un sello de verificación consultable." },
-  { icon: "⚙️", title: "Inmoadmin", desc: "Seguimiento de propiedades administradas, cobranza, liquidaciones, mantenimiento y portales para propietarios e inquilinos." },
+  { icon: "⚙️", title: "Inmoadmin", desc: "Seguimiento de propiedades administradas, cobranza, liquidaciones, mantenimiento y portales para propietarios e inquilinos.", href: "/administracion-de-condominios-puebla" },
 ];
 
 const PASOS = [
@@ -140,13 +140,20 @@ export default function Nosotros() {
               <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.75, maxWidth: 650, margin: "0 auto" }}>Emporio va más allá de promover propiedades: hemos creado soluciones para acompañar la operación, reducir riesgos y facilitar su seguimiento.</p>
             </div>
             <div className="g4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-              {ECOSISTEMA.map((item) => (
-                <div key={item.title} style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.09)", borderRadius: 16, padding: "28px 22px" }}>
-                  <div style={{ fontSize: 30, marginBottom: 14 }}>{item.icon}</div>
-                  <h3 style={{ fontSize: 16, color: "#fff", fontWeight: 800, margin: "0 0 9px" }}>{item.title}</h3>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,.52)", lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
-                </div>
-              ))}
+              {ECOSISTEMA.map((item) => {
+                const Card = item.href ? "a" : "div";
+                return (
+                  <Card
+                    key={item.title}
+                    {...(item.href ? { href: item.href, "aria-label": `${item.title}: Administración de condominios` } : {})}
+                    style={{ background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.09)", borderRadius: 16, padding: "28px 22px", textDecoration: "none" }}
+                  >
+                    <div style={{ fontSize: 30, marginBottom: 14 }}>{item.icon}</div>
+                    <h3 style={{ fontSize: 16, color: "#fff", fontWeight: 800, margin: "0 0 9px" }}>{item.title}</h3>
+                    <p style={{ fontSize: 13, color: "rgba(255,255,255,.52)", lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </section>
