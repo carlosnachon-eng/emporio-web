@@ -193,3 +193,126 @@ La implementación está lista para revisión final, pero no debe publicarse tod
 5. recibir autorización expresa de push y despliegue.
 
 Estas tareas no requieren nuevas funcionalidades ni cambios conceptuales. Una vez aprobadas, la V1 puede pasar a producción. Todo requerimiento adicional queda fuera de V1 y se documentará, sin desarrollarse, como V2.
+
+# Cierre técnico postlanzamiento
+
+**Fecha:** 18 de julio de 2026
+
+**Estado de la V1:** publicada y congelada funcionalmente.
+
+**Alcance del cierre:** correo comercial, entrega de eventos a GA4, enlace interno seguro y documentación. No modifica diseño, UX, PDF, calculadora, evaluación ni `inmoadmin`.
+
+## Flujo del formulario
+
+1. El visitante completa la calculadora y la evaluación.
+2. El navegador calcula y muestra el resultado sin solicitar datos personales.
+3. Al enfocar el formulario se registra `condominios_formulario_iniciado`, sin PII.
+4. El visitante proporciona nombre, correo, teléfono, nombre del condominio y consentimiento.
+5. El cliente envía al endpoint `/api/contacto-condominios`:
+   - datos de contacto;
+   - perfil estructurado de la calculadora;
+   - respuestas numéricas de la evaluación.
+6. El servidor vuelve a calcular complejidad, rango, Índice de Control, fortalezas, riesgos y prioridad. No confía en resultados comerciales enviados por el navegador.
+7. El servidor valida campos, consentimiento, formato de correo/teléfono, honeypot, tamaño del body y rate limiting.
+8. Si Resend acepta el mensaje, el endpoint devuelve éxito y el folio.
+9. El navegador solicita el PDF a `/api/reporte-condominal`, inicia la descarga y registra los eventos correspondientes.
+10. Ningún cuerpo de formulario se escribe en logs.
+
+## Correo comercial
+
+El correo interno incluye:
+
+- nombre, correo y teléfono;
+- nombre del condominio;
+- municipio, cuando el payload lo contenga;
+- número de unidades;
+- nivel de complejidad;
+- nivel general e Índice de Control Condominal;
+- rango orientativo;
+- principales fortalezas y riesgos;
+- prioridad interna;
+- folio `ECC-AAAAMMDD-XXXXXXXX`;
+- fecha y hora de Ciudad de México;
+- URL de origen;
+- confirmación de consentimiento.
+
+El HTML utiliza estilos inline, ancho máximo de 640 px y una versión alternativa de texto plano. El `Reply-To` conserva el correo del prospecto. No se envía una respuesta automática.
+
+El folio identifica la solicitud y el reporte asociado en el correo. No se añadió al PDF porque el PDF está congelado en la V1.
+
+## Contrato de eventos GA4
+
+Todos los parámetros son estructurados y no incluyen nombre, correo, teléfono, condominio ni respuestas textuales.
+
+| Evento | Disparador | Parámetros |
+|---|---|---|
+| `condominios_landing_vista` | Montaje de la landing | `origen` |
+| `condominios_calculadora_inicio` | Primer inicio de calculadora | `origen` |
+| `condominios_calculadora_final` | Final del quinto paso | `unidades`, `nivel_complejidad` |
+| `condominios_evaluacion_inicio` | Primer inicio de evaluación | `origen` |
+| `condominios_evaluacion_final` | Respuesta 15 | `indice_control`, `nivel_salud` |
+| `condominios_resultado_mostrado` | Primera visualización del resultado | `nivel_complejidad`, `nivel_salud` |
+| `condominios_formulario_iniciado` | Primer foco dentro del formulario | `ubicacion` |
+| `condominios_reporte_generado` | API del PDF devuelve un blob válido | `indice_control`, `nivel_complejidad` |
+| `condominios_formulario_enviado` | Resend acepta el lead y termina el flujo | `modo`, `prioridad` |
+| `condominios_whatsapp` | Clic en CTA de WhatsApp | `ubicacion` |
+| `condominios_pdf_descarga` | Descarga iniciada | `indice_control`, `nivel_complejidad` |
+| `condominios_pdf_compartir` | Intento de compartir | `metodo` |
+| `condominios_cta_diagnostico` | CTA posterior al reporte | `ubicacion` |
+
+`registrarEventoCondominios` conserva la publicación en `dataLayer` y en `emporio:condominios`. Cuando `window.gtag` existe, entrega el mismo nombre y los mismos parámetros directamente a GA4.
+
+La carga global de GA4 está condicionada a:
+
+```text
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+En dominios `*.vercel.app` se habilita `debug_mode`; en producción permanece deshabilitado. No debe instalarse simultáneamente una etiqueta GTM que vuelva a enviar los mismos eventos, porque produciría duplicados.
+
+### Bloqueo externo identificado
+
+La cuenta de Google abierta durante el cierre técnico muestra la cuenta Analytics `emporioinmobiliario` (`39452118`), pero no contiene una propiedad GA4 seleccionable (`p0`) ni acceso a una cuenta de Tag Manager. Crear la propiedad, el flujo web o el contenedor es infraestructura y quedó expresamente fuera de este PR.
+
+Para completar la recepción y DebugView:
+
+1. el responsable de Analytics debe crear o conceder acceso a la propiedad GA4;
+2. debe entregar el Measurement ID público `G-...`;
+3. Vercel debe configurar `NEXT_PUBLIC_GA_MEASUREMENT_ID`;
+4. debe generarse un preview nuevo;
+5. deben validarse los eventos en DebugView antes de promover el despliegue.
+
+## Enlace interno
+
+La tarjeta existente de Inmoadmin en `/nosotros` enlaza ahora a `/administracion-de-condominios-puebla` sin cambiar texto, diseño o estructura visual.
+
+No se insertaron enlaces contextuales adicionales en `/administracion`, `/propietarios`, `/contacto` o el artículo de administración porque requieren agregar o alterar copy para que el destino sea comprensible. El menú y el footer ya enlazan el micrositio globalmente.
+
+## Dependencias
+
+Dependencias directas del proyecto:
+
+- `next` 14.2.3;
+- `react` 18;
+- `react-dom` 18;
+- `@supabase/supabase-js` 2.45.x;
+- `pdf-lib` 1.17.1;
+- `qrcode` 1.5.4.
+
+Este PR no actualiza dependencias. La actualización de Next.js y la generación de un lockfile deben realizarse en un PR técnico independiente, con regresión completa de páginas, imágenes, APIs y PDFs.
+
+## Pendientes posteriores / V2
+
+No forman parte de este cierre:
+
+- CRM y automatizaciones comerciales;
+- autorrespuesta al prospecto;
+- persistencia o consulta de reportes;
+- cuentas de usuario;
+- rate limiting distribuido;
+- monitoreo de errores del cliente;
+- inclusión del folio dentro del PDF;
+- nuevos enlaces o contenido editorial;
+- cambios a scoring, calculadora o evaluación;
+- nuevas herramientas;
+- actualización de Next.js.

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./CondominiosExperience.module.css";
 import { registrarEventoCondominios } from "../../lib/condominiosAnalytics";
 
@@ -193,6 +193,19 @@ export default function CondominiosExperience() {
     [perfil, complejidad, salud, contacto]
   );
 
+  useEffect(() => {
+    registrarEventoCondominios("condominios_landing_vista", { origen: "micrositio" });
+  }, []);
+
+  useEffect(() => {
+    if (vista !== "resultado" || eventosUnicos.current.has("condominios_resultado_mostrado")) return;
+    registrarEventoCondominios("condominios_resultado_mostrado", {
+      nivel_complejidad: complejidad.nivel.id,
+      nivel_salud: salud.nivel.id,
+    });
+    eventosUnicos.current.add("condominios_resultado_mostrado");
+  }, [vista, complejidad.nivel.id, salud.nivel.id]);
+
   function registrarInicioHerramienta(tipo) {
     const evento = tipo === "calculadora"
       ? "condominios_calculadora_inicio"
@@ -300,7 +313,12 @@ export default function CondominiosExperience() {
       body: JSON.stringify(payloadReporte()),
     });
     if (!respuesta.ok) throw new Error("No fue posible generar el reporte.");
-    return respuesta.blob();
+    const blob = await respuesta.blob();
+    registrarEventoCondominios("condominios_reporte_generado", {
+      indice_control: salud.porcentaje,
+      nivel_complejidad: complejidad.nivel.id,
+    });
+    return blob;
   }
 
   async function descargarPdf() {
@@ -361,6 +379,7 @@ export default function CondominiosExperience() {
         body: JSON.stringify({
           ...contacto,
           perfil,
+          respuestas,
           resultado: {
             complejidad: complejidad.nivel.etiqueta,
             salud: salud.nivel.etiqueta,
