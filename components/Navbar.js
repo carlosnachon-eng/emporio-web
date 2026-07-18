@@ -16,6 +16,7 @@ const NAV_LINKS_MAS = [
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
   { label: "BL Partners",     href: "/blindaje-legal-partners" },
   { label: "Administración",  href: "/administracion" },
+  { label: "Administración de condominios", href: "/administracion-de-condominios-puebla" },
   { label: "Blog",            href: "/blog" },
   { label: "Nosotros",        href: "/nosotros" },
   { label: "Contacto",        href: "/contacto" },
