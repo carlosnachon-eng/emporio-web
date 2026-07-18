@@ -20,6 +20,7 @@ const RUTAS_SEO = {
 };
 
 function RutaContextual({ pathname }) {
+  if (pathname === "/administracion-de-condominios-puebla") return null;
   const esPoliza = /poliza|blindaje|rentar-departamento|inquilino/.test(pathname);
   const esPropietario = /vender|vale-mi-casa|documentos-para-vender|cuanto-cobra|administracion|propietarios|rentar-mi-casa|requisitos-rentar-propiedad/.test(pathname);
   const enlaces = esPoliza ? RUTAS_SEO.poliza : esPropietario ? RUTAS_SEO.propietarios : null;
@@ -141,6 +142,7 @@ export default function Footer() {
             { label: "Emporio Blindaje Legal", href: "/blindaje-legal" },
             { label: "Blindaje Legal Partners", href: "/blindaje-legal-partners" },
             { label: "Administración de Inmuebles", href: "/administracion" },
+            { label: "Administración de Condominios", href: "/administracion-de-condominios-puebla" },
             { label: "Solicitud de arrendamiento", href: "https://app.emporioinmobiliario.com.mx/solicitud" },
             { label: "Simulador de crédito", href: "https://socasesores.com/simulador-credito-hipotecario/?q=NUCAE" },
             { label: "Portal inquilino", href: "https://app.emporioinmobiliario.com.mx/inquilino" },
