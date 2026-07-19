@@ -1,6 +1,13 @@
 import { useRouter } from "next/router";
 
 const RUTAS_SEO = {
+  condominios: [
+    ["Evaluar el control de mi condominio", "/administracion-de-condominios-puebla#herramientas"],
+    ["Cómo saber si está bien administrado", "/blog/como-saber-si-condominio-bien-administrado"],
+    ["Funciones del administrador", "/blog/que-hace-administrador-condominios-fraccionamientos"],
+    ["Cuánto cuesta la administración", "/blog/cuanto-cuesta-administracion-condominios-puebla"],
+    ["Cómo reducir la morosidad", "/blog/como-reducir-morosidad-condominio"],
+  ],
   poliza: [
     ["Quién paga la póliza jurídica", "/blog/quien-paga-poliza-juridica-arrendamiento"],
     ["Cuánto cuesta una póliza jurídica", "/blog/cuanto-cuesta-poliza-juridica-puebla"],
@@ -22,9 +29,10 @@ const RUTAS_SEO = {
 
 function RutaContextual({ pathname }) {
   if (pathname === "/administracion-de-condominios-puebla") return null;
+  const esCondominio = /condominio|condominios|fraccionamientos/.test(pathname);
   const esPoliza = /poliza|blindaje|rentar-departamento|inquilino/.test(pathname);
   const esPropietario = /vender|vale-mi-casa|documentos-para-vender|cuanto-cobra|administracion|propietarios|rentar-mi-casa|requisitos-rentar-propiedad/.test(pathname);
-  const enlaces = esPoliza ? RUTAS_SEO.poliza : esPropietario ? RUTAS_SEO.propietarios : null;
+  const enlaces = esCondominio ? RUTAS_SEO.condominios : esPoliza ? RUTAS_SEO.poliza : esPropietario ? RUTAS_SEO.propietarios : null;
   if (!enlaces) return null;
 
   return (
