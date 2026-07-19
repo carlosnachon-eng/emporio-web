@@ -204,25 +204,28 @@ export default function IvonneTorresChedraui() {
                 </div>
               </div>
 
-              <div className={styles.portrait}>
-                <img
-                  className={styles.portraitImage}
-                  src="/images/ivonne-torres-chedraui-retrato.jpg"
-                  srcSet="/images/ivonne-torres-chedraui-retrato-768.jpg 511w, /images/ivonne-torres-chedraui-retrato.jpg 1023w"
-                  sizes="(max-width: 900px) calc(100vw - 40px), 42vw"
-                  alt="Ivonne Torres Chedraui, Imagen y Relaciones Públicas de Emporio Inmobiliario"
-                  width="1023"
-                  height="1537"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                />
-                <span className={styles.portraitLogo} aria-label="Emporio Inmobiliario">
-                  <img src="/logo.png" alt="" width="83" height="44" />
-                </span>
-                <span className={styles.portraitCaption}>
-                  Cercanía, comunicación y experiencia inmobiliaria
-                </span>
+              <div className={styles.portraitColumn}>
+                <div className={styles.portrait}>
+                  <img
+                    className={styles.portraitImage}
+                    src="/images/ivonne-torres-chedraui-retrato.jpg"
+                    srcSet="/images/ivonne-torres-chedraui-retrato-768.jpg 511w, /images/ivonne-torres-chedraui-retrato.jpg 1023w"
+                    sizes="(max-width: 900px) calc(100vw - 40px), 42vw"
+                    alt="Ivonne Torres Chedraui, Imagen y Relaciones Públicas de Emporio Inmobiliario"
+                    width="1023"
+                    height="1537"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                  <span className={styles.portraitCaption}>
+                    Cercanía, comunicación y experiencia inmobiliaria
+                  </span>
+                </div>
+                <div className={styles.portraitBrand} aria-label="Emporio Inmobiliario">
+                  <span>Parte de</span>
+                  <img src="/logo.png" alt="Emporio Inmobiliario" width="83" height="44" />
+                </div>
               </div>
             </div>
           </header>

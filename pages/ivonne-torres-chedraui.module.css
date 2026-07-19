@@ -139,6 +139,10 @@
   box-shadow: 0 28px 80px rgba(90, 20, 34, 0.22);
 }
 
+.portraitColumn {
+  min-width: 0;
+}
+
 .portrait::after {
   position: absolute;
   right: 0;
@@ -159,24 +163,20 @@
   object-position: center 46%;
 }
 
-.portraitLogo {
-  position: absolute;
-  z-index: 2;
-  top: 28px;
-  left: 28px;
-  display: inline-flex;
+.portraitBrand {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 112px;
-  min-height: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 20px 18px 0;
+  color: #77727a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.portraitLogo img {
+.portraitBrand img {
   display: block;
   width: 83px;
   height: 44px;
@@ -544,6 +544,11 @@
     right: 24px;
     bottom: 26px;
     left: 24px;
+  }
+
+  .portraitBrand {
+    justify-content: center;
+    padding-top: 18px;
   }
 
   .section,
