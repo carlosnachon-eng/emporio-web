@@ -50,6 +50,7 @@ const PAGINAS_ESTATICAS = [
   { loc: "/administracion-de-condominios-puebla", changefreq: "monthly", priority: "0.9" },
   { loc: "/nosotros", changefreq: "monthly", priority: "0.7" },
   { loc: "/carlos-alejandro-nachon-saldivar", changefreq: "monthly", priority: "0.7" },
+  { loc: "/ivonne-torres-chedraui", changefreq: "monthly", priority: "0.7" },
   { loc: "/contacto", changefreq: "monthly", priority: "0.8" },
   { loc: "/blog", changefreq: "weekly", priority: "0.85" },
 ];

@@ -14,6 +14,8 @@ const CSS = `
   .carlos-content { padding: 76px 28px 88px; }
   .carlos-section { padding-top: 44px; margin-top: 44px; border-top: 1px solid #ececf0; }
   .carlos-section:first-child { padding-top: 0; margin-top: 0; border-top: 0; }
+  .carlos-shared-vision { margin-top: 58px; padding: 32px; border: 1px solid #ececf0; border-radius: 20px; background: #fafafa; }
+  .carlos-shared-link:focus-visible { outline: 3px solid #ec8fa0; outline-offset: 4px; border-radius: 4px; }
   @media (max-width: 820px) {
     .carlos-hero { padding: 54px 22px 56px; }
     .carlos-hero-inner { grid-template-columns: 1fr; gap: 36px; }
@@ -227,6 +229,25 @@ export default function CarlosAlejandroNachonSaldivar() {
                   <p style={closingText}>Ese seguirá siendo el propósito que guíe cada decisión que tomemos en Emporio.</p>
                 </section>
               </article>
+
+              <aside className="carlos-shared-vision" aria-labelledby="carlos-shared-vision-title">
+                <p style={{ margin: "0 0 9px", color: "#C8102E", fontSize: 11, fontWeight: 800, letterSpacing: ".16em", textTransform: "uppercase" }}>
+                  Una visión compartida
+                </p>
+                <h2 id="carlos-shared-vision-title" style={{ ...sectionTitle, marginBottom: 14, fontSize: "clamp(1.45rem, 3vw, 1.9rem)" }}>
+                  La parte cercana y visible de Emporio
+                </h2>
+                <p style={{ ...bodyText, marginBottom: 16 }}>
+                  Ivonne Torres Chedraui, socia, Imagen y Relaciones Públicas de Emporio Inmobiliario, representa la comunicación cercana y humana de la marca.
+                </p>
+                <a
+                  className="carlos-shared-link"
+                  href="/ivonne-torres-chedraui"
+                  style={{ color: "#C8102E", fontSize: 14, fontWeight: 800, textUnderlineOffset: 4 }}
+                >
+                  Conocer la trayectoria de Ivonne Torres Chedraui
+                </a>
+              </aside>
             </div>
           </div>
         </main>

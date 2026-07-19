@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Ivonne Torres Chedraui</title>
+  <desc id="desc">Imagen y Relaciones Públicas de Emporio Inmobiliario</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf4ef"/>
+      <stop offset=".56" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#efd2d9"/>
+    </linearGradient>
+    <linearGradient id="monogram" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8102e"/>
+      <stop offset="1" stop-color="#7a1024"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <circle cx="1094" cy="92" r="250" fill="none" stroke="#c8102e" stroke-opacity=".16" stroke-width="2"/>
+  <circle cx="1110" cy="110" r="178" fill="#c8102e" fill-opacity=".07"/>
+  <rect x="72" y="68" width="1056" height="494" rx="34" fill="#fff" fill-opacity=".72" stroke="#a70f2b" stroke-opacity=".15"/>
+  <rect x="824" y="104" width="244" height="390" rx="122" fill="url(#monogram)"/>
+  <text x="946" y="335" text-anchor="middle" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="800" letter-spacing="-10">IT</text>
+  <text x="126" y="174" fill="#c8102e" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4">EMPORIO INMOBILIARIO</text>
+  <text x="126" y="278" fill="#191827" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="800">Ivonne Torres</text>
+  <text x="126" y="344" fill="#191827" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="800">Chedraui</text>
+  <line x1="126" y1="390" x2="730" y2="390" stroke="#c8102e" stroke-width="3"/>
+  <text x="126" y="437" fill="#5f5c67" font-family="Arial, Helvetica, sans-serif" font-size="24">Imagen y Relaciones Públicas</text>
+  <text x="126" y="474" fill="#5f5c67" font-family="Arial, Helvetica, sans-serif" font-size="24">de Emporio Inmobiliario</text>
+</svg>

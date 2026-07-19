@@ -15,6 +15,7 @@ const LABELS = {
   "blindaje-legal": "Blindaje Legal",
   "blindaje-legal-partners": "Blindaje Legal Partners",
   "carlos-alejandro-nachon-saldivar": "Carlos Alejandro Nachón Saldívar",
+  "ivonne-torres-chedraui": "Ivonne Torres Chedraui",
 };
 
 function nombreSegmento(segmento) {
