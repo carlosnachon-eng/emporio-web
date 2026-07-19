@@ -57,6 +57,14 @@ const GUIAS_RELACIONADAS = {
     href: "/blog/casas-en-venta-puebla",
     texto: "Consulta también nuestra guía para comprar casa en Puebla",
   },
+  "casas-en-renta-puebla": {
+    href: "/arrendatarios",
+    texto: "Conoce cómo te acompañamos durante el arrendamiento",
+  },
+  "departamentos-en-venta-puebla": {
+    href: "/blog/guia-comprar-departamento-preventa-puebla-2026",
+    texto: "Consulta nuestra guía para comprar departamento en Puebla",
+  },
   "departamentos-en-renta-puebla": {
     href: "/blog/departamentos-en-renta-puebla",
     texto: "Consulta también nuestra guía para rentar departamento en Puebla",
@@ -69,6 +77,7 @@ const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
   "san-pedro-cholula",
   "cholula",
   "cuautlancingo",
+  "nativitas",
 ]);
 
 function quitarAcentos(s) {
@@ -117,7 +126,7 @@ export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto,
   const tipoPlural = PLURAL_POR_TIPO[tipo] || `${tipo}s`;
   const tipoPluralMinusculas = tipoPlural.toLowerCase();
   const tituloSEO = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
-  const alcanceTexto = slugActual.endsWith("-puebla") ? "Puebla y zona metropolitana" : zonaTexto;
+  const alcanceTexto = slugActual.endsWith("-puebla") ? "Puebla y zonas cercanas" : zonaTexto;
   const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
   const canonicalUrl = `https://www.emporioinmobiliario.com.mx/${slugActual}`;
   const imagenSocial = "https://www.emporioinmobiliario.com.mx/logo.png";

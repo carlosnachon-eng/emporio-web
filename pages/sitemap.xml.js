@@ -29,6 +29,7 @@ const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
   "san-pedro-cholula",
   "cholula",
   "cuautlancingo",
+  "nativitas",
 ]);
 
 // Páginas estáticas y corporativas — copiadas tal cual del sitemap.xml
@@ -165,13 +166,21 @@ export async function getServerSideProps({ res }) {
     })
   );
 
-  // Estas dos landings responden a oportunidades transaccionales observadas
-  // en Search Console. Solo entran al sitemap mientras exista inventario real,
-  // para evitar URLs vacías o páginas programáticas débiles.
+  // Landings transaccionales por tipo y operación. Solo entran al sitemap
+  // mientras exista inventario real, para evitar URLs vacías o páginas
+  // programáticas débiles.
   const landingsPrioritarias = [
     {
       loc: "/casas-en-venta-puebla",
       coincide: (p) => ["Casa", "Casa en condominio"].includes(p.tipo) && p.operacion === "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+    {
+      loc: "/casas-en-renta-puebla",
+      coincide: (p) => ["Casa", "Casa en condominio"].includes(p.tipo) && p.operacion !== "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+    {
+      loc: "/departamentos-en-venta-puebla",
+      coincide: (p) => p.tipo === "Departamento" && p.operacion === "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
     },
     {
       loc: "/departamentos-en-renta-puebla",

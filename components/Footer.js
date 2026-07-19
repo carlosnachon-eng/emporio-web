@@ -7,6 +7,7 @@ const RUTAS_SEO = {
     ["Póliza jurídica vs. aval", "/blog/poliza-juridica-vs-aval-puebla"],
     ["Cómo rentar una propiedad", "/blog/como-rentar-mi-casa-puebla"],
     ["Administración de inmuebles", "/administracion"],
+    ["Casas en renta en Puebla", "/casas-en-renta-puebla"],
     ["Departamentos en renta en Puebla", "/departamentos-en-renta-puebla"],
   ],
   propietarios: [
@@ -103,6 +104,8 @@ export default function Footer() {
             { label: "Propiedades", href: "/propiedades" },
             { label: "Casas Nuevas", href: "/casas-nuevas" },
             { label: "Casas en venta en Puebla", href: "/casas-en-venta-puebla" },
+            { label: "Casas en renta en Puebla", href: "/casas-en-renta-puebla" },
+            { label: "Departamentos en venta en Puebla", href: "/departamentos-en-venta-puebla" },
             { label: "Departamentos en renta en Puebla", href: "/departamentos-en-renta-puebla" },
             { label: "Propietarios", href: "/propietarios" },
             { label: "Arrendatarios", href: "/arrendatarios" },
