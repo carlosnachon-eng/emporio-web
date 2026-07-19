@@ -58,6 +58,10 @@ const PAGINAS_ESTATICAS = [
 // blog ya tiene sus propios datos en Supabase en el futuro, esto se puede
 // reemplazar por una consulta, igual que se hizo con propiedades.
 const ARTICULOS_BLOG = [
+  "como-saber-si-condominio-bien-administrado",
+  "que-hace-administrador-condominios-fraccionamientos",
+  "cuanto-cuesta-administracion-condominios-puebla",
+  "como-reducir-morosidad-condominio",
   "por-que-invertir-lomas-angelopolis-2026",
   "torre-zaia-vs-rentar-puebla-2026",
   "guia-comprar-departamento-preventa-puebla-2026",
