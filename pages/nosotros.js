@@ -167,16 +167,16 @@ export default function Nosotros() {
             </div>
             <div className="g2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
               {[
-                { nombre: "Carlos Nachón", rol: "Director General", inicial: "CN", bio: "Desde hace más de dos décadas ha participado en el desarrollo de procesos, herramientas y soluciones enfocadas en hacer las operaciones inmobiliarias más claras, seguras y eficientes. Hoy lidera la estrategia de crecimiento, innovación y evolución tecnológica de Emporio, con atención especial a los procesos y a la experiencia del cliente." },
-                { nombre: "Ivonne Torres", rol: "Socia e imagen institucional", inicial: "IT", bio: "Participa en la comunicación institucional y en la experiencia de marca de Emporio. Su labor acerca la información inmobiliaria a propietarios y compradores mediante contenidos claros, cercanos y accesibles." },
+                { nombre: "Carlos Nachón", rol: "Director General", inicial: "CN", href: "/carlos-alejandro-nachon-saldivar", bio: "Desde hace más de dos décadas ha participado en el desarrollo de procesos, herramientas y soluciones enfocadas en hacer las operaciones inmobiliarias más claras, seguras y eficientes. Hoy lidera la estrategia de crecimiento, innovación y evolución tecnológica de Emporio, con atención especial a los procesos y a la experiencia del cliente." },
+                { nombre: "Ivonne Torres Chedraui", rol: "Imagen y Relaciones Públicas", inicial: "IT", href: "/ivonne-torres-chedraui", bio: "Socia de Emporio con más de una década de experiencia en el sector inmobiliario. Su labor acerca la información inmobiliaria a propietarios y compradores mediante contenidos claros, cercanos y accesibles." },
               ].map((persona) => (
                 <div key={persona.nombre} style={{ background: "#fff", borderRadius: 20, padding: "36px 32px", border: "1px solid #f3f4f6", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                     <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#C8102E", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 900, flexShrink: 0 }}>{persona.inicial}</div>
                     <div>
                       <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#1a1a2e" }}>
-                        {persona.nombre === "Carlos Nachón" ? (
-                          <a href="/carlos-alejandro-nachon-saldivar" style={{ color: "inherit", textDecoration: "none" }}>
+                        {persona.href ? (
+                          <a href={persona.href} style={{ color: "inherit", textDecoration: "none" }}>
                             {persona.nombre}
                           </a>
                         ) : persona.nombre}
