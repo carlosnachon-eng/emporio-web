@@ -144,7 +144,7 @@ export default function ArticuloCasasVenta() {
                 Tenemos más de 45 propiedades en venta activas en Puebla y zona metropolitana. Con más de 20 años en el mercado, te ayudamos a encontrar la opción ideal y a cerrar al mejor precio.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/propiedades?operacion=sale" style={{ background: "#C8102E", color: "#fff", padding: "13px 24px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
+                <a href="/casas-en-venta-puebla" style={{ background: "#C8102E", color: "#fff", padding: "13px 24px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
                   Ver casas en venta →
                 </a>
                 <a href="https://wa.me/522222573237?text=Hola,%20busco%20casa%20en%20venta%20en%20Puebla" target="_blank" rel="noreferrer"

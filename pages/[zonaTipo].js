@@ -41,6 +41,24 @@ const TIPOS_PLURAL = {
   bodegas: "Bodega",
 };
 
+const PLURAL_POR_TIPO = Object.fromEntries(
+  Object.entries(TIPOS_PLURAL).map(([plural, singular]) => {
+    const pluralLegible = plural.replace(/-/g, " ");
+    return [singular, `${pluralLegible.charAt(0).toUpperCase()}${pluralLegible.slice(1)}`];
+  })
+);
+
+const GUIAS_RELACIONADAS = {
+  "casas-en-venta-puebla": {
+    href: "/blog/casas-en-venta-puebla",
+    texto: "Consulta también nuestra guía para comprar casa en Puebla",
+  },
+  "departamentos-en-renta-puebla": {
+    href: "/blog/departamentos-en-renta-puebla",
+    texto: "Consulta también nuestra guía para rentar departamento en Puebla",
+  },
+};
+
 function quitarAcentos(s) {
   return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -84,9 +102,37 @@ function parsearSlug(slug) {
 }
 
 export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto, slugActual }) {
-  const tituloSEO = `${tipo}s en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
-  const descSEO = `Encuentra ${tipo.toLowerCase()}s en ${operacionTexto} en ${zonaTexto}. ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} con Emporio Inmobiliario, más de 20 años de experiencia en Puebla.`;
+  const tipoPlural = PLURAL_POR_TIPO[tipo] || `${tipo}s`;
+  const tipoPluralMinusculas = tipoPlural.toLowerCase();
+  const tituloSEO = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
+  const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${zonaTexto}, con información y atención de Emporio Inmobiliario.`;
   const canonicalUrl = `https://www.emporioinmobiliario.com.mx/${slugActual}`;
+  const imagenSocial = "https://www.emporioinmobiliario.com.mx/logo.png";
+  const guiaRelacionada = GUIAS_RELACIONADAS[slugActual];
+  const precios = propiedades.map((p) => Number(p.precio)).filter((precio) => precio > 0);
+  const precioMinimo = precios.length ? Math.min(...precios) : null;
+  const precioMaximo = precios.length ? Math.max(...precios) : null;
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.emporioinmobiliario.com.mx/" },
+      { "@type": "ListItem", position: 2, name: "Propiedades", item: "https://www.emporioinmobiliario.com.mx/propiedades" },
+      { "@type": "ListItem", position: 3, name: `${tipoPlural} en ${operacionTexto} en ${zonaTexto}`, item: canonicalUrl },
+    ],
+  };
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${tipoPlural} en ${operacionTexto} en ${zonaTexto}`,
+    numberOfItems: propiedades.length,
+    itemListElement: propiedades.map((p, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: p.titulo,
+      url: `https://www.emporioinmobiliario.com.mx/propiedades/${p.slug}`,
+    })),
+  };
 
   return (
     <>
@@ -97,44 +143,77 @@ export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto,
         <meta property="og:description" content={descSEO} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={imagenSocial} />
+        <meta property="og:site_name" content="Emporio Inmobiliario" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={tituloSEO} />
+        <meta name="twitter:description" content={descSEO} />
+        <meta name="twitter:image" content={imagenSocial} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       </Head>
       <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "'Montserrat', sans-serif" }}>
         <Navbar />
 
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 20px" }}>
           <h1 style={{ fontSize: 28, fontWeight: 800, color: "#1a1a2e", margin: "0 0 8px" }}>
-            {tipo}s en {operacionTexto} en {zonaTexto}
+            {tipoPlural} en {operacionTexto} en {zonaTexto}
           </h1>
           <p style={{ fontSize: 14, color: "#6b7280", margin: "0 0 28px" }}>
             {propiedades.length} {propiedades.length === 1 ? "propiedad encontrada" : "propiedades encontradas"} · Emporio Inmobiliario
           </p>
 
-          {propiedades.length === 0 ? (
-            <p style={{ color: "#9ca3af", fontSize: 14 }}>
-              Por ahora no tenemos {tipo.toLowerCase()}s en {operacionTexto} en {zonaTexto}, pero puedes
-              {" "}<Link href="/propiedades" style={{ color: "#C8102E", fontWeight: 700 }}>ver todo el catálogo</Link>.
+          <section aria-label="Información de disponibilidad" style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 14, padding: "18px 20px", marginBottom: 26 }}>
+            <p style={{ color: "#374151", fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+              Revisa inmuebles activos y compara ubicación, precio y características antes de agendar una visita.
+              {precioMinimo && precioMaximo ? ` El inventario publicado actualmente se encuentra entre ${fmt(precioMinimo)} y ${fmt(precioMaximo)}.` : ""}
             </p>
-          ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-              {propiedades.map((p) => (
-                <Link key={p.public_id} href={`/propiedades/${p.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
-                    <div style={{ height: 170, background: "#f3f4f6" }}>
-                      {p.fotos?.[0]?.url && (
-                        <img src={p.fotos[0].url} alt={`${p.titulo} — Emporio Inmobiliario`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      )}
-                    </div>
-                    <div style={{ padding: 14 }}>
-                      <p style={{ margin: "0 0 4px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{p.titulo}</p>
-                      <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#C8102E" }}>{fmt(p.precio)}</p>
-                    </div>
+          </section>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
+            {propiedades.map((p) => (
+              <Link key={p.public_id} href={`/propiedades/${p.slug}`} style={{ textDecoration: "none" }}>
+                <article style={{ background: "#fff", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", height: "100%" }}>
+                  <div style={{ height: 170, background: "#f3f4f6" }}>
+                    {p.fotos?.[0]?.url && (
+                      <img
+                        src={p.fotos[0].url}
+                        alt={`${p.titulo}, ${tipo.toLowerCase()} en ${operacionTexto} en ${zonaTexto}`}
+                        loading="lazy"
+                        decoding="async"
+                        width="520"
+                        height="340"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    )}
                   </div>
+                  <div style={{ padding: 14 }}>
+                    <h2 style={{ margin: "0 0 4px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{p.titulo}</h2>
+                    <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#C8102E" }}>{fmt(p.precio)}</p>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+
+          <section style={{ marginTop: 34, padding: "24px 22px", background: "#111827", borderRadius: 16, color: "#fff" }}>
+            <h2 style={{ fontSize: 20, margin: "0 0 10px" }}>¿Quieres comparar opciones con un especialista?</h2>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: "#d1d5db", margin: "0 0 18px" }}>
+              Cuéntanos qué buscas y te ayudamos a identificar las propiedades que mejor se ajustan a tus necesidades.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link href="/contacto" style={{ background: "#C8102E", color: "#fff", padding: "11px 18px", borderRadius: 9, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
+                Hablar con un especialista
+              </Link>
+              {guiaRelacionada && (
+                <Link href={guiaRelacionada.href} style={{ color: "#fff", padding: "10px 2px", fontWeight: 700, fontSize: 14 }}>
+                  {guiaRelacionada.texto}
                 </Link>
-              ))}
+              )}
             </div>
-          )}
+          </section>
         </div>
 
         <Footer />
@@ -166,6 +245,9 @@ export async function getServerSideProps({ params, res }) {
 
   if (error) {
     console.error("[zonaTipo] error consultando propiedades:", error.message);
+    // Una falla temporal de Supabase no debe convertirse en un 404 que
+    // pueda hacer que Google retire una landing válida de su índice.
+    throw new Error("No fue posible consultar el inventario activo.");
   }
 
   const coincideOperacion = (p) => (operacion === "sale" ? p.operacion === "sale" : p.operacion !== "sale");
@@ -183,7 +265,9 @@ export async function getServerSideProps({ params, res }) {
   // Texto legible de la zona: tomamos el valor real (con acentos/mayúsculas
   // correctas) de la primera propiedad que coincidió, en vez de
   // reconstruirlo a mano desde el slug.
-  const zonaTexto = propiedadesFiltradas[0].colonia || propiedadesFiltradas[0].ciudad || zonaSlug;
+  const zonaTexto = zonaSlug === "puebla"
+    ? "Puebla"
+    : propiedadesFiltradas[0].colonia || propiedadesFiltradas[0].ciudad || zonaSlug;
   const operacionTexto = operacion === "sale" ? "venta" : "renta";
 
   const propiedades = propiedadesFiltradas.map((p) => ({
@@ -193,6 +277,8 @@ export async function getServerSideProps({ params, res }) {
     fotos: p.fotos,
     slug: generarSlug(p),
   }));
+
+  res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=3600");
 
   return {
     props: {

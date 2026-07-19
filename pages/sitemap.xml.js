@@ -106,6 +106,18 @@ function generarSlug(propiedad) {
   return `${slugBase}-${propiedad.public_id}`;
 }
 
+function quitarAcentos(texto) {
+  return String(texto).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function slugificar(texto) {
+  return quitarAcentos(texto)
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
 function urlTag({ loc, changefreq, priority, lastmod }) {
   return `  <url>
     <loc>${escaparXml(loc)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
@@ -146,9 +158,29 @@ export async function getServerSideProps({ res }) {
     })
   );
 
+  // Estas dos landings responden a oportunidades transaccionales observadas
+  // en Search Console. Solo entran al sitemap mientras exista inventario real,
+  // para evitar URLs vacías o páginas programáticas débiles.
+  const landingsPrioritarias = [
+    {
+      loc: "/casas-en-venta-puebla",
+      coincide: (p) => p.tipo === "Casa" && p.operacion === "sale" && slugificar(p.ciudad || "") === "puebla",
+    },
+    {
+      loc: "/departamentos-en-renta-puebla",
+      coincide: (p) => p.tipo === "Departamento" && p.operacion !== "sale" && slugificar(p.ciudad || "") === "puebla",
+    },
+  ];
+  const urlsLandings = landingsPrioritarias
+    .filter((landing) => (propiedades || []).some(landing.coincide))
+    .map((landing) =>
+      urlTag({ loc: `${SITE_URL}${landing.loc}`, changefreq: "daily", priority: "0.95" })
+    );
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlsEstaticas.join("\n")}
+${urlsLandings.join("\n")}
 ${urlsBlog.join("\n")}
 ${urlsCasasNuevas.join("\n")}
 ${urlsPropiedades.join("\n")}
