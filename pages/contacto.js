@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { registrarEventoSitio } from "../lib/siteAnalytics";
 
 const CSS = `
 * { box-sizing: border-box; }
@@ -20,8 +21,15 @@ export default function Contacto() {
   const handleEnviar = async () => {
     setEnviando(true);
     try {
-      await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Contacto desde el sitio web" }) });
+      const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Contacto desde el sitio web" }) });
       setEnviado(true);
+      if (respuesta.ok) {
+        registrarEventoSitio("site_form_submit", {
+          contexto: "contacto",
+          tipo_formulario: "contacto_general",
+          ruta: "/contacto",
+        });
+      }
     } catch (e) { console.error(e); }
     setEnviando(false);
   };
