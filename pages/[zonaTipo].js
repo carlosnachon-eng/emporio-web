@@ -48,6 +48,10 @@ const PLURAL_POR_TIPO = Object.fromEntries(
   })
 );
 
+const TIPOS_EQUIVALENTES = {
+  Casa: ["Casa", "Casa en condominio"],
+};
+
 const GUIAS_RELACIONADAS = {
   "casas-en-venta-puebla": {
     href: "/blog/casas-en-venta-puebla",
@@ -58,6 +62,14 @@ const GUIAS_RELACIONADAS = {
     texto: "Consulta también nuestra guía para rentar departamento en Puebla",
   },
 };
+
+const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
+  "puebla",
+  "san-andres-cholula",
+  "san-pedro-cholula",
+  "cholula",
+  "cuautlancingo",
+]);
 
 function quitarAcentos(s) {
   return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -105,7 +117,8 @@ export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto,
   const tipoPlural = PLURAL_POR_TIPO[tipo] || `${tipo}s`;
   const tipoPluralMinusculas = tipoPlural.toLowerCase();
   const tituloSEO = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
-  const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${zonaTexto}, con información y atención de Emporio Inmobiliario.`;
+  const alcanceTexto = slugActual.endsWith("-puebla") ? "Puebla y zona metropolitana" : zonaTexto;
+  const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
   const canonicalUrl = `https://www.emporioinmobiliario.com.mx/${slugActual}`;
   const imagenSocial = "https://www.emporioinmobiliario.com.mx/logo.png";
   const guiaRelacionada = GUIAS_RELACIONADAS[slugActual];
@@ -191,6 +204,9 @@ export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto,
                   </div>
                   <div style={{ padding: 14 }}>
                     <h2 style={{ margin: "0 0 4px", fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{p.titulo}</h2>
+                    <p style={{ margin: "0 0 7px", fontSize: 12, color: "#6b7280" }}>
+                      📍 {[p.colonia, p.ciudad].filter(Boolean).join(", ")}
+                    </p>
                     <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#C8102E" }}>{fmt(p.precio)}</p>
                   </div>
                 </article>
@@ -232,6 +248,7 @@ export async function getServerSideProps({ params, res }) {
   }
 
   const { tipo, operacion, zonaSlug } = parsed;
+  const tiposConsulta = TIPOS_EQUIVALENTES[tipo] || [tipo];
 
   // Traemos todas las propiedades activas de ese tipo/operación, y
   // filtramos por zona comparando el slug de ciudad/colonia — así no
@@ -240,7 +257,7 @@ export async function getServerSideProps({ params, res }) {
   const { data, error } = await supabasePublic
     .from("propiedades")
     .select("public_id, titulo, precio, operacion, tipo, ciudad, colonia, fotos, status")
-    .eq("tipo", tipo)
+    .in("tipo", tiposConsulta)
     .in("status", ["published", "reserved"]);
 
   if (error) {
@@ -251,7 +268,12 @@ export async function getServerSideProps({ params, res }) {
   }
 
   const coincideOperacion = (p) => (operacion === "sale" ? p.operacion === "sale" : p.operacion !== "sale");
-  const coincideZona = (p) => slugificar(p.colonia || "") === zonaSlug || slugificar(p.ciudad || "") === zonaSlug;
+  const coincideZona = (p) => {
+    if (zonaSlug === "puebla") {
+      return CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || ""));
+    }
+    return slugificar(p.colonia || "") === zonaSlug || slugificar(p.ciudad || "") === zonaSlug;
+  };
 
   const propiedadesFiltradas = (data || []).filter((p) => coincideOperacion(p) && coincideZona(p));
 
@@ -275,6 +297,8 @@ export async function getServerSideProps({ params, res }) {
     titulo: p.titulo,
     precio: p.precio,
     fotos: p.fotos,
+    ciudad: p.ciudad,
+    colonia: p.colonia,
     slug: generarSlug(p),
   }));
 

@@ -23,6 +23,13 @@ const supabasePublic = createClient(
 );
 
 const SITE_URL = "https://www.emporioinmobiliario.com.mx";
+const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
+  "puebla",
+  "san-andres-cholula",
+  "san-pedro-cholula",
+  "cholula",
+  "cuautlancingo",
+]);
 
 // Páginas estáticas y corporativas — copiadas tal cual del sitemap.xml
 // anterior, para no perder ninguna URL ya indexada por Google.
@@ -164,11 +171,11 @@ export async function getServerSideProps({ res }) {
   const landingsPrioritarias = [
     {
       loc: "/casas-en-venta-puebla",
-      coincide: (p) => p.tipo === "Casa" && p.operacion === "sale" && slugificar(p.ciudad || "") === "puebla",
+      coincide: (p) => ["Casa", "Casa en condominio"].includes(p.tipo) && p.operacion === "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
     },
     {
       loc: "/departamentos-en-renta-puebla",
-      coincide: (p) => p.tipo === "Departamento" && p.operacion !== "sale" && slugificar(p.ciudad || "") === "puebla",
+      coincide: (p) => p.tipo === "Departamento" && p.operacion !== "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
     },
   ];
   const urlsLandings = landingsPrioritarias
