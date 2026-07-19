@@ -18,6 +18,7 @@
 import { Montserrat } from "next/font/google";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 import ProyectosAnalytics from "../components/ProyectosAnalytics";
+import SiteAnalytics from "../components/SiteAnalytics";
 import StructuredData from "../components/StructuredData";
 
 const montserrat = Montserrat({
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps }) {
     <div className={montserrat.variable}>
       <GoogleAnalytics />
       <ProyectosAnalytics />
+      <SiteAnalytics />
       <StructuredData />
       <Component {...pageProps} />
     </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
+import { registrarEventoSitio } from "../../lib/siteAnalytics";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -393,6 +394,11 @@ export default function PropiedadDetalle({ propiedad }) {
         setErrorEnvio(data.error || "No se pudo enviar el mensaje. Intenta por WhatsApp.");
       } else {
         setEnviado(true);
+        registrarEventoSitio("site_form_submit", {
+          contexto: "detalle_propiedad",
+          tipo_formulario: "interes_propiedad",
+          ruta: window.location.pathname,
+        });
       }
     } catch (e) {
       setErrorEnvio("Error de conexión. Intenta por WhatsApp.");

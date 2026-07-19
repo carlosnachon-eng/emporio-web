@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { registrarEventoSitio } from "../lib/siteAnalytics";
 
 const CSS = `
 * { box-sizing: border-box; }
@@ -83,8 +84,15 @@ export default function Propietarios() {
   const handleEnviar = async () => {
     setEnviando(true);
     try {
-      await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Nuevo propietario interesado" }) });
+      const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Nuevo propietario interesado" }) });
       setEnviado(true);
+      if (respuesta.ok) {
+        registrarEventoSitio("site_form_submit", {
+          contexto: "captacion_propietarios",
+          tipo_formulario: "captacion_propietario",
+          ruta: "/propietarios",
+        });
+      }
     } catch (e) { console.error(e); }
     setEnviando(false);
   };
