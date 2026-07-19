@@ -23,6 +23,14 @@ const supabasePublic = createClient(
 );
 
 const SITE_URL = "https://www.emporioinmobiliario.com.mx";
+const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
+  "puebla",
+  "san-andres-cholula",
+  "san-pedro-cholula",
+  "cholula",
+  "cuautlancingo",
+  "nativitas",
+]);
 
 // Páginas estáticas y corporativas — copiadas tal cual del sitemap.xml
 // anterior, para no perder ninguna URL ya indexada por Google.
@@ -106,6 +114,18 @@ function generarSlug(propiedad) {
   return `${slugBase}-${propiedad.public_id}`;
 }
 
+function quitarAcentos(texto) {
+  return String(texto).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function slugificar(texto) {
+  return quitarAcentos(texto)
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
 function urlTag({ loc, changefreq, priority, lastmod }) {
   return `  <url>
     <loc>${escaparXml(loc)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
@@ -146,9 +166,37 @@ export async function getServerSideProps({ res }) {
     })
   );
 
+  // Landings transaccionales por tipo y operación. Solo entran al sitemap
+  // mientras exista inventario real, para evitar URLs vacías o páginas
+  // programáticas débiles.
+  const landingsPrioritarias = [
+    {
+      loc: "/casas-en-venta-puebla",
+      coincide: (p) => ["Casa", "Casa en condominio"].includes(p.tipo) && p.operacion === "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+    {
+      loc: "/casas-en-renta-puebla",
+      coincide: (p) => ["Casa", "Casa en condominio"].includes(p.tipo) && p.operacion !== "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+    {
+      loc: "/departamentos-en-venta-puebla",
+      coincide: (p) => p.tipo === "Departamento" && p.operacion === "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+    {
+      loc: "/departamentos-en-renta-puebla",
+      coincide: (p) => p.tipo === "Departamento" && p.operacion !== "sale" && CIUDADES_ZONA_METROPOLITANA_PUEBLA.has(slugificar(p.ciudad || "")),
+    },
+  ];
+  const urlsLandings = landingsPrioritarias
+    .filter((landing) => (propiedades || []).some(landing.coincide))
+    .map((landing) =>
+      urlTag({ loc: `${SITE_URL}${landing.loc}`, changefreq: "daily", priority: "0.95" })
+    );
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlsEstaticas.join("\n")}
+${urlsLandings.join("\n")}
 ${urlsBlog.join("\n")}
 ${urlsCasasNuevas.join("\n")}
 ${urlsPropiedades.join("\n")}

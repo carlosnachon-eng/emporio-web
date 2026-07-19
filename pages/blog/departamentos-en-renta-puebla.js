@@ -160,7 +160,7 @@ export default function ArticuloDeptosRenta() {
                 Tenemos más de 30 propiedades en renta activas en Puebla, Cholula, Lomas de Angelópolis y Cuautlancingo. Te ayudamos a encontrar la que mejor se adapta a ti.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/propiedades?operacion=rental" style={{ background: "#C8102E", color: "#fff", padding: "13px 24px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
+                <a href="/departamentos-en-renta-puebla" style={{ background: "#C8102E", color: "#fff", padding: "13px 24px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
                   Ver departamentos en renta →
                 </a>
                 <a href="https://wa.me/522222573237?text=Hola,%20busco%20departamento%20en%20renta%20en%20Puebla" target="_blank" rel="noreferrer"
