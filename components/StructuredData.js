@@ -8,6 +8,7 @@ const LABELS = {
   "casas-nuevas": "Casas nuevas",
   administracion: "Administración de inmuebles",
   "administracion-de-condominios-puebla": "Administración de condominios en Puebla",
+  "bolsa-de-trabajo": "Bolsa de Trabajo",
   propietarios: "Propietarios",
   arrendatarios: "Arrendatarios",
   contacto: "Contacto",
