@@ -376,8 +376,8 @@ export default function BolsaDeTrabajo() {
         <div style={{ maxWidth: 980, margin: "0 auto", borderLeft: "4px solid #C8102E", padding: "8px 0 8px 28px" }}>
           <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px" }}>Cultura Emporio</p>
           <h2 style={{ fontSize: 32, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>Así es trabajar en Emporio</h2>
-          <p style={{ fontSize: 18, lineHeight: 1.8, color: "#4b5563", margin: 0, fontStyle: "italic" }}>
-            "Aquí irá el testimonio de un asesor del equipo: una historia real sobre crecimiento, acompañamiento y resultados dentro de Emporio Inmobiliario."
+          <p style={{ fontSize: 18, lineHeight: 1.8, color: "#4b5563", margin: 0 }}>
+            En Emporio Inmobiliario trabajamos con acompañamiento cercano, objetivos claros y una cultura enfocada en formar asesores profesionales, confiables y orientados a resultados.
           </p>
         </div>
       </section>
