@@ -47,7 +47,7 @@ const buscamos = [
 ];
 
 const ofrecemos = [
-  "Excelente esquema de comisiones",
+  "Esquema de ingresos: 100% por comisiones, sin sueldo base",
   "Capacitación continua",
   "Herramientas tecnológicas",
   "Marketing profesional",
@@ -82,6 +82,10 @@ const jobPostingJsonLd = {
   "@type": "JobPosting",
   title: "Asesor inmobiliario",
   description: "Emporio Inmobiliario busca asesores inmobiliarios en Puebla con actitud comercial, gusto por las ventas y deseos reales de crecer profesionalmente. No es indispensable tener experiencia inmobiliaria previa.",
+  datePosted: "2026-07-28",
+  employmentType: "CONTRACTOR",
+  incentiveCompensation: "Esquema 100% por comisiones",
+  totalJobOpenings: 3,
   hiringOrganization: {
     "@type": "Organization",
     name: "Emporio Inmobiliario",
@@ -92,8 +96,9 @@ const jobPostingJsonLd = {
     "@type": "Place",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Puebla",
+      addressLocality: "San Andrés Cholula",
       addressRegion: "Puebla",
+      postalCode: "72820",
       addressCountry: "MX",
     },
   },
@@ -283,6 +288,10 @@ export default function BolsaDeTrabajo() {
               <a className="bt-focus" href="#postularme" style={{ background: "#C8102E", color: "#fff", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Quiero postularme →</a>
               <a className="bt-focus" href="#vacante" style={{ background: "#fff", color: "#1a1a2e", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", border: "1px solid #e5e7eb" }}>Conocer la vacante</a>
               <a className="bt-focus" href="/nosotros" style={{ background: "#1a1a2e", color: "#fff", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Conoce Emporio Inmobiliario</a>
+            </div>
+            <div style={{ display: "grid", gap: 8, marginTop: 24, color: "#374151", fontSize: 13, fontWeight: 700 }}>
+              <span>Ubicación: San Andrés Cholula, Puebla, C.P. 72820.</span>
+              <span>Esquema de ingresos: 100% por comisiones, sin sueldo base.</span>
             </div>
           </div>
           <div style={{ borderRadius: 18, overflow: "hidden", minHeight: 360, boxShadow: "0 18px 54px rgba(26,26,46,.16)", border: "1px solid rgba(255,255,255,.7)" }}>
