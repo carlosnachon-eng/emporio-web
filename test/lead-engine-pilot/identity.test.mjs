@@ -48,4 +48,3 @@ test("rechaza identidades inválidas y secretos débiles", () => {
     hmacVersion: "v1",
   }));
 });
-

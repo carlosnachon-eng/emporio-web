@@ -26,4 +26,3 @@ test("rechaza envelopes incompletos o demasiado largos", () => {
   assert.equal(result.valid, false);
   assert.deepEqual(result.errors, ["invalid_request_id", "invalid_property_id"]);
 });
-
