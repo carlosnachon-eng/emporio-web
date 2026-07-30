@@ -279,6 +279,7 @@ export default function AdministrationExperience() {
   });
   const [status, setStatus] = useState("idle");
   const formStarted = useRef(false);
+  const submissionActive = useRef(false);
 
   const updateForm = (event) => {
     const { name, value, checked, type } = event.target;
@@ -300,7 +301,11 @@ export default function AdministrationExperience() {
 
   const submitForm = async (event) => {
     event.preventDefault();
+    if (submissionActive.current) return;
+
+    submissionActive.current = true;
     setStatus("sending");
+    let submissionCompleted = false;
 
     try {
       const response = await fetch("/api/contacto", {
@@ -325,9 +330,18 @@ export default function AdministrationExperience() {
         tipo_formulario: "asesoria_administracion",
         ruta: "/administracion",
       });
+      submissionCompleted = true;
       setStatus("success");
     } catch {
+      registrarEventoSitio("site_form_error", {
+        contexto: "administracion_inmuebles",
+        tipo_formulario: "asesoria_administracion",
+        ruta: "/administracion",
+        estado: "envio_no_completado",
+      });
       setStatus("error");
+    } finally {
+      if (!submissionCompleted) submissionActive.current = false;
     }
   };
 

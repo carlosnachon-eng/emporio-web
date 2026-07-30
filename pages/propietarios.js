@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -80,21 +80,49 @@ export default function Propietarios() {
   const [form, setForm] = useState({ nombre: "", email: "", whatsapp: "", colonia: "", tipo: "", operacion: "", comentarios: "" });
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [errorEnvio, setErrorEnvio] = useState("");
+  const envioActivo = useRef(false);
 
   const handleEnviar = async () => {
+    if (envioActivo.current) return;
+
+    envioActivo.current = true;
     setEnviando(true);
+    setErrorEnvio("");
+    let envioCompletado = false;
+
     try {
       const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Nuevo propietario interesado" }) });
-      setEnviado(true);
-      if (respuesta.ok) {
-        registrarEventoSitio("site_form_submit", {
+      if (!respuesta.ok) {
+        setErrorEnvio("No pudimos enviar tu información. Inténtalo nuevamente o escríbenos por WhatsApp.");
+        registrarEventoSitio("site_form_error", {
           contexto: "captacion_propietarios",
           tipo_formulario: "captacion_propietario",
           ruta: "/propietarios",
+          estado: "respuesta_no_exitosa",
         });
+        return;
       }
-    } catch (e) { console.error(e); }
-    setEnviando(false);
+
+      registrarEventoSitio("site_form_submit", {
+        contexto: "captacion_propietarios",
+        tipo_formulario: "captacion_propietario",
+        ruta: "/propietarios",
+      });
+      envioCompletado = true;
+      setEnviado(true);
+    } catch {
+      setErrorEnvio("No pudimos conectar con el servidor. Inténtalo nuevamente o escríbenos por WhatsApp.");
+      registrarEventoSitio("site_form_error", {
+        contexto: "captacion_propietarios",
+        tipo_formulario: "captacion_propietario",
+        ruta: "/propietarios",
+        estado: "error_conexion",
+      });
+    } finally {
+      if (!envioCompletado) envioActivo.current = false;
+      setEnviando(false);
+    }
   };
 
   return (
@@ -420,6 +448,11 @@ export default function Propietarios() {
                   <textarea placeholder="Cuéntanos más sobre tu propiedad..." value={form.comentarios} onChange={e => setForm(v => ({ ...v, comentarios: e.target.value }))}
                     style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 90, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif", background: "#fff" }} />
                 </div>
+                {errorEnvio && (
+                  <p role="alert" style={{ margin: "0 0 14px", padding: "10px 12px", borderRadius: 10, background: "#fef2f2", color: "#991b1b", fontSize: 13, lineHeight: 1.5 }}>
+                    {errorEnvio}
+                  </p>
+                )}
                 <button onClick={handleEnviar} disabled={enviando || !form.nombre || !form.whatsapp}
                   style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 12, padding: "15px", fontWeight: 800, fontSize: 16, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, fontFamily: "'Montserrat', sans-serif" }}>
                   {enviando ? "Enviando..." : "📩 Quiero que promuevan mi propiedad"}

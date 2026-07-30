@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -17,21 +17,49 @@ export default function Contacto() {
   const [form, setForm] = useState({ nombre: "", email: "", whatsapp: "", mensaje: "" });
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [errorEnvio, setErrorEnvio] = useState("");
+  const envioActivo = useRef(false);
 
   const handleEnviar = async () => {
+    if (envioActivo.current) return;
+
+    envioActivo.current = true;
     setEnviando(true);
+    setErrorEnvio("");
+    let envioCompletado = false;
+
     try {
       const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Contacto desde el sitio web" }) });
-      setEnviado(true);
-      if (respuesta.ok) {
-        registrarEventoSitio("site_form_submit", {
+      if (!respuesta.ok) {
+        setErrorEnvio("No pudimos enviar tu mensaje. Inténtalo nuevamente o escríbenos por WhatsApp.");
+        registrarEventoSitio("site_form_error", {
           contexto: "contacto",
           tipo_formulario: "contacto_general",
           ruta: "/contacto",
+          estado: "respuesta_no_exitosa",
         });
+        return;
       }
-    } catch (e) { console.error(e); }
-    setEnviando(false);
+
+      registrarEventoSitio("site_form_submit", {
+        contexto: "contacto",
+        tipo_formulario: "contacto_general",
+        ruta: "/contacto",
+      });
+      envioCompletado = true;
+      setEnviado(true);
+    } catch {
+      setErrorEnvio("No pudimos conectar con el servidor. Inténtalo nuevamente o escríbenos por WhatsApp.");
+      registrarEventoSitio("site_form_error", {
+        contexto: "contacto",
+        tipo_formulario: "contacto_general",
+        ruta: "/contacto",
+        estado: "error_conexion",
+      });
+    } finally {
+      if (!envioCompletado) envioActivo.current = false;
+      setEnviando(false);
+    }
   };
 
   return (
@@ -120,6 +148,11 @@ export default function Contacto() {
                     <textarea id="contacto-mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" value={form.mensaje} onChange={e => setForm(v => ({ ...v, mensaje: e.target.value }))}
                       style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, minHeight: 110, resize: "vertical", boxSizing: "border-box", fontFamily: "'Montserrat', sans-serif" }} />
                   </div>
+                  {errorEnvio && (
+                    <p role="alert" style={{ margin: "0 0 14px", padding: "10px 12px", borderRadius: 10, background: "#fef2f2", color: "#991b1b", fontSize: 13, lineHeight: 1.5 }}>
+                      {errorEnvio}
+                    </p>
+                  )}
                   <button onClick={handleEnviar} disabled={enviando || !form.nombre || !form.whatsapp}
                     style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 12, padding: "14px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, fontFamily: "'Montserrat', sans-serif", marginBottom: 12 }}>
                     {enviando ? "Enviando..." : "Enviar mensaje →"}
