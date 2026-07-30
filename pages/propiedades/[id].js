@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../../components/Navbar";
@@ -254,6 +254,7 @@ export default function PropiedadDetalle({ propiedad }) {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState(null);
+  const envioContactoActivo = useRef(false);
   const [contacto, setContacto] = useState({ nombre: "", telefono: "", email: "", mensaje: "" });
   const [isMobile, setIsMobile] = useState(false);
 
@@ -381,8 +382,12 @@ export default function PropiedadDetalle({ propiedad }) {
   };
 
   const handleContacto = async () => {
+    if (envioContactoActivo.current) return;
+
+    envioContactoActivo.current = true;
     setEnviando(true);
     setErrorEnvio(null);
+    let envioCompletado = false;
     try {
       const res = await fetch("/api/contacto-propiedad", {
         method: "POST",
@@ -392,18 +397,33 @@ export default function PropiedadDetalle({ propiedad }) {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setErrorEnvio(data.error || "No se pudo enviar el mensaje. Intenta por WhatsApp.");
+        registrarEventoSitio("site_form_error", {
+          contexto: "detalle_propiedad",
+          tipo_formulario: "interes_propiedad",
+          ruta: window.location.pathname,
+          estado: "respuesta_no_exitosa",
+        });
       } else {
-        setEnviado(true);
         registrarEventoSitio("site_form_submit", {
           contexto: "detalle_propiedad",
           tipo_formulario: "interes_propiedad",
           ruta: window.location.pathname,
         });
+        envioCompletado = true;
+        setEnviado(true);
       }
-    } catch (e) {
+    } catch {
       setErrorEnvio("Error de conexión. Intenta por WhatsApp.");
+      registrarEventoSitio("site_form_error", {
+        contexto: "detalle_propiedad",
+        tipo_formulario: "interes_propiedad",
+        ruta: window.location.pathname,
+        estado: "error_conexion",
+      });
+    } finally {
+      if (!envioCompletado) envioContactoActivo.current = false;
+      setEnviando(false);
     }
-    setEnviando(false);
   };
 
   const videoEmbedUrl = (url) => {
