@@ -7,6 +7,7 @@
 // reporte mensual a propietarios.
 
 import { createClient } from "@supabase/supabase-js";
+import { capturePropertyLeadPilot } from "../../lib/lead-engine-pilot/property-capture.mjs";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -25,6 +26,8 @@ export default async function handler(req, res) {
   // Guardar el registro en Supabase. Esto corre antes del envío de correo
   // y no bloquea ni cancela el flujo si llegara a fallar — lo importante
   // para el usuario sigue siendo que el correo a ventas se mande bien.
+  let currentRequestStored = false;
+  let propertySourceId = null;
   try {
     const { data: propiedad } = await supabasePublic
       .from("propiedades")
@@ -32,7 +35,8 @@ export default async function handler(req, res) {
       .eq("public_id", propiedad_id)
       .maybeSingle();
 
-    await supabasePublic.from("solicitudes_contacto_propiedad").insert({
+    propertySourceId = propiedad?.id || null;
+    const { error: requestError } = await supabasePublic.from("solicitudes_contacto_propiedad").insert({
       propiedad_id: propiedad?.id || null,
       propiedad_public_id: propiedad_id || null,
       nombre,
@@ -40,9 +44,27 @@ export default async function handler(req, res) {
       email: email || null,
       mensaje: mensaje || null,
     });
+    if (requestError) throw requestError;
+    currentRequestStored = true;
   } catch (e) {
     console.error("No se pudo guardar la solicitud de contacto:", e.message);
   }
+
+  const leadEnginePromise = currentRequestStored
+    ? capturePropertyLeadPilot({
+        env: process.env,
+        input: {
+          email,
+          phone: telefono,
+          propertyPublicId: propiedad_id,
+          propertySourceId,
+          conversionPath: `/propiedades/${encodeURIComponent(propiedad_id || "desconocida")}`,
+        },
+        createClient,
+        fetchImpl: fetch,
+        logger: console,
+      }).catch(() => ({ status: "failed_open" }))
+    : Promise.resolve({ status: "skipped_current_request_not_stored" });
 
   const subject = `🏠 Interesado en: ${propiedad_titulo || propiedad_id || "una propiedad"}`;
 
@@ -73,19 +95,22 @@ export default async function handler(req, res) {
   `;
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "Emporio Web <cobros@emporioinmobiliario.com.mx>",
-        to: ["ventas@emporioinmobiliario.mx"],
-        subject,
-        html,
+    const [response] = await Promise.all([
+      fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Emporio Web <cobros@emporioinmobiliario.com.mx>",
+          to: ["ventas@emporioinmobiliario.mx"],
+          subject,
+          html,
+        }),
       }),
-    });
+      leadEnginePromise,
+    ]);
 
     const data = await response.json();
 
