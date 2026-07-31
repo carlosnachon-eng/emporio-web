@@ -37,7 +37,7 @@ test("crea el cliente privilegiado sólo con dependencia explícita", () => {
   assert.equal(received[0][2].auth.autoRefreshToken, false);
 });
 
-test("verifica la service role contra la URL Demo sin realizar escrituras", async () => {
+test("verifica la service role contra la URL permitida sin realizar escrituras", async () => {
   const calls = [];
   const result = await verifyLeadEngineSupabaseCredentials({
     enabled: true,

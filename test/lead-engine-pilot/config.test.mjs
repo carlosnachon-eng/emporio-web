@@ -41,9 +41,49 @@ test("acepta únicamente Demo en Preview con allowlist exacta", () => {
   assert.equal(config.deploymentEnvironment, "preview");
 });
 
-test("rechaza Production aunque los demás valores sean válidos", () => {
+test("acepta Production sólo con allowlist exacta y referencia no bloqueada", () => {
+  const config = loadLeadEngineConfig(enabledEnv({
+    VERCEL_ENV: "production",
+    LEAD_ENGINE_SUPABASE_URL: `https://${PROD_REF}.supabase.co`,
+    LEAD_ENGINE_ALLOWED_PROJECT_REF: PROD_REF,
+    LEAD_ENGINE_BLOCKED_PROJECT_REFS: DEMO_REF,
+    LEAD_ENGINE_SUPABASE_SERVICE_ROLE_KEY: jwt({ role: "service_role", ref: PROD_REF }),
+  }));
+  assert.equal(config.enabled, true);
+  assert.equal(config.environment, "production");
+  assert.equal(config.deploymentEnvironment, "production");
+  assert.equal(config.projectRef, PROD_REF);
+});
+
+test("rechaza Production si la URL no coincide con la allowlist", () => {
   assert.throws(
-    () => loadLeadEngineConfig(enabledEnv({ VERCEL_ENV: "production" })),
+    () => loadLeadEngineConfig(enabledEnv({
+      VERCEL_ENV: "production",
+      LEAD_ENGINE_SUPABASE_URL: `https://${PROD_REF}.supabase.co`,
+      LEAD_ENGINE_ALLOWED_PROJECT_REF: DEMO_REF,
+      LEAD_ENGINE_BLOCKED_PROJECT_REFS: "",
+      LEAD_ENGINE_SUPABASE_SERVICE_ROLE_KEY: jwt({ role: "service_role", ref: PROD_REF }),
+    })),
+    (error) => error.code === LEAD_ENGINE_ERROR.unsafeTarget,
+  );
+});
+
+test("rechaza Production si la referencia permitida también está bloqueada", () => {
+  assert.throws(
+    () => loadLeadEngineConfig(enabledEnv({
+      VERCEL_ENV: "production",
+      LEAD_ENGINE_SUPABASE_URL: `https://${PROD_REF}.supabase.co`,
+      LEAD_ENGINE_ALLOWED_PROJECT_REF: PROD_REF,
+      LEAD_ENGINE_BLOCKED_PROJECT_REFS: `${DEMO_REF},${PROD_REF}`,
+      LEAD_ENGINE_SUPABASE_SERVICE_ROLE_KEY: jwt({ role: "service_role", ref: PROD_REF }),
+    })),
+    (error) => error.code === LEAD_ENGINE_ERROR.unsafeTarget,
+  );
+});
+
+test("rechaza entornos desconocidos aunque los demás valores sean válidos", () => {
+  assert.throws(
+    () => loadLeadEngineConfig(enabledEnv({ VERCEL_ENV: "staging" })),
     (error) => error.code === LEAD_ENGINE_ERROR.unsafeTarget,
   );
 });
