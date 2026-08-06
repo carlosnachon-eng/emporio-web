@@ -19,6 +19,10 @@ globalThis.__emporioPostulacionRateLimit = rateLimitStore;
 
 const OPCIONES_VENTAS = new Set(["Ninguna", "Menos de 1 año", "1 a 3 años", "Más de 3 años"]);
 const OPCIONES_SI_NO = new Set(["Sí", "No"]);
+const VACANTES_PERMITIDAS = new Set([
+  "Asesor Inmobiliario de Ventas",
+  "Coordinadora Administrativa Inmobiliaria",
+]);
 
 function escapeHtml(value = "") {
   return String(value)
@@ -156,6 +160,7 @@ export default async function handler(req, res) {
     const { fields, files } = parseMultipart(await readBody(req), boundary);
     if (fields.empresa) return res.status(200).json({ success: true });
 
+    const vacante = cleanText(fields.vacante, 120);
     const nombre = cleanText(fields.nombre, 120);
     const email = cleanText(fields.email, 160).toLowerCase();
     const telefono = cleanText(fields.telefono, 30);
@@ -168,8 +173,11 @@ export default async function handler(req, res) {
     const originUrl = cleanText(fields.originUrl, 240);
     const timestamp = cleanText(fields.timestamp, 40);
 
-    if (!nombre || !email || !telefono || !ciudad || !edad || !experienciaVentas || !experienciaInmobiliaria || !automovil) {
+    if (!vacante || !nombre || !email || !telefono || !ciudad || !edad || !experienciaVentas || !experienciaInmobiliaria || !automovil) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
+    }
+    if (!VACANTES_PERMITIDAS.has(vacante)) {
+      return res.status(400).json({ error: "Vacante inválida" });
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: "Correo electrónico inválido" });
@@ -193,15 +201,16 @@ export default async function handler(req, res) {
     }
 
     const submittedAt = timestamp || new Date().toISOString();
-    const subject = `Nueva postulación — Asesor Inmobiliario de Ventas — ${nombre}`;
+    const subject = `Nueva postulación — ${vacante} — ${nombre}`;
     const cvFilename = candidateCvFilename(nombre);
     const html = `
       <div style="font-family: sans-serif; max-width: 680px; margin: 0 auto; padding: 32px; background: #f9fafb; border-radius: 12px;">
         <div style="text-align:center; margin-bottom: 24px;">
           <img src="https://www.emporioinmobiliario.com.mx/logo.png" alt="Emporio Inmobiliario" style="height:56px;" />
         </div>
-        <h2 style="color:#C8102E; margin:0 0 22px; text-align:center;">Nueva solicitud para asesor inmobiliario</h2>
+        <h2 style="color:#C8102E; margin:0 0 22px; text-align:center;">Nueva solicitud de Bolsa de Trabajo</h2>
         <div style="background:#fff; border:1px solid #eceef2; border-radius:10px; padding:24px;">
+          <p><strong>Vacante:</strong> ${escapeHtml(vacante)}</p>
           <p><strong>Nombre completo:</strong> ${escapeHtml(nombre)}</p>
           <p><strong>Correo electrónico:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
           <p><strong>Teléfono:</strong> <a href="https://wa.me/52${escapeHtml(telefono).replace(/\D/g, "")}">${escapeHtml(telefono)}</a></p>

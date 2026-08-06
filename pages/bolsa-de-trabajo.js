@@ -9,6 +9,7 @@ const CSS = `
   .bt-input:focus { border-color: #C8102E !important; box-shadow: 0 0 0 3px rgba(200,16,46,.1); outline: none; }
   .bt-focus:focus-visible { outline: 3px solid rgba(200,16,46,.35); outline-offset: 3px; }
   .bt-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.48); border-top-color: #fff; border-radius: 50%; display: inline-block; animation: bt-spin .75s linear infinite; }
+  .bt-vacante-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(26,26,46,.1); }
   @keyframes bt-spin { to { transform: rotate(360deg); } }
   @media (max-width: 980px) {
     .bt-hero-grid, .bt-form-grid { grid-template-columns: 1fr !important; }
@@ -24,6 +25,9 @@ const CSS = `
     .bt-actions a { width: 100% !important; text-align: center !important; }
   }
 `;
+
+const VACANTE_ASESOR = "Asesor Inmobiliario de Ventas";
+const VACANTE_COORDINADORA = "Coordinadora Administrativa Inmobiliaria";
 
 const beneficios = [
   ["🏛️", "Marca consolidada", "Más de 20 años de experiencia y presencia constante en el mercado inmobiliario poblano."],
@@ -47,7 +51,7 @@ const buscamos = [
 ];
 
 const ofrecemos = [
-  "Esquema de ingresos: 100% por comisiones, sin sueldo base",
+  "Esquema de ingresos: 100% por comisiones, sin sueldo base.",
   "Capacitación continua",
   "Herramientas tecnológicas",
   "Marketing profesional",
@@ -58,7 +62,73 @@ const ofrecemos = [
   "Respaldo jurídico y administrativo",
 ];
 
+const vacantes = [
+  {
+    id: "asesor-inmobiliario",
+    titulo: VACANTE_ASESOR,
+    etiqueta: "Ventas inmobiliarias",
+    urgencia: "3 posiciones abiertas",
+    resumen: "Para personas con actitud comercial, gusto por las ventas y deseo real de crecer en el sector inmobiliario.",
+    modalidad: "Presencial / campo",
+    ubicacion: "San Andrés Cholula, Puebla, C.P. 72820",
+    ingresos: "Esquema de ingresos: 100% por comisiones, sin sueldo base.",
+    horario: "Flexibilidad de horarios",
+    responsabilidades: [
+      "Atención y seguimiento a clientes compradores, vendedores y arrendatarios.",
+      "Prospección, seguimiento y cierre de oportunidades inmobiliarias.",
+      "Visitas a propiedades y acompañamiento en procesos comerciales.",
+      "Uso de herramientas internas para administrar leads y seguimiento.",
+    ],
+    perfil: [
+      "Excelente actitud y facilidad de palabra.",
+      "Gusto por las ventas y orientación a resultados.",
+      "Organización, proactividad y buena presentación.",
+      "Manejo básico de computadora.",
+      "Automóvil propio, preferente no indispensable.",
+    ],
+    oferta: ofrecemos,
+    destacado: "Buscamos asesores con disciplina comercial, seguimiento constante y visión de carrera.",
+  },
+  {
+    id: "coordinadora-administrativa",
+    titulo: VACANTE_COORDINADORA,
+    etiqueta: "Vacante urgente",
+    urgencia: "Incorporación inmediata",
+    resumen: "Para una persona organizada, resolutiva y con excelente seguimiento que pueda integrarse de inmediato al equipo administrativo.",
+    modalidad: "Presencial",
+    ubicacion: "San Andrés Cholula, Puebla, C.P. 72820",
+    ingresos: "Sueldo fijo",
+    horario: "Tiempo completo",
+    responsabilidades: [
+      "Coordinación administrativa de inmuebles en renta.",
+      "Seguimiento a propietarios, inquilinos y proveedores.",
+      "Control de cobranza, pagos, cortes y reportes.",
+      "Coordinación de mantenimientos, servicios y pendientes operativos.",
+      "Actualización de información, documentos y procesos internos.",
+      "Apoyo en contratos, renovaciones y seguimiento postventa.",
+    ],
+    perfil: [
+      "Experiencia en administración, coordinación operativa o atención a clientes.",
+      "Excelente organización y sentido de urgencia.",
+      "Comunicación clara y trato profesional.",
+      "Capacidad para dar seguimiento a varios temas al mismo tiempo.",
+      "Manejo de computadora, WhatsApp y herramientas digitales.",
+      "Deseable experiencia en inmobiliaria, administración de propiedades o servicios.",
+    ],
+    oferta: [
+      "Incorporación inmediata",
+      "Sueldo fijo",
+      "Capacitación",
+      "Trabajo presencial",
+      "Buen ambiente laboral",
+      "Oportunidad de crecimiento",
+    ],
+    destacado: "Buscamos a alguien que pueda tomar control, dar seguimiento y mantener orden en la operación diaria.",
+  },
+];
+
 const initialForm = {
+  vacante: VACANTE_ASESOR,
   nombre: "",
   email: "",
   telefono: "",
@@ -77,33 +147,49 @@ const PAGE_URL = `${SITE_URL}/bolsa-de-trabajo`;
 const HERO_IMAGE = `${SITE_URL}/images/bolsa-trabajo-asesor-inmobiliario.webp`;
 const MAX_CV_BYTES = 5 * 1024 * 1024;
 
-const jobPostingJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "JobPosting",
-  title: "Asesor inmobiliario",
-  description: "Emporio Inmobiliario busca asesores inmobiliarios en Puebla con actitud comercial, gusto por las ventas y deseos reales de crecer profesionalmente. No es indispensable tener experiencia inmobiliaria previa.",
-  datePosted: "2026-07-28",
-  employmentType: "CONTRACTOR",
-  incentiveCompensation: "Esquema 100% por comisiones",
-  totalJobOpenings: 3,
-  hiringOrganization: {
-    "@type": "Organization",
-    name: "Emporio Inmobiliario",
-    sameAs: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
-  },
-  jobLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "San Andrés Cholula",
-      addressRegion: "Puebla",
-      postalCode: "72820",
-      addressCountry: "MX",
-    },
-  },
-  url: PAGE_URL,
+const hiringOrganization = {
+  "@type": "Organization",
+  name: "Emporio Inmobiliario",
+  sameAs: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
 };
+
+const jobLocation = {
+  "@type": "Place",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "San Andrés Cholula",
+    addressRegion: "Puebla",
+    postalCode: "72820",
+    addressCountry: "MX",
+  },
+};
+
+const jobPostingJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: VACANTE_ASESOR,
+    description: "Emporio Inmobiliario busca asesores inmobiliarios de ventas en San Andrés Cholula, Puebla, con actitud comercial, gusto por las ventas y deseos reales de crecer profesionalmente. La vacante opera bajo esquema 100% por comisiones, sin sueldo base.",
+    datePosted: "2026-07-28",
+    employmentType: "CONTRACTOR",
+    incentiveCompensation: "Esquema 100% por comisiones",
+    totalJobOpenings: 3,
+    hiringOrganization,
+    jobLocation,
+    url: `${PAGE_URL}#asesor-inmobiliario`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: VACANTE_COORDINADORA,
+    description: "Emporio Inmobiliario busca una Coordinadora Administrativa Inmobiliaria en San Andrés Cholula, Puebla. La persona dará seguimiento a propietarios, inquilinos, proveedores, cobranza, pagos, cortes, reportes, mantenimientos, servicios y documentación administrativa.",
+    datePosted: "2026-08-06",
+    hiringOrganization,
+    jobLocation,
+    url: `${PAGE_URL}#coordinadora-administrativa`,
+  },
+];
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -166,45 +252,59 @@ export default function BolsaDeTrabajo() {
   const [estado, setEstado] = useState("idle");
   const [error, setError] = useState("");
   const [formStarted, setFormStarted] = useState(false);
+  const currentVacante = vacantes.find((vacante) => vacante.titulo === form.vacante) || vacantes[0];
 
   useEffect(() => {
     registrarEventoSitio("site_page_view", {
       contexto: "bolsa_de_trabajo",
       ruta: "/bolsa-de-trabajo",
     });
+    vacantes.forEach((vacante) => {
+      registrarEventoSitio("site_job_view", {
+        contexto: "bolsa_de_trabajo",
+        ruta: "/bolsa-de-trabajo",
+        vacante: vacante.titulo,
+      });
+    });
   }, []);
 
-  const markFormStart = () => {
+  const markFormStart = (vacanteSeleccionada = form.vacante) => {
     if (formStarted) return;
     setFormStarted(true);
     registrarEventoSitio("site_form_start", {
       contexto: "bolsa_de_trabajo",
-      tipo_formulario: "postulacion_asesor_inmobiliario",
+      tipo_formulario: "postulacion_bolsa_trabajo",
       ruta: "/bolsa-de-trabajo",
+      vacante: vacanteSeleccionada,
     });
   };
 
   const update = (key, value) => {
-    markFormStart();
+    markFormStart(key === "vacante" ? value : form.vacante);
     setForm((current) => ({ ...current, [key]: value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (estado === "sending") return;
+    if (!vacantes.some((vacante) => vacante.titulo === form.vacante)) {
+      setError("Selecciona una vacante válida.");
+      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_bolsa_trabajo", ruta: "/bolsa-de-trabajo", vacante: form.vacante, estado: "vacante_invalida" });
+      return;
+    }
     if (!form.cv) {
       setError("El CV en PDF es obligatorio.");
-      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_asesor_inmobiliario", ruta: "/bolsa-de-trabajo", estado: "cv_requerido" });
+      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_bolsa_trabajo", ruta: "/bolsa-de-trabajo", vacante: form.vacante, estado: "cv_requerido" });
       return;
     }
     if (form.cv.type !== "application/pdf" || !form.cv.name.toLowerCase().endsWith(".pdf")) {
       setError("El CV debe ser un archivo PDF.");
-      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_asesor_inmobiliario", ruta: "/bolsa-de-trabajo", estado: "cv_tipo" });
+      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_bolsa_trabajo", ruta: "/bolsa-de-trabajo", vacante: form.vacante, estado: "cv_tipo" });
       return;
     }
     if (form.cv.size > MAX_CV_BYTES) {
       setError("El CV no debe exceder 5 MB.");
-      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_asesor_inmobiliario", ruta: "/bolsa-de-trabajo", estado: "cv_tamano" });
+      registrarEventoSitio("site_form_error", { contexto: "bolsa_de_trabajo", tipo_formulario: "postulacion_bolsa_trabajo", ruta: "/bolsa-de-trabajo", vacante: form.vacante, estado: "cv_tamano" });
       return;
     }
     setEstado("sending");
@@ -230,15 +330,17 @@ export default function BolsaDeTrabajo() {
       setForm(initialForm);
       registrarEventoSitio("site_form_submit", {
         contexto: "bolsa_de_trabajo",
-        tipo_formulario: "postulacion_asesor_inmobiliario",
+        tipo_formulario: "postulacion_bolsa_trabajo",
         ruta: "/bolsa-de-trabajo",
+        vacante: form.vacante,
       });
     } catch (err) {
       setError(err.message);
       registrarEventoSitio("site_form_error", {
         contexto: "bolsa_de_trabajo",
-        tipo_formulario: "postulacion_asesor_inmobiliario",
+        tipo_formulario: "postulacion_bolsa_trabajo",
         ruta: "/bolsa-de-trabajo",
+        vacante: form.vacante,
         estado: "error_envio",
       });
       setEstado("idle");
@@ -248,22 +350,24 @@ export default function BolsaDeTrabajo() {
   return (
     <div style={{ fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif", background: "#fff", color: "#1a1a2e" }}>
       <Head>
-        <title>Bolsa de Trabajo | Vacantes para Asesores Inmobiliarios en Puebla | Emporio Inmobiliario</title>
-        <meta name="description" content="Únete a Emporio Inmobiliario. Buscamos asesores inmobiliarios con actitud comercial que quieran desarrollar una carrera profesional en una de las inmobiliarias con mayor crecimiento en Puebla." />
-        <meta name="keywords" content="bolsa de trabajo inmobiliaria Puebla, vacantes asesor inmobiliario Puebla, empleo asesor inmobiliario, trabajo agente inmobiliario Puebla, trabajar en inmobiliaria Puebla, vacantes ventas inmobiliarias, asesor inmobiliario sin experiencia, empleo ventas Puebla" />
-        <meta property="og:title" content="Bolsa de Trabajo | Vacantes para Asesores Inmobiliarios en Puebla" />
-        <meta property="og:description" content="Únete a Emporio Inmobiliario y desarrolla una carrera profesional como asesor inmobiliario en Puebla." />
+        <title>Bolsa de Trabajo | Vacantes Inmobiliarias en Puebla | Emporio Inmobiliario</title>
+        <meta name="description" content="Únete a Emporio Inmobiliario. Vacantes para asesor inmobiliario de ventas y coordinación administrativa inmobiliaria en San Andrés Cholula, Puebla." />
+        <meta name="keywords" content="bolsa de trabajo inmobiliaria Puebla, vacantes asesor inmobiliario Puebla, empleo asesor inmobiliario, coordinadora administrativa inmobiliaria, trabajo inmobiliaria Puebla, empleo administración inmobiliaria Puebla" />
+        <meta property="og:title" content="Bolsa de Trabajo | Vacantes Inmobiliarias en Puebla" />
+        <meta property="og:description" content="Únete a Emporio Inmobiliario. Vacantes de ventas y coordinación administrativa inmobiliaria en San Andrés Cholula, Puebla." />
         <meta property="og:image" content={HERO_IMAGE} />
         <meta property="og:image:alt" content="Asesor inmobiliario mostrando una propiedad a clientes" />
         <meta property="og:url" content={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Bolsa de Trabajo | Vacantes para Asesores Inmobiliarios en Puebla" />
-        <meta name="twitter:description" content="Únete a Emporio Inmobiliario y desarrolla una carrera profesional como asesor inmobiliario en Puebla." />
+        <meta name="twitter:title" content="Bolsa de Trabajo | Vacantes Inmobiliarias en Puebla" />
+        <meta name="twitter:description" content="Únete a Emporio Inmobiliario. Vacantes de ventas y coordinación administrativa inmobiliaria en San Andrés Cholula, Puebla." />
         <meta name="twitter:image" content={HERO_IMAGE} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={PAGE_URL} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }} />
+        {jobPostingJsonLd.map((job) => (
+          <script key={job.title} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(job) }} />
+        ))}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       </Head>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -279,19 +383,15 @@ export default function BolsaDeTrabajo() {
             </div>
             <h1 className="bt-hero-title" style={{ fontSize: 56, lineHeight: 1.05, fontWeight: 900, margin: "0 0 22px", color: "#1a1a2e" }}>Trabaja con nosotros</h1>
             <p style={{ fontSize: 16, lineHeight: 1.8, color: "#4b5563", margin: "0 0 14px" }}>
-              En Emporio Inmobiliario buscamos personas con actitud comercial, gusto por las ventas y deseos reales de crecer profesionalmente.
+              En Emporio Inmobiliario buscamos personas con seguimiento, actitud de servicio y deseos reales de crecer profesionalmente.
             </p>
             <p style={{ fontSize: 16, lineHeight: 1.8, color: "#4b5563", margin: "0 0 30px" }}>
-              No necesitas contar con una cartera de clientes. Nosotros generamos oportunidades constantemente para que puedas enfocarte en hacer lo que mejor sabes: vender y construir relaciones con clientes.
+              Tenemos vacantes para fortalecer el equipo comercial y administrativo que atiende a propietarios, inquilinos y clientes todos los días.
             </p>
             <div className="bt-actions" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a className="bt-focus" href="#postularme" style={{ background: "#C8102E", color: "#fff", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Quiero postularme →</a>
-              <a className="bt-focus" href="#vacante" style={{ background: "#fff", color: "#1a1a2e", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", border: "1px solid #e5e7eb" }}>Conocer la vacante</a>
+              <a className="bt-focus" href="#vacantes" style={{ background: "#fff", color: "#1a1a2e", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", border: "1px solid #e5e7eb" }}>Ver vacantes</a>
               <a className="bt-focus" href="/nosotros" style={{ background: "#1a1a2e", color: "#fff", padding: "14px 22px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Conoce Emporio Inmobiliario</a>
-            </div>
-            <div style={{ display: "grid", gap: 8, marginTop: 24, color: "#374151", fontSize: 13, fontWeight: 700 }}>
-              <span>Ubicación: San Andrés Cholula, Puebla, C.P. 72820.</span>
-              <span>Esquema de ingresos: 100% por comisiones, sin sueldo base.</span>
             </div>
           </div>
           <div style={{ borderRadius: 18, overflow: "hidden", minHeight: 360, boxShadow: "0 18px 54px rgba(26,26,46,.16)", border: "1px solid rgba(255,255,255,.7)" }}>
@@ -310,7 +410,84 @@ export default function BolsaDeTrabajo() {
         </div>
       </section>
 
-      <section id="vacante" className="bt-section" style={{ padding: "72px 32px", background: "#fff" }}>
+      <section id="vacantes" className="bt-section" style={{ padding: "72px 32px", background: "#fff" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px" }}>Vacantes disponibles</p>
+          <h2 style={{ fontSize: 34, fontWeight: 900, color: "#1a1a2e", margin: "0 0 14px" }}>Elige el puesto que conecta contigo</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.8, color: "#4b5563", margin: "0 0 30px", maxWidth: 760 }}>
+            Estamos fortaleciendo el equipo con perfiles comerciales y administrativos. Revisa el enfoque de cada vacante y postúlate al puesto que mejor se alinee con tu experiencia.
+          </p>
+          <div className="bt-two" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}>
+            {vacantes.map((vacante) => (
+              <article id={vacante.id} className="bt-vacante-card" key={vacante.id} style={{ background: "#fff", border: "1px solid #eceef2", borderRadius: 8, padding: 28, boxShadow: "0 4px 18px rgba(0,0,0,.04)", transition: "transform .18s ease, box-shadow .18s ease" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", marginBottom: 16 }}>
+                  <div>
+                    <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 900, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 8px" }}>{vacante.etiqueta}</p>
+                    <h3 style={{ fontSize: 25, fontWeight: 900, color: "#1a1a2e", margin: 0, lineHeight: 1.16 }}>{vacante.titulo}</h3>
+                  </div>
+                  <span style={{ background: "#fff0f2", color: "#C8102E", borderRadius: 99, padding: "7px 10px", fontSize: 11, fontWeight: 900, whiteSpace: "nowrap" }}>{vacante.urgencia}</span>
+                </div>
+                <p style={{ fontSize: 14, lineHeight: 1.75, color: "#4b5563", margin: "0 0 18px" }}>{vacante.resumen}</p>
+                <div style={{ display: "grid", gap: 9, marginBottom: 20 }}>
+                  {[vacante.ubicacion, vacante.horario, vacante.ingresos].map((item) => (
+                    <div key={item} style={{ display: "flex", gap: 9, alignItems: "center", fontSize: 13, color: "#374151", fontWeight: 700 }}>
+                      <span style={{ width: 24, height: 24, borderRadius: 8, background: "#fff0f2", color: "#C8102E", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, flexShrink: 0 }}>✓</span>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ background: "#f9fafb", border: "1px solid #eceef2", borderRadius: 8, padding: 16, marginBottom: 18 }}>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: "#1f2937", margin: 0, fontWeight: 800 }}>{vacante.destacado}</p>
+                </div>
+                <a
+                  className="bt-focus"
+                  href="#postularme"
+                  onClick={() => {
+                    setForm((current) => ({ ...current, vacante: vacante.titulo }));
+                    registrarEventoSitio("site_job_view", {
+                      contexto: "bolsa_de_trabajo",
+                      ruta: "/bolsa-de-trabajo",
+                      vacante: vacante.titulo,
+                    });
+                  }}
+                  style={{ display: "inline-flex", background: "#C8102E", color: "#fff", padding: "12px 18px", borderRadius: 10, fontWeight: 900, fontSize: 13, textDecoration: "none" }}
+                >
+                  Postularme a esta vacante →
+                </a>
+              </article>
+            ))}
+          </div>
+          <div style={{ display: "grid", gap: 24, marginTop: 28 }}>
+            {vacantes.map((vacante) => (
+              <article key={`${vacante.id}-detalle`} style={{ background: "#fff", border: "1px solid #eceef2", borderRadius: 8, padding: 28 }}>
+                <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 900, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 8px" }}>{vacante.etiqueta}</p>
+                <h3 style={{ fontSize: 26, fontWeight: 900, color: "#1a1a2e", margin: "0 0 20px" }}>{vacante.titulo}</h3>
+                <div className="bt-three" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18 }}>
+                  {[
+                    ["Responsabilidades", vacante.responsabilidades],
+                    ["Perfil ideal", vacante.perfil],
+                    ["Ofrecemos", vacante.oferta],
+                  ].map(([title, items]) => (
+                    <div key={title} style={{ background: "#f9fafb", border: "1px solid #eceef2", borderRadius: 8, padding: 20 }}>
+                      <h4 style={{ fontSize: 16, fontWeight: 900, color: "#1a1a2e", margin: "0 0 14px" }}>{title}</h4>
+                      <ul style={{ display: "grid", gap: 10, listStyle: "none", margin: 0, padding: 0 }}>
+                        {items.map((item) => (
+                          <li key={item} style={{ display: "flex", gap: 9, color: "#4b5563", fontSize: 13, lineHeight: 1.55 }}>
+                            <span style={{ color: "#C8102E", fontWeight: 900, flexShrink: 0 }}>✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bt-section" style={{ padding: "72px 32px", background: "#fafafa" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px" }}>Carrera inmobiliaria</p>
           <h2 style={{ fontSize: 34, fontWeight: 900, color: "#1a1a2e", margin: "0 0 34px" }}>¿Por qué trabajar en Emporio Inmobiliario?</h2>
@@ -385,8 +562,8 @@ export default function BolsaDeTrabajo() {
         <div style={{ maxWidth: 980, margin: "0 auto", borderLeft: "4px solid #C8102E", padding: "8px 0 8px 28px" }}>
           <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px" }}>Cultura Emporio</p>
           <h2 style={{ fontSize: 32, fontWeight: 900, color: "#1a1a2e", margin: "0 0 16px" }}>Así es trabajar en Emporio</h2>
-          <p style={{ fontSize: 18, lineHeight: 1.8, color: "#4b5563", margin: 0 }}>
-            En Emporio Inmobiliario trabajamos con acompañamiento cercano, objetivos claros y una cultura enfocada en formar asesores profesionales, confiables y orientados a resultados.
+          <p style={{ fontSize: 18, lineHeight: 1.8, color: "#4b5563", margin: 0, fontStyle: "italic" }}>
+            "Aquí irá el testimonio de un asesor del equipo: una historia real sobre crecimiento, acompañamiento y resultados dentro de Emporio Inmobiliario."
           </p>
         </div>
       </section>
@@ -397,12 +574,12 @@ export default function BolsaDeTrabajo() {
             <p style={{ fontSize: 11, color: "#fecdd3", fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 10px" }}>Postulación</p>
             <h2 style={{ fontSize: 38, fontWeight: 900, margin: "0 0 16px", lineHeight: 1.1 }}>Da el siguiente paso en tu carrera</h2>
             <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,.78)", margin: "0 0 24px" }}>
-              Si estás buscando un lugar donde realmente puedas crecer, queremos conocerte.
+              Estás postulándote a <strong>{currentVacante.titulo}</strong>. Puedes cambiar la vacante en el formulario antes de enviar tu CV.
             </p>
             <a className="bt-focus" href="#formulario-postulacion" style={{ display: "inline-flex", background: "#C8102E", color: "#fff", padding: "13px 20px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Postularme ahora →</a>
           </div>
 
-          <form id="formulario-postulacion" onSubmit={handleSubmit} onFocus={markFormStart} style={{ background: "#fff", borderRadius: 8, padding: 30, border: "1px solid rgba(255,255,255,.24)", boxShadow: "0 16px 48px rgba(0,0,0,.2)" }}>
+          <form id="formulario-postulacion" onSubmit={handleSubmit} onFocus={() => markFormStart()} style={{ background: "#fff", borderRadius: 8, padding: 30, border: "1px solid rgba(255,255,255,.24)", boxShadow: "0 16px 48px rgba(0,0,0,.2)" }}>
             {estado === "sent" ? (
               <div role="status" aria-live="polite" style={{ textAlign: "center", padding: "44px 16px" }}>
                 <div style={{ width: 58, height: 58, borderRadius: "50%", background: "#f0fdf4", color: "#15803d", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 28, marginBottom: 16 }}>✓</div>
@@ -421,6 +598,16 @@ export default function BolsaDeTrabajo() {
                   </ol>
                 </div>
                 <input type="text" name="empresa" tabIndex="-1" autoComplete="off" value={form.empresa} onChange={(e) => update("empresa", e.target.value)} aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }} />
+                <div style={{ marginBottom: 16 }}>
+                  <Field id="bt-vacante" label="Vacante a la que aplicas" required>
+                    <select id="bt-vacante" className="bt-input" required value={form.vacante} onChange={(e) => update("vacante", e.target.value)} style={inputStyle()}>
+                      {vacantes.map((vacante) => (
+                        <option key={vacante.id} value={vacante.titulo}>{vacante.titulo}</option>
+                      ))}
+                    </select>
+                  </Field>
+                  <p style={{ fontSize: 12, color: "#6b7280", margin: "6px 0 0" }}>{currentVacante.ubicacion} · {currentVacante.horario} · {currentVacante.ingresos}</p>
+                </div>
                 <div className="bt-two" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                   <Field id="bt-nombre" label="Nombre completo" required><input id="bt-nombre" className="bt-input" required value={form.nombre} onChange={(e) => update("nombre", e.target.value)} autoComplete="name" style={inputStyle()} /></Field>
                   <Field id="bt-email" label="Correo electrónico" required><input id="bt-email" className="bt-input" required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} autoComplete="email" style={inputStyle()} /></Field>
@@ -464,9 +651,10 @@ export default function BolsaDeTrabajo() {
                       if (file) {
                         registrarEventoSitio("site_file_upload", {
                           contexto: "bolsa_de_trabajo",
-                          tipo_formulario: "postulacion_asesor_inmobiliario",
+                          tipo_formulario: "postulacion_bolsa_trabajo",
                           ruta: "/bolsa-de-trabajo",
                           campo: "cv",
+                          vacante: form.vacante,
                         });
                       }
                     }} aria-describedby="bt-cv-ayuda" style={{ ...inputStyle(), paddingTop: 10 }} />
