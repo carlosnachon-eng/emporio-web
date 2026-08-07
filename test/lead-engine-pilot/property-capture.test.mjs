@@ -88,3 +88,16 @@ test("un error RPC falla abierto y no registra PII", async () => {
   assert.equal(serialized.includes(input.email), false);
   assert.equal(serialized.includes(input.phone), false);
 });
+
+test("un doble envío conserva submission_id para idempotencia", async () => {
+  const submissions = [];
+  const fakeClient = {
+    async rpc(_name, payload) {
+      submissions.push(payload.p_submission_id);
+      return { data: { status: submissions.length === 1 ? "created" : "deduplicated", conversion_id: "10000000-0000-4000-8000-000000000010" }, error: null };
+    },
+  };
+  await capturePropertyLeadPilot({ env: enabledEnv(), input, createClient: () => fakeClient, fetchImpl: async () => ({ ok: true }) });
+  await capturePropertyLeadPilot({ env: enabledEnv(), input, createClient: () => fakeClient, fetchImpl: async () => ({ ok: true }) });
+  assert.deepEqual(submissions, [input.submissionId, input.submissionId]);
+});

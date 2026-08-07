@@ -8,6 +8,8 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { capturePropertyLeadPilot } from "../../lib/lead-engine-pilot/property-capture.mjs";
+import { prepareLeadEngineServerClient } from "../../lib/lead-engine-pilot/supabase-client.mjs";
+import { authorizeSignedTestMode } from "../../lib/lead-engine-pilot/signed-test-mode.mjs";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -21,6 +23,72 @@ export default async function handler(req, res) {
 
   if (!nombre || !telefono) {
     return res.status(400).json({ error: "Faltan campos requeridos (nombre y teléfono)" });
+  }
+
+  // Harness técnico exclusivo de Preview. Si cualquier header de prueba está
+  // presente pero la firma no es válida, se rechaza antes de tocar el flujo
+  // heredado o Resend. Sin headers, el comportamiento normal no cambia.
+  let signedTest;
+  try {
+    signedTest = await authorizeSignedTestMode({
+      env: process.env,
+      method: req.method,
+      path: "/api/contacto-propiedad",
+      body: req.body,
+      headers: req.headers,
+      reserveNonce: async ({ nonce, signedAt }) => {
+        const prepared = await prepareLeadEngineServerClient({
+          env: process.env,
+          createClient,
+          fetchImpl: fetch,
+        });
+        if (!prepared.enabled || !prepared.client || prepared.projectRef !== "kmxzvcngfrzcasedtexw") return false;
+        const { data, error } = await prepared.client.rpc("lead_engine_reserve_test_nonce", {
+          p_nonce: nonce,
+          p_signed_at: signedAt,
+        });
+        return !error && data === true;
+      },
+    });
+  } catch {
+    return res.status(403).json({ error: "Signed test rejected" });
+  }
+
+  if (signedTest.requested && !signedTest.authorized) {
+    return res.status(signedTest.status || 403).json({ error: "Signed test rejected", safe_status: signedTest.reason });
+  }
+
+  if (signedTest.authorized) {
+    const testCase = String(req.body?.lead_engine?.test_case || "capture");
+    const captureClient = testCase === "fail_open"
+      ? () => ({ rpc: async () => ({ data: null, error: { code: "SYNTHETIC_FAILURE" } }) })
+      : testCase === "timeout"
+        ? () => ({ rpc: () => new Promise(() => {}) })
+        : createClient;
+    const leadEngineResult = await capturePropertyLeadPilot({
+      env: process.env,
+      input: {
+        email,
+        phone: telefono,
+        submissionId: req.body?.lead_engine?.submission_id,
+        attribution: req.body?.lead_engine?.attribution,
+        propertyPublicId: propiedad_id,
+        propertySourceId: null,
+        propertySlug: req.body?.lead_engine?.property_slug,
+        conversionPath: `/propiedades/${encodeURIComponent(propiedad_id || "synthetic")}`,
+      },
+      createClient: captureClient,
+      fetchImpl: fetch,
+      logger: console,
+      timeoutMs: testCase === "timeout" ? 15 : 800,
+    });
+    return res.status(200).json({
+      test_mode: true,
+      lead_engine_result: leadEngineResult.status,
+      synthetic_lead_id: leadEngineResult.value?.leadId || null,
+      synthetic_conversion_id: leadEngineResult.value?.conversionId || null,
+      safe_status: leadEngineResult.value?.status || leadEngineResult.errorCode || leadEngineResult.status,
+    });
   }
 
   // Guardar el registro en Supabase. Esto corre antes del envío de correo

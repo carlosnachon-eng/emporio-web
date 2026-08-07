@@ -21,6 +21,14 @@ const commercialRollback = await readFile(
   new URL("../../supabase/lead-engine-demo/202608070001_lead_engine_commercial_state.rollback.sql", import.meta.url),
   "utf8",
 );
+const nonceMigration = await readFile(
+  new URL("../../supabase/lead-engine-demo/202608070002_lead_engine_test_nonces.sql", import.meta.url),
+  "utf8",
+);
+const nonceRollback = await readFile(
+  new URL("../../supabase/lead-engine-demo/202608070002_lead_engine_test_nonces.rollback.sql", import.meta.url),
+  "utf8",
+);
 
 test("la migración sólo crea objetos aislados del Lead Engine", () => {
   assert.match(migration, /create table public\.lead_engine_identities/i);
@@ -66,4 +74,14 @@ test("seguimiento comercial es aditivo, protegido y reversible", () => {
   assert.doesNotMatch(commercialMigration, /alter table public\.(clientes|propiedades|contratos|operaciones)/i);
   assert.match(commercialRollback, /drop table if exists public\.lead_engine_commercial_states/i);
   assert.doesNotMatch(commercialRollback, /drop table if exists public\.(clientes|propiedades|contratos|operaciones)/i);
+});
+
+test("nonces firmados son Demo-only, anti-replay y reversibles", () => {
+  assert.match(nonceMigration, /create table if not exists public\.lead_engine_test_nonces/i);
+  assert.match(nonceMigration, /nonce uuid primary key/i);
+  assert.match(nonceMigration, /on conflict \(nonce\) do nothing/i);
+  assert.match(nonceMigration, /force row level security/i);
+  assert.match(nonceMigration, /grant execute[\s\S]+to service_role/i);
+  assert.doesNotMatch(nonceMigration, /public\.(clientes|propiedades|solicitudes_contacto_propiedad)/i);
+  assert.match(nonceRollback, /drop table if exists public\.lead_engine_test_nonces/i);
 });
