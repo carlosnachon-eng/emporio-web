@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
 import { registrarEventoSitio } from "../../lib/siteAnalytics";
+import { captureLeadAttribution, readLeadAttribution } from "../../lib/lead-engine-pilot/attribution-client.mjs";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -255,6 +256,8 @@ export default function PropiedadDetalle({ propiedad }) {
   const [enviado, setEnviado] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState(null);
   const envioContactoActivo = useRef(false);
+  const leadEngineAttribution = useRef(null);
+  const leadEngineSubmissionId = useRef(null);
   const [contacto, setContacto] = useState({ nombre: "", telefono: "", email: "", mensaje: "" });
   const [isMobile, setIsMobile] = useState(false);
 
@@ -264,6 +267,10 @@ export default function PropiedadDetalle({ propiedad }) {
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  useEffect(() => {
+    leadEngineAttribution.current = captureLeadAttribution();
+  }, [propiedad?.public_id]);
 
   if (!propiedad) return (
     <>
@@ -389,10 +396,19 @@ export default function PropiedadDetalle({ propiedad }) {
     setErrorEnvio(null);
     let envioCompletado = false;
     try {
+      if (!leadEngineSubmissionId.current) leadEngineSubmissionId.current = window.crypto.randomUUID();
       const res = await fetch("/api/contacto-propiedad", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contacto, propiedad_id: propiedad.public_id, propiedad_titulo: propiedad.titulo }),
+        body: JSON.stringify({
+          ...contacto,
+          propiedad_id: propiedad.public_id,
+          propiedad_titulo: propiedad.titulo,
+          lead_engine: {
+            submission_id: leadEngineSubmissionId.current,
+            attribution: readLeadAttribution() || leadEngineAttribution.current,
+          },
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {

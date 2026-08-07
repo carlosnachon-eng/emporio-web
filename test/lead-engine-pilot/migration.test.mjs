@@ -13,6 +13,14 @@ const rollbackUrl = new URL(
 
 const migration = await readFile(migrationUrl, "utf8");
 const rollback = await readFile(rollbackUrl, "utf8");
+const commercialMigration = await readFile(
+  new URL("../../supabase/lead-engine-demo/202608070001_lead_engine_commercial_state.sql", import.meta.url),
+  "utf8",
+);
+const commercialRollback = await readFile(
+  new URL("../../supabase/lead-engine-demo/202608070001_lead_engine_commercial_state.rollback.sql", import.meta.url),
+  "utf8",
+);
 
 test("la migración sólo crea objetos aislados del Lead Engine", () => {
   assert.match(migration, /create table public\.lead_engine_identities/i);
@@ -48,4 +56,14 @@ test("el rollback elimina exclusivamente objetos nuevos", () => {
   assert.match(rollback, /drop function if exists public\.lead_engine_capture_property_pilot/i);
   assert.doesNotMatch(rollback, /drop table if exists public\.(clientes|propiedades|solicitudes_contacto_propiedad)/i);
   assert.doesNotMatch(rollback, /\btruncate\b/i);
+});
+
+test("seguimiento comercial es aditivo, protegido y reversible", () => {
+  assert.match(commercialMigration, /create table if not exists public\.lead_engine_commercial_states/i);
+  assert.match(commercialMigration, /force row level security/i);
+  assert.match(commercialMigration, /revoke all[\s\S]+from public, anon, authenticated/i);
+  assert.match(commercialMigration, /grant execute[\s\S]+to service_role/i);
+  assert.doesNotMatch(commercialMigration, /alter table public\.(clientes|propiedades|contratos|operaciones)/i);
+  assert.match(commercialRollback, /drop table if exists public\.lead_engine_commercial_states/i);
+  assert.doesNotMatch(commercialRollback, /drop table if exists public\.(clientes|propiedades|contratos|operaciones)/i);
 });

@@ -25,6 +25,11 @@ const input = {
   propertyPublicId: "LE-DEMO-001",
   propertySourceId: "demo-property-001",
   conversionPath: "/propiedades/lead-engine-demo",
+  attribution: {
+    attribution_id: "10000000-0000-4000-8000-000000000003",
+    first_touch: { source: "tiktok", medium: "social", campaign: "rentas", content: null, term: null, landing_path: "/propiedades/lead-engine-demo", referrer: null, seen_at: "2026-08-01T12:00:00.000Z" },
+    last_touch: { source: "google", medium: "organic", campaign: null, content: null, term: null, landing_path: "/propiedades/lead-engine-demo", referrer: "https://google.com/search", seen_at: "2026-08-07T12:00:00.000Z" },
+  },
 };
 
 test("flag apagado no crea cliente ni llama a la red", async () => {
@@ -60,6 +65,8 @@ test("envío habilitado usa fingerprints y nunca PII directa en el RPC", async (
   assert.equal(rpcPayload.p_submission_id, input.submissionId);
   assert.match(rpcPayload.p_phone_fingerprint, /^v1:[0-9a-f]{64}$/);
   assert.match(rpcPayload.p_email_fingerprint, /^v1:[0-9a-f]{64}$/);
+  assert.equal(rpcPayload.p_first_touch.source, "tiktok");
+  assert.equal(rpcPayload.p_last_touch.source, "google");
   const serialized = JSON.stringify(rpcPayload);
   assert.equal(serialized.includes(input.email), false);
   assert.equal(serialized.includes("2220000000"), false);

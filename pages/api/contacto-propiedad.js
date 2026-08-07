@@ -56,6 +56,8 @@ export default async function handler(req, res) {
         input: {
           email,
           phone: telefono,
+          submissionId: req.body?.lead_engine?.submission_id,
+          attribution: req.body?.lead_engine?.attribution,
           propertyPublicId: propiedad_id,
           propertySourceId,
           conversionPath: `/propiedades/${encodeURIComponent(propiedad_id || "desconocida")}`,
