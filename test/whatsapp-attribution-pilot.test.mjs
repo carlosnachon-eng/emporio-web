@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import test from "node:test";
 
-import { createPropertyWhatsappClickHandler } from "../lib/whatsapp-attribution/client.mjs";
+import {
+  createPropertyWhatsappClickHandler,
+  whatsappAttributionEnabled,
+} from "../lib/whatsapp-attribution/client.mjs";
 import {
   captureWhatsappTouch,
   deriveWhatsappTouch,
@@ -165,6 +168,21 @@ test("configuración está apagada por defecto y solo permite Preview -> DEV", (
     { WHATSAPP_ATTRIBUTION_BLOCKED_PROJECT_REFS: "" },
     { WHATSAPP_ATTRIBUTION_SUPABASE_SERVICE_ROLE_KEY: serviceRoleFor(PROD_REF) },
   ]) assert.throws(() => loadWhatsappAttributionPilotConfig(enabledEnv(unsafe)));
+});
+
+test("el flag público del cliente admite configuración explícita y default compilable", async () => {
+  assert.equal(whatsappAttributionEnabled({ NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED: "true" }), true);
+  assert.equal(whatsappAttributionEnabled({ NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED: "false" }), false);
+
+  const previous = process.env.NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED;
+  process.env.NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED = "true";
+  try {
+    const module = await import(`../lib/whatsapp-attribution/client.mjs?qa-flag=${Date.now()}`);
+    assert.equal(module.whatsappAttributionEnabled(), true);
+  } finally {
+    if (previous === undefined) delete process.env.NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED;
+    else process.env.NEXT_PUBLIC_WHATSAPP_ATTRIBUTION_PILOT_ENABLED = previous;
+  }
 });
 
 test("entrada server-side acepta solo contexto allowlisted y sin PII", () => {
