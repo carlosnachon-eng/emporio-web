@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
 import { registrarEventoSitio } from "../../lib/siteAnalytics";
+import { createPropertyWhatsappClickHandler } from "../../lib/whatsapp-attribution/client.mjs";
+import { propertyWhatsappHref } from "../../lib/whatsapp-attribution/reference.mjs";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -164,7 +166,7 @@ const PROTECCION_JURIDICA_LABEL = {
   otra_poliza: "Requiere póliza jurídica",
 };
 
-function FormularioContacto({ propiedad, contacto, setContacto, enviando, enviado, errorEnvio, onEnviar, isMobile }) {
+function FormularioContacto({ propiedad, contacto, setContacto, enviando, enviado, errorEnvio, onEnviar, onWhatsappClick, isMobile }) {
   return (
     <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", marginBottom: isMobile ? 16 : 0 }}>
       <h3 style={{ margin: "0 0 4px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>¿Te interesa esta propiedad?</h3>
@@ -202,7 +204,7 @@ function FormularioContacto({ propiedad, contacto, setContacto, enviando, enviad
             style={{ width: "100%", background: "#C8102E", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: enviando ? "not-allowed" : "pointer", opacity: enviando ? 0.7 : 1, marginBottom: 12, fontFamily: "'Montserrat', sans-serif" }}>
             {enviando ? "Enviando..." : "📩 Enviar mensaje"}
           </button>
-          <a href={`https://wa.me/522222573237?text=Hola, me interesa la propiedad ${propiedad.public_id || ""} - ${propiedad.titulo || ""}`} target="_blank" rel="noreferrer"
+          <a href={propertyWhatsappHref({ publicId: propiedad.public_id, title: propiedad.titulo })} target="_blank" rel="noreferrer" onClick={onWhatsappClick}
             style={{ display: "block", width: "100%", background: "#25d366", color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 800, fontSize: 15, cursor: "pointer", textAlign: "center", textDecoration: "none", boxSizing: "border-box" }}>
             💬 WhatsApp
           </a>
@@ -257,12 +259,24 @@ export default function PropiedadDetalle({ propiedad }) {
   const envioContactoActivo = useRef(false);
   const [contacto, setContacto] = useState({ nombre: "", telefono: "", email: "", mensaje: "" });
   const [isMobile, setIsMobile] = useState(false);
+  const whatsappHandler = useRef(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    whatsappHandler.current = propiedad
+      ? createPropertyWhatsappClickHandler({ property: propiedad })
+      : null;
+  }, [propiedad]);
+
+  const handleWhatsappClick = useCallback((event) => {
+    if (whatsappHandler.current) return whatsappHandler.current(event);
+    return undefined;
   }, []);
 
   if (!propiedad) return (
@@ -513,7 +527,7 @@ export default function PropiedadDetalle({ propiedad }) {
                   </div>
                 )}
               </div>
-              <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+              <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} onWhatsappClick={handleWhatsappClick} isMobile={isMobile} />
               <MapaUbicacion lat={lat} lng={lng} mostrarExacta={propiedad.mostrar_ubicacion_exacta} direccion={direccion} />
               {datosOperativos.length > 0 && (
                 <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginTop: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
@@ -619,7 +633,7 @@ export default function PropiedadDetalle({ propiedad }) {
                 )}
               </div>
               <div style={{ position: "sticky", top: 20 }}>
-                <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+                <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} onWhatsappClick={handleWhatsappClick} isMobile={isMobile} />
               </div>
             </div>
           )}
@@ -662,7 +676,9 @@ function generarSlug(propiedad) {
 // URL, sin importar qué slug venga antes. Esta función lo extrae de forma
 // confiable tanto de la URL vieja (solo el ID) como de la nueva (slug+ID).
 function extraerPublicId(param) {
-  const match = String(param).match(/((?:EB|EMP)-[A-Z0-9]+)$/i);
+  // DEV-* se acepta únicamente para que Preview pueda usar propiedades
+  // sintéticas del proyecto DEV sin consultar Producción.
+  const match = String(param).match(/((?:EB|EMP)-[A-Z0-9]+|DEV-[A-Z0-9-]+)$/i);
   return match ? match[1].toUpperCase() : param;
 }
 
