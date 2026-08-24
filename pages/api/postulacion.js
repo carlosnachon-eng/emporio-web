@@ -21,7 +21,6 @@ const OPCIONES_VENTAS = new Set(["Ninguna", "Menos de 1 año", "1 a 3 años", "M
 const OPCIONES_SI_NO = new Set(["Sí", "No"]);
 const VACANTES_PERMITIDAS = new Set([
   "Asesor Inmobiliario de Ventas",
-  "Coordinadora Administrativa Inmobiliaria",
 ]);
 
 function escapeHtml(value = "") {
