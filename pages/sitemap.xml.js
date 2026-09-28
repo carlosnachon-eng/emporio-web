@@ -42,6 +42,7 @@ const PAGINAS_ESTATICAS = [
   { loc: "/vender-propiedad-veracruz", changefreq: "weekly", priority: "0.95" },
   { loc: "/vender-propiedad-puebla", changefreq: "weekly", priority: "0.95" },
   { loc: "/casas-nuevas", changefreq: "weekly", priority: "0.95" },
+  { loc: "/desarrollos", changefreq: "weekly", priority: "0.95" },
   { loc: "/torre-zaia", changefreq: "weekly", priority: "0.95" },
   { loc: "/equiah", changefreq: "weekly", priority: "0.95" },
   { loc: "/bau22", changefreq: "weekly", priority: "0.9" },
