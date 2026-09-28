@@ -109,6 +109,9 @@ export default function Propietarios() {
         contexto: "captacion_propietarios",
         tipo_formulario: "captacion_propietario",
         ruta: "/propietarios",
+        plaza: form.plaza,
+        servicio,
+        source: "website",
       });
       envioCompletado = true;
       setEnviado(true);
@@ -468,6 +471,14 @@ export default function Propietarios() {
                       <option>Venta</option><option>Renta</option><option>Ambas</option>
                     </select>
                   </div>
+                </div>
+                <div style={{ marginBottom: 16 }}>
+                  <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>Plaza</label>
+                  <select value={form.plaza} onChange={e => setForm(v => ({ ...v, plaza: e.target.value }))} style={{ width: "100%", padding: "11px 14px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 14, background: "#fff", fontFamily: "'Montserrat', sans-serif" }}>
+                    <option value="">Seleccionar</option>
+                    <option value="PUEBLA">Puebla</option>
+                    <option value="VERACRUZ">Veracruz</option>
+                  </select>
                 </div>
                 <div style={{ marginBottom: 24 }}>
                   <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.04em" }}>Comentarios adicionales</label>
