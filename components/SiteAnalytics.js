@@ -18,6 +18,7 @@ function contextoRuta(ruta) {
   if (ruta.startsWith("/blindaje-legal")) return "blindaje_legal";
   if (ruta.startsWith("/blog/")) return "blog";
   if (ruta === "/blog") return "blog_portada";
+  if (ruta === "/desarrollos") return "desarrollo_hub";
   if (ruta.startsWith("/casas-nuevas")) return "casas_nuevas";
   if (["/torre-zaia", "/equiah", "/bau22", "/rincon-de-los-suenos"].includes(ruta)) {
     return "desarrollo";
