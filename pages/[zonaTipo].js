@@ -19,6 +19,7 @@ import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { generarSlugPropiedad } from "../lib/propertySeo";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -86,28 +87,6 @@ function quitarAcentos(s) {
 
 function slugificar(s) {
   return quitarAcentos(s).toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");
-}
-
-// Idéntica a la función en pages/propiedades/[id].js y pages/sitemap.xml.js
-// — debe coincidir exactamente en los tres archivos, o los links generados
-// aquí llevarían a un redirect 301 innecesario en vez de ir directo.
-function generarSlug(propiedad) {
-  const partes = [];
-  partes.push(propiedad.tipo || "propiedad");
-  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
-  if (propiedad.colonia) partes.push(propiedad.colonia);
-  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
-  partes.push("puebla");
-
-  const slugBase = partes
-    .join(" ")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
-  return `${slugBase}-${propiedad.public_id}`;
 }
 
 // Intenta interpretar un slug de primer nivel como página de zona/tipo.
@@ -265,7 +244,7 @@ export async function getServerSideProps({ params, res }) {
   // formato que la URL (acentos, mayúsculas, etc.).
   const { data, error } = await supabasePublic
     .from("propiedades")
-    .select("public_id, titulo, precio, operacion, tipo, ciudad, colonia, fotos, status")
+    .select("public_id, titulo, precio, operacion, tipo, ciudad, colonia, estado, fotos, status")
     .in("tipo", tiposConsulta)
     .in("status", ["published", "reserved"]);
 
@@ -308,7 +287,7 @@ export async function getServerSideProps({ params, res }) {
     fotos: p.fotos,
     ciudad: p.ciudad,
     colonia: p.colonia,
-    slug: generarSlug(p),
+    slug: generarSlugPropiedad(p),
   }));
 
   res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=3600");
