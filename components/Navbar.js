@@ -27,7 +27,7 @@ export default function Navbar() {
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <nav aria-label="Navegación principal" className="emp-nav">
         <div className="emp-nav-inner">
-          <Link className="emp-logo" href="/"><img src="/images/emporio-logo-footer.webp" alt="Emporio Inmobiliario" width="87" height="46" /></Link>
+          <Link className="emp-logo" href="/"><img src="/logo.png" alt="Emporio Inmobiliario" width="87" height="46" /></Link>
           <div className="emp-desktop">
             {NAV_LINKS.map((link) => (
               <div key={link.label} className="emp-nav-item" onMouseEnter={() => setOpenMenu(link.label)} onMouseLeave={() => setOpenMenu(null)}>
@@ -51,7 +51,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="emp-mobile">
           <div className="emp-mobile-head">
-            <img src="/images/emporio-logo-footer.webp" alt="Emporio Inmobiliario" />
+            <img src="/logo.png" alt="Emporio Inmobiliario" />
             <button className="emp-mobile-close" aria-label="Cerrar menú" onClick={() => setMobileOpen(false)}>×</button>
           </div>
           <div className="emp-mobile-plazas">{Object.values(PLAZAS).map((plaza) => <Link key={plaza.id} href={plaza.href} onClick={() => setMobileOpen(false)}>{plaza.label}</Link>)}</div>
