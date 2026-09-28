@@ -77,7 +77,7 @@ const Cross = () => (
 );
 
 export default function Propietarios() {
-  const [form, setForm] = useState({ nombre: "", email: "", whatsapp: "", colonia: "", tipo: "", operacion: "", comentarios: "" });
+  const [form, setForm] = useState({ nombre: "", email: "", whatsapp: "", colonia: "", tipo: "", operacion: "", plaza: "", comentarios: "" });
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState("");
@@ -92,7 +92,8 @@ export default function Propietarios() {
     let envioCompletado = false;
 
     try {
-      const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, asunto: "Nuevo propietario interesado" }) });
+      const servicio = form.operacion === "Renta" ? "RENT_PROPERTY" : "SELL_PROPERTY";
+      const respuesta = await fetch("/api/contacto", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, service: servicio, source: "website", campaign: new URLSearchParams(window.location.search).get("utm_campaign") || "", landing_path: "/propietarios", asunto: "Nuevo propietario interesado" }) });
       if (!respuesta.ok) {
         setErrorEnvio("No pudimos enviar tu información. Inténtalo nuevamente o escríbenos por WhatsApp.");
         registrarEventoSitio("site_form_error", {
@@ -128,10 +129,10 @@ export default function Propietarios() {
   return (
     <>
       <Head>
-        <title>Renta o Vende tu Propiedad en Puebla — Emporio Inmobiliario</title>
-        <meta name="description" content="Promovemos tu propiedad en Puebla sin costo hasta cerrar. Publicamos en TikTok, Instagram y más de 20 portales. Más de 20 años de experiencia en el mercado poblano." />
+        <title>Propietarios | Vender, rentar y conocer el valor | Emporio</title>
+        <meta name="description" content="Comercializa, renta o solicita una Opinión de Valor para tu propiedad en Puebla o Veracruz con el acompañamiento de Emporio Inmobiliario." />
         <meta name="keywords" content="rentar propiedad puebla, vender casa puebla, promover inmueble puebla, inmobiliaria propietarios puebla, publicar propiedad puebla" />
-        <meta property="og:title" content="Renta o Vende tu Propiedad en Puebla — Emporio Inmobiliario" />
+        <meta property="og:title" content="Propietarios | Emporio Inmobiliario" />
         <meta property="og:description" content="Sin costo hasta cerrar. Publicamos tu propiedad en todos los portales y filtramos a los mejores candidatos." />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/propietarios" />
         <meta property="og:type" content="website" />
@@ -150,20 +151,45 @@ export default function Propietarios() {
             <div style={{ maxWidth: 640 }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff0f2", border: "1px solid #fecdd3", padding: "6px 16px", borderRadius: 99, marginBottom: 24 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", display: "inline-block" }} />
-                <span style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Para propietarios</span>
+                <span style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Emporio · Propietarios · Puebla y Veracruz</span>
               </div>
               <h1 className="h1" style={{ fontSize: 52, fontWeight: 900, color: "#1a1a2e", lineHeight: 1.1, margin: "0 0 20px" }}>
-                ¿Tienes una propiedad<br />en <span style={{ color: "#C8102E" }}>Puebla?</span>
+                ¿Qué quieres hacer<br />con <span style={{ color: "#C8102E" }}>tu propiedad?</span>
               </h1>
               <p style={{ fontSize: 17, color: "#6b7280", lineHeight: 1.7, margin: "0 0 36px" }}>
-                Nosotros encontramos al cliente ideal, te acompañamos en todo el proceso y tú no pagas un solo peso hasta que se cierre la operación.
+                Te ayudamos a venderla, rentarla o conocer su valor comercial. Elige tu objetivo y la plaza donde se encuentra: Puebla o Veracruz.
               </p>
               <a href="#formulario" style={{ display: "inline-block", background: "#C8102E", color: "#fff", padding: "14px 32px", borderRadius: 12, fontWeight: 800, fontSize: 15, textDecoration: "none" }}>
-                Quiero promover mi propiedad →
+                Elegir mi siguiente paso →
               </a>
             </div>
           </div>
         </div>
+
+        <section id="opinion-de-valor" className="sec-pad" style={{ padding: "58px 32px", background: "#fff" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <p style={{ color: "#C8102E", fontWeight: 800, letterSpacing: ".14em", textTransform: "uppercase", fontSize: 11 }}>Tu objetivo, primero</p>
+            <h2 className="h2" style={{ fontSize: 36, margin: "8px 0 12px", color: "#1a1a2e" }}>¿Qué quieres hacer con tu propiedad?</h2>
+            <p style={{ color: "#6b7280", lineHeight: 1.7, maxWidth: 760 }}>Emporio integra comercialización, administración y protección jurídica dentro de una misma experiencia. La plaza da contexto a tu operación; no cambia quiénes somos.</p>
+            <div className="g3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18, marginTop: 28 }}>
+              {[
+                ["vender","Quiero vender","Define una estrategia comercial y solicita una Opinión de Valor.","#plazas-propietario"],
+                ["rentar","Quiero rentar","Promueve tu inmueble y encuentra un candidato para tu operación.","#formulario"],
+                ["opinion","Quiero conocer su valor","Obtén un primer diagnóstico comercial para decidir con mejor información.","#plazas-propietario"],
+              ].map(([id,title,desc,href]) => (
+                <article id={id} key={id} style={{ border: "1px solid #e5e7eb", borderTop: "4px solid #C8102E", borderRadius: 14, padding: 24 }}>
+                  <h3 style={{ margin: "0 0 9px", color: "#1a1a2e" }}>{title}</h3>
+                  <p style={{ color: "#6b7280", lineHeight: 1.7, minHeight: 70 }}>{desc}</p>
+                  <a href={href} style={{ color: "#C8102E", fontWeight: 800, textDecoration: "none" }}>Continuar →</a>
+                </article>
+              ))}
+            </div>
+            <div id="plazas-propietario" style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", gap: 16, marginTop: 24 }}>
+              <a href="/vender-propiedad-puebla" style={{ padding: 22, borderRadius: 12, background: "#1a1a2e", color: "#fff", textDecoration: "none", fontWeight: 850 }}>Mi propiedad está en Puebla <span style={{ float: "right" }}>→</span></a>
+              <a href="/vender-propiedad-veracruz" style={{ padding: 22, borderRadius: 12, background: "#C8102E", color: "#fff", textDecoration: "none", fontWeight: 850 }}>Mi propiedad está en Veracruz <span style={{ float: "right" }}>→</span></a>
+            </div>
+          </div>
+        </section>
 
         {/* Stats */}
         <div className="sec-pad" style={{ padding: "48px 32px", background: "#fafafa", borderBottom: "1px solid #f3f4f6" }}>
