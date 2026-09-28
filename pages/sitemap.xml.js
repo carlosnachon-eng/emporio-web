@@ -16,6 +16,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { CASAS_NUEVAS } from "../lib/casasNuevas";
+import { generarSlugPropiedad } from "../lib/propertySeo";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -37,6 +38,9 @@ const CIUDADES_ZONA_METROPOLITANA_PUEBLA = new Set([
 const PAGINAS_ESTATICAS = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
   { loc: "/propiedades", changefreq: "daily", priority: "0.95" },
+  { loc: "/inmobiliaria-veracruz", changefreq: "daily", priority: "0.95" },
+  { loc: "/vender-propiedad-veracruz", changefreq: "weekly", priority: "0.95" },
+  { loc: "/vender-propiedad-puebla", changefreq: "weekly", priority: "0.95" },
   { loc: "/casas-nuevas", changefreq: "weekly", priority: "0.95" },
   { loc: "/torre-zaia", changefreq: "weekly", priority: "0.95" },
   { loc: "/equiah", changefreq: "weekly", priority: "0.95" },
@@ -98,28 +102,6 @@ function escaparXml(texto) {
     .replace(/>/g, "&gt;");
 }
 
-// Misma función que en pages/propiedades/[id].js — debe generar exactamente
-// el mismo slug en ambos lados, o el sitemap apuntaría a una URL que el
-// propio [id].js redirigiría (301) a otra distinta.
-function generarSlug(propiedad) {
-  const partes = [];
-  partes.push(propiedad.tipo || "propiedad");
-  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
-  if (propiedad.colonia) partes.push(propiedad.colonia);
-  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
-  partes.push("puebla");
-
-  const slugBase = partes
-    .join(" ")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
-  return `${slugBase}-${propiedad.public_id}`;
-}
-
 function quitarAcentos(texto) {
   return String(texto).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -145,7 +127,7 @@ export async function getServerSideProps({ res }) {
   // sitio (pages/propiedades/[id].js, pages/propiedades/index.js).
   const { data: propiedades, error } = await supabasePublic
     .from("propiedades")
-    .select("public_id, updated_at, created_at, tipo, operacion, colonia, ciudad")
+    .select("public_id, updated_at, created_at, tipo, operacion, colonia, ciudad, estado")
     .in("status", ["published", "reserved"])
     .not("public_id", "is", null);
 
@@ -165,7 +147,7 @@ export async function getServerSideProps({ res }) {
 
   const urlsPropiedades = (propiedades || []).map((p) =>
     urlTag({
-      loc: `${SITE_URL}/propiedades/${generarSlug(p)}`,
+      loc: `${SITE_URL}/propiedades/${generarSlugPropiedad(p)}`,
       changefreq: "weekly",
       priority: "0.9",
       lastmod: (p.updated_at || p.created_at || "").split("T")[0] || undefined,
