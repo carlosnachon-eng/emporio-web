@@ -353,12 +353,11 @@ export default function AdministrationExperience() {
         <section className={styles.hero}>
           <div className={`${styles.container} ${styles.heroGrid}`}>
             <div className={styles.heroCopy}>
-              <p className={styles.heroEyebrow}>Administración inmobiliaria en Puebla</p>
-              <h1>Tu propiedad, <span>administrada</span> sin complicaciones.</h1>
+              <p className={styles.heroEyebrow}>Administración de propiedades en Puebla</p>
+              <h1>Administración de propiedades en Puebla, <span>sin complicaciones</span></h1>
               <p className={styles.heroLead}>
-                Protegemos la operación de tu inmueble con seguimiento constante,
-                procesos digitales y respaldo jurídico para que recuperes tiempo y
-                tranquilidad.
+                Gestionamos cobranza, mantenimiento, reportes y atención al inquilino
+                para que tu propiedad opere con orden y tú recuperes tiempo.
               </p>
               <div className={styles.heroActions}>
                 <a className={styles.primaryButton} href="#asesoria">

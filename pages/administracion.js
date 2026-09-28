@@ -11,8 +11,8 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "@id": `${PAGE_URL}#service`,
-  name: "Administración de inmuebles y rentas en Puebla",
-  serviceType: "Administración integral de inmuebles en renta",
+  name: "Administración de propiedades en Puebla",
+  serviceType: "Administración de propiedades e inmuebles en renta",
   url: PAGE_URL,
   image: SOCIAL_IMAGE,
   provider: {
@@ -54,10 +54,10 @@ export default function Administracion() {
   return (
     <>
       <Head>
-        <title>Administración de Inmuebles y Rentas en Puebla</title>
+        <title>Administración de Propiedades en Puebla | Emporio</title>
         <meta
           name="description"
-          content="Administramos tu propiedad en Puebla: cobranza, mantenimiento, reportes y atención al inquilino por 10% de la renta. Solicita una evaluación."
+          content="Administramos casas, departamentos, locales y bodegas en Puebla: cobranza, mantenimiento, reportes y atención al inquilino. Honorarios del 10%."
         />
         <meta
           name="keywords"
@@ -65,11 +65,11 @@ export default function Administracion() {
         />
         <meta
           property="og:title"
-          content="Administración de Inmuebles en Puebla — Emporio Inmobiliario"
+          content="Administración de Propiedades en Puebla | Emporio"
         />
         <meta
           property="og:description"
-          content="Nos encargamos de todo: cobranza, mantenimiento, reportes y representación. Tú recibes tu renta, nosotros gestionamos lo demás."
+          content="Administramos casas, departamentos, locales y bodegas en Puebla: cobranza, mantenimiento, reportes y atención al inquilino. Honorarios del 10%."
         />
         <meta property="og:url" content={PAGE_URL} />
         <meta property="og:type" content="website" />
@@ -85,11 +85,11 @@ export default function Administracion() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Administración de Inmuebles y Rentas en Puebla"
+          content="Administración de Propiedades en Puebla | Emporio"
         />
         <meta
           name="twitter:description"
-          content="Administración integral para propietarios que buscan tranquilidad, seguimiento y control de su patrimonio."
+          content="Administramos casas, departamentos, locales y bodegas en Puebla: cobranza, mantenimiento, reportes y atención al inquilino. Honorarios del 10%."
         />
         <meta name="twitter:image" content={SOCIAL_IMAGE} />
         <meta
