@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
+import { generarSlugPropiedad } from "../../lib/propertySeo";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -14,29 +15,6 @@ const supabasePublic = createClient(
 const fmt = (n) => new Intl.NumberFormat("es-MX", {
   style: "currency", currency: "MXN", minimumFractionDigits: 0
 }).format(n || 0);
-
-// Misma lógica que en pages/propiedades/[id].js — debe coincidir
-// exactamente para que los links del listado no generen un salto extra de
-// redirect 301 hacia la URL "correcta" (funcionaría igual, pero es
-// innecesario y más lento para el usuario).
-function generarSlug(propiedad) {
-  const partes = [];
-  partes.push(propiedad.tipo || "propiedad");
-  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
-  if (propiedad.colonia) partes.push(propiedad.colonia);
-  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
-  partes.push("puebla");
-
-  const slugBase = partes
-    .join(" ")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
-  return `${slugBase}-${propiedad.public_id}`;
-}
 
 const PAGE_SIZE = 10;
 
@@ -132,7 +110,7 @@ export default function Propiedades({ propiedadesIniciales }) {
             <h1 style={{ margin: "0 0 6px", fontSize: 36, fontWeight: 900, color: "#fff" }}>
               {operacion === "rental" ? "🏠 Propiedades en Renta" : "🏡 Propiedades en Venta"}
             </h1>
-            <p style={{ margin: "0 0 24px", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>{totalProps} propiedades encontradas en Puebla</p>
+            <p style={{ margin: "0 0 24px", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>{totalProps} propiedades encontradas en nuestro inventario</p>
             <div className="toggle-btns" style={{ display: "flex", gap: 8 }}>
               {[{ label: "🏠 Renta", value: "rental" }, { label: "🏡 Venta", value: "sale" }].map(op => (
                 <button key={op.value} className="toggle-btn" onClick={() => handleOperacion(op.value)} style={{
@@ -215,7 +193,7 @@ export default function Propiedades({ propiedadesIniciales }) {
             const imgUrl = Array.isArray(p.fotos) && p.fotos[0]?.url;
             const esVenta = p.operacion === "sale";
             return (
-              <a key={p.public_id} href={`/propiedades/${generarSlug(p)}`} style={{ textDecoration: "none" }}>
+              <a key={p.public_id} href={`/propiedades/${generarSlugPropiedad(p)}`} style={{ textDecoration: "none" }}>
                 <div className="prop-card" style={{ background: "#fff", borderRadius: 20, overflow: "hidden", marginBottom: 16, border: "1px solid #f0f0f0", cursor: "pointer" }}>
                   <div className="prop-img" style={{ overflow: "hidden", flexShrink: 0, background: "#f3f4f6", position: "relative" }}>
                     {imgUrl
