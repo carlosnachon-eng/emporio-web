@@ -125,9 +125,19 @@ function parsearSlug(slug) {
 export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto, slugActual }) {
   const tipoPlural = PLURAL_POR_TIPO[tipo] || `${tipo}s`;
   const tipoPluralMinusculas = tipoPlural.toLowerCase();
-  const tituloSEO = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
+  const tituloBase = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
   const alcanceTexto = slugActual.endsWith("-puebla") ? "Puebla y zonas cercanas" : zonaTexto;
-  const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
+  const descBase = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
+  const tituloSEO = slugActual === "departamentos-en-venta-puebla"
+    ? "Departamentos en venta en Puebla | Precios y opciones | Emporio"
+    : slugActual === "departamentos-en-renta-puebla"
+      ? "Departamentos en renta en Puebla | Opciones disponibles | Emporio"
+      : tituloBase;
+  const descSEO = slugActual === "departamentos-en-venta-puebla"
+    ? "Departamentos en venta en Puebla y Cholula. Compara precios, ubicación y opciones en preventa o entrega inmediata con inventario actualizado."
+    : slugActual === "departamentos-en-renta-puebla"
+      ? "Departamentos en renta en Puebla, Cholula y zona metropolitana. Consulta inventario actualizado, precios y ubicaciones y agenda una visita."
+      : descBase;
   const canonicalUrl = `https://www.emporioinmobiliario.com.mx/${slugActual}`;
   const imagenSocial = "https://www.emporioinmobiliario.com.mx/logo.png";
   const guiaRelacionada = GUIAS_RELACIONADAS[slugActual];

@@ -38,6 +38,7 @@ const PAGINAS_ESTATICAS = [
   { loc: "/", changefreq: "weekly", priority: "1.0" },
   { loc: "/propiedades", changefreq: "daily", priority: "0.95" },
   { loc: "/casas-nuevas", changefreq: "weekly", priority: "0.95" },
+  { loc: "/desarrollos", changefreq: "weekly", priority: "0.95" },
   { loc: "/torre-zaia", changefreq: "weekly", priority: "0.95" },
   { loc: "/equiah", changefreq: "weekly", priority: "0.95" },
   { loc: "/bau22", changefreq: "weekly", priority: "0.9" },

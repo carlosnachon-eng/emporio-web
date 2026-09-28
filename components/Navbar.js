@@ -3,15 +3,16 @@ import { useState } from "react";
 const NAV_LINKS_PRINCIPALES = [
   { label: "Inicio",          href: "/" },
   { label: "Propiedades",     href: "/propiedades" },
-  { label: "Casas Nuevas",    href: "/casas-nuevas" },
-  { label: "Torre Zaia",      href: "/torre-zaia" },
-  { label: "Bau22",           href: "/bau22" },
-  { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
+  { label: "Desarrollos",     href: "/desarrollos" },
+  { label: "Propietarios",    href: "/propietarios" },
 ];
 
 const NAV_LINKS_MAS = [
+  { label: "Casas Nuevas",    href: "/casas-nuevas" },
+  { label: "Torre Zaia",      href: "/torre-zaia" },
   { label: "Equiah",          href: "/equiah" },
-  { label: "Propietarios",    href: "/propietarios" },
+  { label: "Bau22",           href: "/bau22" },
+  { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
   { label: "Arrendatarios",   href: "/arrendatarios" },
   { label: "Blindaje Legal",  href: "/blindaje-legal" },
   { label: "BL Partners",     href: "/blindaje-legal-partners" },

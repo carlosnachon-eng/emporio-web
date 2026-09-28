@@ -217,6 +217,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                 <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 8px" }}>Proyectos nuevos</p>
                 <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Desarrollos en exclusiva</h2>
               </div>
+              <a href="/desarrollos" style={{ color: "#C8102E", fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Ver todos los desarrollos →</a>
             </div>
             <div className="desarrollos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
 
