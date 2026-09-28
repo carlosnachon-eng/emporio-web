@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 const SITE_URL = "https://www.emporioinmobiliario.com.mx";
 const LABELS = {
-  blog:"Blog inmobiliario", propiedades:"Propiedades", "casas-nuevas":"Casas nuevas",
+  blog:"Blog inmobiliario", propiedades:"Propiedades", desarrollos:"Desarrollos inmobiliarios", "casas-nuevas":"Casas nuevas",
   administracion:"Administración de inmuebles", "administracion-de-condominios-puebla":"Administración de condominios en Puebla",
   "inmobiliaria-veracruz":"Inmobiliaria en Veracruz", "vender-propiedad-veracruz":"Vender propiedad en Veracruz",
   "vender-propiedad-puebla":"Vender propiedad en Puebla", "poliza-juridica-veracruz":"Póliza jurídica en Veracruz",
