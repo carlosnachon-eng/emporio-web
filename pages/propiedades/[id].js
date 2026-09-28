@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { createClient } from "@supabase/supabase-js";
 import { registrarEventoSitio } from "../../lib/siteAnalytics";
+import { generarSlugPropiedad, construirSeoPropiedad, construirSchemaPropiedad } from "../../lib/propertySeo";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -238,7 +239,7 @@ function MapaUbicacion({ lat, lng, mostrarExacta, direccion }) {
         <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 700, color: "#1a1a2e" }}>📍 Zona</h3>
         <div style={{ background: "#f8f8fa", borderRadius: 12, padding: "14px 16px", border: "1px solid #f0f0f0" }}>
           <p style={{ margin: 0, fontSize: 14, color: "#374151" }}>📍 {direccion}</p>
-          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion + ", Puebla, México")}`}
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([direccion, "México"].filter(Boolean).join(", "))}`}
             target="_blank" rel="noreferrer"
             style={{ fontSize: 12, color: "#C8102E", fontWeight: 600, display: "inline-block", marginTop: 8 }}>
             Ver en Google Maps →
@@ -302,84 +303,13 @@ export default function PropiedadDetalle({ propiedad }) {
     propiedad.antiguedad_anios != null && { label: "Antigüedad", value: `${propiedad.antiguedad_anios} años` },
   ].filter(Boolean);
 
-  // SEO dinámico por propiedad
-  const tipoOp = esVenta ? "en venta" : "en renta";
-  const precioFmt = fmt(precio);
-  const seoTitle = propiedad.titulo
-    ? `${propiedad.titulo} ${tipoOp} en Puebla — Emporio Inmobiliario`
-    : `Propiedad ${tipoOp} en Puebla — Emporio Inmobiliario`;
-  const seoDesc = [
-    propiedad.titulo,
-    tipoOp,
-    precio > 0 ? `por ${precioFmt}` : "",
-    propiedad.recamaras > 0 ? `${propiedad.recamaras} recámaras` : "",
-    propiedad.banos > 0 ? `${propiedad.banos} baños` : "",
-    propiedad.m2_construccion > 0 ? `${propiedad.m2_construccion} m²` : "",
-    direccion ? `en ${direccion}` : "en Puebla",
-    "— Emporio Inmobiliario.",
-  ].filter(Boolean).join(", ");
-  const seoImage = fotos[0]?.url || "https://www.emporioinmobiliario.com.mx/logo.png";
-  const seoUrl = `https://www.emporioinmobiliario.com.mx/propiedades/${generarSlug(propiedad)}`;
-
-  // ── Datos estructurados (Schema.org) ──────────────────────────────────
-  // Regla estricta: nunca se inventa un valor. Cada campo solo se incluye
-  // si existe un dato real en Supabase; si falta, simplemente se omite esa
-  // propiedad del JSON-LD (Google tolera campos faltantes, pero no
-  // tolera bien datos falsos o de relleno).
-  const directionMap = { sale: "Buy", lease: "Rent" };
-  const businessFunction = directionMap[propiedad.operacion];
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "RealEstateListing",
-    "@id": seoUrl,
-    url: seoUrl,
-    ...(propiedad.titulo && { name: propiedad.titulo }),
-    ...(seoDesc && { description: seoDesc }),
-    ...(fotos.length > 0 && { image: fotos.map((f) => f.url).filter(Boolean) }),
-    ...(propiedad.created_at && { datePosted: propiedad.created_at.split("T")[0] }),
-  };
-
-  // Dirección — solo si hay al menos ciudad o colonia reales (nunca se
-  // rellena con "Puebla" genérico si el dato no vino de Supabase).
-  if (propiedad.ciudad || propiedad.colonia || propiedad.estado) {
-    jsonLd.address = {
-      "@type": "PostalAddress",
-      ...(propiedad.colonia && { addressLocality: propiedad.colonia }),
-      ...(propiedad.ciudad && { addressRegion: propiedad.ciudad }),
-      ...(propiedad.estado && { addressCountry: "MX" }),
-    };
-  }
-
-  // Coordenadas — solo si la propiedad tiene lat/lng reales capturados.
-  if (lat != null && lng != null) {
-    jsonLd.geo = { "@type": "GeoCoordinates", latitude: lat, longitude: lng };
-  }
-
-  // Precio — solo si hay un precio mayor a 0 capturado.
-  if (precio > 0) {
-    jsonLd.offers = {
-      "@type": "Offer",
-      price: precio,
-      priceCurrency: "MXN",
-      ...(businessFunction && { businessFunction: `http://purl.org/goodrelations/v1#${businessFunction}` }),
-      availability: "https://schema.org/InStock",
-      url: seoUrl,
-    };
-  }
-
-  // Características físicas — solo las que tengan un valor numérico real.
-  if (propiedad.recamaras > 0) jsonLd.numberOfRooms = propiedad.recamaras;
-  if (propiedad.banos > 0) jsonLd.numberOfBathroomsTotal = propiedad.banos;
-  if (propiedad.m2_construccion > 0) {
-    jsonLd.floorSize = { "@type": "QuantitativeValue", value: propiedad.m2_construccion, unitCode: "MTK" };
-  }
-
-  jsonLd.broker = {
-    "@type": "RealEstateAgent",
-    name: "Emporio Inmobiliario",
-    url: "https://www.emporioinmobiliario.com.mx",
-  };
+  // SEO y datos estructurados multi-plaza, reconstruidos desde producción.
+  const seo = construirSeoPropiedad(propiedad, fmt);
+  const seoTitle = seo.title;
+  const seoDesc = seo.description;
+  const seoImage = seo.image;
+  const seoUrl = seo.canonical;
+  const jsonLd = construirSchemaPropiedad(propiedad, seo);
 
   const handleContacto = async () => {
     if (envioContactoActivo.current) return;
@@ -635,29 +565,6 @@ export default function PropiedadDetalle({ propiedad }) {
     </>
   );
 }
-// Construye el slug ideal a partir de los datos actuales de la propiedad.
-// Si el título, operación o ciudad cambian después, el slug "correcto"
-// cambia también — getServerSideProps se encarga de redirigir (301) hacia
-// la versión vigente cada vez que detecta que la URL recibida no coincide.
-function generarSlug(propiedad) {
-  const partes = [];
-  partes.push(propiedad.tipo || "propiedad");
-  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
-  if (propiedad.colonia) partes.push(propiedad.colonia);
-  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
-  partes.push("puebla");
-
-  const slugBase = partes
-    .join(" ")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita acentos
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
-  return `${slugBase}-${propiedad.public_id}`;
-}
-
 // El public_id siempre tiene el formato EB-XXXX o EMP-XXXX al final de la
 // URL, sin importar qué slug venga antes. Esta función lo extrae de forma
 // confiable tanto de la URL vieja (solo el ID) como de la nueva (slug+ID).
@@ -684,7 +591,7 @@ export async function getServerSideProps({ params, req, resolvedUrl }) {
     // forma permanente (301) a la versión correcta. Esto preserva el valor
     // SEO de los links viejos en vez de simplemente mostrar la página bajo
     // cualquier URL (lo cual generaría contenido duplicado a ojos de Google).
-    const slugCorrecto = generarSlug(data);
+    const slugCorrecto = generarSlugPropiedad(data);
     if (params.id !== slugCorrecto) {
       return {
         redirect: {

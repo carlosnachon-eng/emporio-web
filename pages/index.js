@@ -2,12 +2,12 @@ import { useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { generarSlugPropiedad } from "../lib/casasNuevas";
+import { generarSlugPropiedad } from "../lib/propertySeo";
 
 const fmt = (n) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", minimumFractionDigits: 0 }).format(n || 0);
 
 const BENEFICIOS = [
-  { icon: "🏆", title: "+20 años de experiencia", desc: "Líderes en el mercado inmobiliario poblano desde hace más de dos décadas." },
+  { icon: "🏆", title: "+20 años de experiencia", desc: "Trayectoria inmobiliaria nacida en Puebla y aplicada hoy también en Veracruz." },
   { icon: "💸", title: "Sin costo hasta cerrar", desc: "No pagas nada hasta que se firma el contrato. Cero riesgo para ti." },
   { icon: "📱", title: "+20 portales especializados", desc: "Tu propiedad en TikTok, Instagram, Facebook y más de 20 portales." },
   { icon: "🔍", title: "Filtramos a los clientes", desc: "Verificamos a los interesados y acompañamos cada visita." },
@@ -57,11 +57,11 @@ export default function Home({ propiedadesDestacadas = [] }) {
   return (
     <>
       <Head>
-        <title>Emporio Inmobiliario — Inmobiliaria en Puebla | Renta y Venta de Propiedades</title>
-        <meta name="description" content="Inmobiliaria en Puebla con más de 20 años de experiencia. Renta o vende tu propiedad sin costo hasta cerrar. Más de 5,000 propiedades promovidas en Puebla y zona metropolitana." />
+        <title>Emporio Inmobiliario | Propiedades y servicios en Puebla y Veracruz</title>
+        <meta name="description" content="Emporio Inmobiliario: inmobiliaria en Puebla con más de 20 años y operación en Veracruz. Compra, renta, comercialización, administración y Blindaje Legal." />
         <meta name="keywords" content="inmobiliaria puebla, renta puebla, venta casas puebla, departamentos en renta puebla, casas en venta puebla, inmobiliaria cholula, propiedades puebla" />
-        <meta property="og:title" content="Emporio Inmobiliario — Inmobiliaria en Puebla" />
-        <meta property="og:description" content="Renta o vende tu propiedad en Puebla con la inmobiliaria de mayor trayectoria. Sin costo hasta cerrar." />
+        <meta property="og:title" content="Emporio Inmobiliario | Puebla y Veracruz" />
+        <meta property="og:description" content="Una sola empresa inmobiliaria para comprar, rentar y cuidar tu patrimonio en Puebla y Veracruz." />
         <meta property="og:image" content="https://www.emporioinmobiliario.com.mx/logo.png" />
         <meta property="og:url" content="https://www.emporioinmobiliario.com.mx/" />
         <meta property="og:type" content="website" />
@@ -84,13 +84,13 @@ export default function Home({ propiedadesDestacadas = [] }) {
               <div>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff0f2", border: "1px solid #fecdd3", padding: "6px 14px", borderRadius: 99, marginBottom: 24 }}>
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", display: "inline-block" }} />
-                  <span style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Puebla · +20 años de experiencia</span>
+                  <span style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Emporio Inmobiliario · Puebla y Veracruz</span>
                 </div>
                 <h1 className="hero-title" style={{ fontSize: 52, fontWeight: 900, color: "#1a1a2e", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-0.02em" }}>
-                  Tu propiedad,<br /><span style={{ color: "#C8102E" }}>nuestra</span> prioridad.
+                  Un solo Emporio.<br /><span style={{ color: "#C8102E" }}>Dos plazas</span>, la misma experiencia.
                 </h1>
                 <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.7, margin: "0 0 32px" }}>
-                  Vende, renta o encuentra tu próxima propiedad en Puebla. Sin estrés, sin sorpresas.
+                  Compra, renta, comercializa o administra tu propiedad con Emporio en Puebla y Veracruz. Más de 20 años de experiencia respaldan cada decisión.
                 </p>
                 <div style={{ background: "#fff", border: "2px solid #f3f4f6", borderRadius: 16, padding: 18, boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
                   <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
@@ -109,7 +109,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                     display: "block", width: "100%", background: "#C8102E", color: "#fff",
                     padding: "13px 0", borderRadius: 10, fontWeight: 800, fontSize: 15,
                     textAlign: "center", textDecoration: "none",
-                  }}>🔍 Ver propiedades disponibles</a>
+                  }}>🔍 Ver propiedades en Puebla y Veracruz</a>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -152,7 +152,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                   <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: "rgba(255,255,255,0.1)" }} />
                   <div style={{ fontSize: 40, marginBottom: 16 }}>🔑</div>
                   <h3 style={{ fontSize: 22, fontWeight: 900, color: "#fff", margin: "0 0 12px" }}>Busco una propiedad</h3>
-                  <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 1.7, margin: "0 0 24px" }}>Más de 50 opciones activas en Puebla. Encuentra tu casa ideal hoy.</p>
+                  <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 1.7, margin: "0 0 24px" }}>Explora opciones activas en Puebla y Veracruz. Encuentra la propiedad adecuada para ti.</p>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#fff", color: "#C8102E", padding: "10px 20px", borderRadius: 10, fontWeight: 700, fontSize: 13 }}>Ver propiedades →</span>
                 </div>
               </a>
@@ -217,6 +217,7 @@ export default function Home({ propiedadesDestacadas = [] }) {
                 <p style={{ fontSize: 11, color: "#C8102E", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 8px" }}>Proyectos nuevos</p>
                 <h2 className="sec-title" style={{ fontSize: 36, fontWeight: 900, color: "#1a1a2e", margin: 0 }}>Desarrollos en exclusiva</h2>
               </div>
+              <a href="/desarrollos" style={{ color: "#C8102E", fontWeight: 800, fontSize: 14, textDecoration: "none" }}>Ver todos los desarrollos →</a>
             </div>
             <div className="desarrollos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
 

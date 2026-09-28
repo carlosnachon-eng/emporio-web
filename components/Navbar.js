@@ -1,168 +1,67 @@
 import { useState } from "react";
-
-const NAV_LINKS_PRINCIPALES = [
-  { label: "Inicio",          href: "/" },
-  { label: "Propiedades",     href: "/propiedades" },
-  { label: "Casas Nuevas",    href: "/casas-nuevas" },
-  { label: "Torre Zaia",      href: "/torre-zaia" },
-  { label: "Bau22",           href: "/bau22" },
-  { label: "Rincón de los Sueños", href: "/rincon-de-los-suenos" },
-];
-
-const NAV_LINKS_MAS = [
-  { label: "Equiah",          href: "/equiah" },
-  { label: "Propietarios",    href: "/propietarios" },
-  { label: "Arrendatarios",   href: "/arrendatarios" },
-  { label: "Blindaje Legal",  href: "/blindaje-legal" },
-  { label: "BL Partners",     href: "/blindaje-legal-partners" },
-  { label: "Administración",  href: "/administracion" },
-  { label: "Administración de condominios", href: "/administracion-de-condominios-puebla" },
-  { label: "Bolsa de Trabajo", href: "/bolsa-de-trabajo" },
-  { label: "Blog",            href: "/blog" },
-  { label: "Nosotros",        href: "/nosotros" },
-  { label: "Contacto",        href: "/contacto" },
-];
-
-const TODOS_LOS_LINKS = [...NAV_LINKS_PRINCIPALES, ...NAV_LINKS_MAS];
+import Link from "next/link";
+import { NAV_LINKS, PLAZAS } from "../lib/siteArchitecture";
 
 const CSS = `
-  .nav-desktop { display: flex !important; }
-  .nav-burger { display: none !important; }
-  .nav-link-blindaje { color: #C8102E !important; }
-  @media (max-width: 1080px) {
-    .nav-desktop { display: none !important; }
-    .nav-burger { display: flex !important; }
-  }
+.emp-nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.97);border-bottom:1px solid #ececec;box-shadow:0 2px 16px rgba(17,24,39,.05);font-family:Montserrat,sans-serif}
+.emp-nav-inner{height:72px;max-width:1280px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.emp-logo img{height:46px;width:auto;object-fit:contain}
+.emp-desktop{display:flex;align-items:center;gap:2px}.emp-nav-item{position:relative}
+.emp-nav-link,.emp-nav-button{display:flex;align-items:center;gap:5px;padding:10px 11px;border:0;border-radius:8px;background:transparent;color:#252938;text-decoration:none;font:700 13px Montserrat,sans-serif;cursor:pointer;white-space:nowrap}
+.emp-nav-link:hover,.emp-nav-button:hover{background:#fff3f5;color:#c8102e}
+.emp-menu{position:absolute;top:100%;left:0;min-width:250px;padding:8px;background:#fff;border:1px solid #ececec;border-radius:12px;box-shadow:0 16px 40px rgba(15,23,42,.14)}
+.emp-menu a{display:block;padding:11px 13px;border-radius:8px;color:#374151;text-decoration:none;font-size:13px;font-weight:650}
+.emp-menu a:hover{background:#f8fafc;color:#c8102e}
+.emp-context{display:flex;gap:7px;margin-left:6px;padding-left:12px;border-left:1px solid #e5e7eb}
+.emp-context a{padding:8px 10px;border:1px solid #e5e7eb;border-radius:99px;color:#4b5563;text-decoration:none;font-size:11px;font-weight:800}
+.emp-context a:hover{border-color:#c8102e;color:#c8102e}
+.emp-burger{display:none;border:0;background:none;font-size:27px}.emp-mobile{display:none}
+@media(max-width:1100px){.emp-desktop{display:none}.emp-burger{display:block}.emp-mobile{display:block;position:fixed;inset:0;z-index:100;background:#fff;overflow:auto;padding:0 22px 40px;font-family:Montserrat,sans-serif}.emp-mobile-head{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee}.emp-mobile-head img{height:45px}.emp-mobile-close{border:0;background:none;font-size:28px}.emp-mobile-plazas{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}.emp-mobile-plazas a{padding:14px;text-align:center;border-radius:10px;background:#f7f7f8;color:#252938;text-decoration:none;font-weight:800}.emp-mobile-group{padding:18px 0;border-bottom:1px solid #eee}.emp-mobile-group>a{color:#171722;text-decoration:none;font-size:19px;font-weight:900}.emp-mobile-sub{display:flex;flex-wrap:wrap;gap:12px;margin-top:13px}.emp-mobile-sub a{color:#626978;text-decoration:none;font-size:14px}.emp-mobile-cta{display:block;margin-top:25px;padding:15px;border-radius:10px;background:#c8102e;color:#fff;text-align:center;text-decoration:none;font-weight:900}}
 `;
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [masOpen, setMasOpen] = useState(false);
-
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-
-      <nav style={{
-        position: "sticky", top: 0, left: 0, right: 0, zIndex: 50,
-        background: "#fff", borderBottom: "1px solid #f0f0f0",
-        padding: "0 24px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-        fontFamily: "'Montserrat', sans-serif",
-      }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
-
-          {/* Logo */}
-          <a href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", flexShrink: 0 }}>
-            <img src="/logo.png" alt="Emporio Inmobiliario" width="83" height="44" decoding="async" style={{ height: 44, width: "auto", objectFit: "contain" }} />
-          </a>
-
-          {/* Desktop links */}
-          <div className="nav-desktop" style={{ alignItems: "center", gap: 2 }}>
-            {NAV_LINKS_PRINCIPALES.map(link => (
-              <a key={link.href} href={link.href}
-                style={{
-                  color: "#374151", fontSize: 13, fontWeight: 600,
-                  textDecoration: "none", padding: "8px 10px", borderRadius: 8,
-                  letterSpacing: "0.02em", transition: "all 0.15s", whiteSpace: "nowrap",
-                }}
-                onMouseEnter={e => { e.currentTarget.style.color = "#C8102E"; e.currentTarget.style.background = "#fff5f5"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "#374151"; e.currentTarget.style.background = "transparent"; }}
-              >
-                {link.label}
-              </a>
+      <nav aria-label="Navegación principal" className="emp-nav">
+        <div className="emp-nav-inner">
+          <Link className="emp-logo" href="/"><img src="/logo.png" alt="Emporio Inmobiliario" width="87" height="46" /></Link>
+          <div className="emp-desktop">
+            {NAV_LINKS.map((link) => (
+              <div key={link.label} className="emp-nav-item" onMouseEnter={() => setOpenMenu(link.label)} onMouseLeave={() => setOpenMenu(null)}>
+                {link.items.length ? (
+                  <button className="emp-nav-button" aria-expanded={openMenu === link.label} onClick={() => setOpenMenu(openMenu === link.label ? null : link.label)}>
+                    {link.label} <span aria-hidden="true">⌄</span>
+                  </button>
+                ) : <Link className="emp-nav-link" href={link.href}>{link.label}</Link>}
+                {link.items.length > 0 && openMenu === link.label && (
+                  <div className="emp-menu">{link.items.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div>
+                )}
+              </div>
             ))}
-
-            {/* Menú "Más" con el resto de los links */}
-            <div style={{ position: "relative" }}
-              onMouseEnter={() => setMasOpen(true)}
-              onMouseLeave={() => setMasOpen(false)}>
-              <button aria-label="Abrir menú Más" aria-haspopup="true" aria-expanded={masOpen} onClick={() => setMasOpen((valor) => !valor)} style={{
-                color: "#374151", fontSize: 13, fontWeight: 600, background: "transparent",
-                border: "none", padding: "8px 10px", borderRadius: 8, cursor: "pointer",
-                display: "flex", alignItems: "center", gap: 4, fontFamily: "'Montserrat', sans-serif",
-              }}>
-                Más {masOpen ? "▲" : "▾"}
-              </button>
-              {masOpen && (
-                <div style={{
-                  position: "absolute", top: "100%", right: 0, background: "#fff",
-                  borderRadius: 10, boxShadow: "0 8px 30px rgba(0,0,0,0.12)", border: "1px solid #f0f0f0",
-                  minWidth: 200, padding: 6, zIndex: 60,
-                }}>
-                  {NAV_LINKS_MAS.map(link => {
-                    const isBlindaje = link.href === "/blindaje-legal" || link.href === "/blindaje-legal-partners";
-                    return (
-                      <a key={link.href} href={link.href} style={{
-                        display: "block", color: isBlindaje ? "#C8102E" : "#374151",
-                        fontSize: 13, fontWeight: isBlindaje ? 700 : 500,
-                        textDecoration: "none", padding: "9px 14px", borderRadius: 7,
-                        whiteSpace: "nowrap",
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = "#f9fafb"; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
-                      >
-                        {isBlindaje ? "🛡️ " : ""}{link.label}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
+            <div className="emp-context" aria-label="Plazas">
+              {Object.values(PLAZAS).map((plaza) => <Link key={plaza.id} href={plaza.href}>{plaza.label}</Link>)}
             </div>
-
-            <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{
-              marginLeft: 8, background: "#C8102E", color: "#fff",
-              padding: "9px 18px", borderRadius: 8, fontSize: 13,
-              fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap",
-            }}>💬 WhatsApp</a>
           </div>
-
-          {/* Burger button móvil */}
-          <button className="nav-burger" aria-label="Abrir menú de navegación" aria-expanded={open} onClick={() => setOpen(true)} style={{
-            background: "none", border: "none", cursor: "pointer",
-            display: "flex", flexDirection: "column", gap: 5, padding: 8,
-          }}>
-            <span style={{ width: 24, height: 2, background: "#1a1a2e", borderRadius: 2, display: "block" }} />
-            <span style={{ width: 24, height: 2, background: "#1a1a2e", borderRadius: 2, display: "block" }} />
-            <span style={{ width: 24, height: 2, background: "#1a1a2e", borderRadius: 2, display: "block" }} />
-          </button>
+          <button className="emp-burger" aria-label="Abrir menú" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>☰</button>
         </div>
       </nav>
-
-      {/* Menú móvil overlay */}
-      {open && (
-        <div style={{
-          position: "fixed", inset: 0, background: "#fff", zIndex: 100,
-          padding: "0 24px", fontFamily: "'Montserrat', sans-serif",
-          overflowY: "auto",
-        }}>
-          {/* Header del menú */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", height: 68, borderBottom: "1px solid #f3f4f6", marginBottom: 24 }}>
-            <img src="/logo.png" alt="Emporio" width="83" height="44" decoding="async" style={{ height: 44, width: "auto" }} />
-            <button aria-label="Cerrar menú de navegación" onClick={() => setOpen(false)} style={{ background: "none", border: "none", fontSize: 28, cursor: "pointer", color: "#1a1a2e", lineHeight: 1 }}>✕</button>
+      {mobileOpen && (
+        <div className="emp-mobile">
+          <div className="emp-mobile-head">
+            <img src="/logo.png" alt="Emporio Inmobiliario" />
+            <button className="emp-mobile-close" aria-label="Cerrar menú" onClick={() => setMobileOpen(false)}>×</button>
           </div>
-
-          {/* Links */}
-          {TODOS_LOS_LINKS.map(link => {
-            const isBlindaje = link.href === "/blindaje-legal" || link.href === "/blindaje-legal-partners";
-            return (
-              <a key={link.href} href={link.href} onClick={() => setOpen(false)} style={{
-                display: "block",
-                color: isBlindaje ? "#C8102E" : "#1a1a2e",
-                fontSize: 20, fontWeight: 700,
-                textDecoration: "none", padding: "18px 0",
-                borderBottom: "1px solid #f3f4f6",
-              }}>
-                {isBlindaje ? "🛡️ " : ""}{link.label}
-              </a>
-            );
-          })}
-
-          {/* WhatsApp */}
-          <a href="https://wa.me/522222573237" target="_blank" rel="noreferrer" style={{
-            display: "block", marginTop: 32, background: "#C8102E", color: "#fff",
-            padding: "16px 24px", borderRadius: 12, fontWeight: 800, fontSize: 16,
-            textAlign: "center", textDecoration: "none",
-          }}>💬 Escríbenos por WhatsApp</a>
+          <div className="emp-mobile-plazas">{Object.values(PLAZAS).map((plaza) => <Link key={plaza.id} href={plaza.href} onClick={() => setMobileOpen(false)}>{plaza.label}</Link>)}</div>
+          {NAV_LINKS.map((link) => (
+            <div key={link.label} className="emp-mobile-group">
+              <Link href={link.href} onClick={() => setMobileOpen(false)}>{link.label}</Link>
+              {link.items.length > 0 && <div className="emp-mobile-sub">{link.items.map(([label, href]) => <Link key={href} href={href} onClick={() => setMobileOpen(false)}>{label}</Link>)}</div>}
+            </div>
+          ))}
+          <a className="emp-mobile-cta" href="https://wa.me/522222573237">Hablar con Emporio</a>
         </div>
       )}
     </>

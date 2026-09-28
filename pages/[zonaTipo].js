@@ -19,6 +19,7 @@ import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { generarSlugPropiedad } from "../lib/propertySeo";
 
 const supabasePublic = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -88,28 +89,6 @@ function slugificar(s) {
   return quitarAcentos(s).toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");
 }
 
-// Idéntica a la función en pages/propiedades/[id].js y pages/sitemap.xml.js
-// — debe coincidir exactamente en los tres archivos, o los links generados
-// aquí llevarían a un redirect 301 innecesario en vez de ir directo.
-function generarSlug(propiedad) {
-  const partes = [];
-  partes.push(propiedad.tipo || "propiedad");
-  partes.push(propiedad.operacion === "sale" ? "venta" : "renta");
-  if (propiedad.colonia) partes.push(propiedad.colonia);
-  else if (propiedad.ciudad && propiedad.ciudad.toLowerCase() !== "puebla") partes.push(propiedad.ciudad);
-  partes.push("puebla");
-
-  const slugBase = partes
-    .join(" ")
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-
-  return `${slugBase}-${propiedad.public_id}`;
-}
-
 // Intenta interpretar un slug de primer nivel como página de zona/tipo.
 // Devuelve null si no coincide con el patrón esperado (en ese caso, Next.js
 // nunca llega a renderizar esta página para esa URL — ver getServerSideProps).
@@ -125,9 +104,19 @@ function parsearSlug(slug) {
 export default function ZonaTipo({ propiedades, tipo, operacionTexto, zonaTexto, slugActual }) {
   const tipoPlural = PLURAL_POR_TIPO[tipo] || `${tipo}s`;
   const tipoPluralMinusculas = tipoPlural.toLowerCase();
-  const tituloSEO = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
+  const tituloBase = `${tipoPlural} en ${operacionTexto} en ${zonaTexto} — Emporio Inmobiliario`;
   const alcanceTexto = slugActual.endsWith("-puebla") ? "Puebla y zonas cercanas" : zonaTexto;
-  const descSEO = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
+  const descBase = `Explora ${propiedades.length} ${propiedades.length === 1 ? "opción disponible" : "opciones disponibles"} de ${tipoPluralMinusculas} en ${operacionTexto} en ${alcanceTexto}, con información y atención de Emporio Inmobiliario.`;
+  const tituloSEO = slugActual === "departamentos-en-venta-puebla"
+    ? "Departamentos en venta en Puebla | Precios y opciones | Emporio"
+    : slugActual === "departamentos-en-renta-puebla"
+      ? "Departamentos en renta en Puebla | Opciones disponibles | Emporio"
+      : tituloBase;
+  const descSEO = slugActual === "departamentos-en-venta-puebla"
+    ? "Departamentos en venta en Puebla y Cholula. Compara precios, ubicación y opciones en preventa o entrega inmediata con inventario actualizado."
+    : slugActual === "departamentos-en-renta-puebla"
+      ? "Departamentos en renta en Puebla, Cholula y zona metropolitana. Consulta inventario actualizado, precios y ubicaciones y agenda una visita."
+      : descBase;
   const canonicalUrl = `https://www.emporioinmobiliario.com.mx/${slugActual}`;
   const imagenSocial = "https://www.emporioinmobiliario.com.mx/logo.png";
   const guiaRelacionada = GUIAS_RELACIONADAS[slugActual];
@@ -265,7 +254,7 @@ export async function getServerSideProps({ params, res }) {
   // formato que la URL (acentos, mayúsculas, etc.).
   const { data, error } = await supabasePublic
     .from("propiedades")
-    .select("public_id, titulo, precio, operacion, tipo, ciudad, colonia, fotos, status")
+    .select("public_id, titulo, precio, operacion, tipo, ciudad, colonia, estado, fotos, status")
     .in("tipo", tiposConsulta)
     .in("status", ["published", "reserved"]);
 
@@ -308,7 +297,7 @@ export async function getServerSideProps({ params, res }) {
     fotos: p.fotos,
     ciudad: p.ciudad,
     colonia: p.colonia,
-    slug: generarSlug(p),
+    slug: generarSlugPropiedad(p),
   }));
 
   res.setHeader("Cache-Control", "public, s-maxage=900, stale-while-revalidate=3600");

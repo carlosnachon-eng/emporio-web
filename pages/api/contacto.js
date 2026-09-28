@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { nombre, email, whatsapp, mensaje, asunto, tipo, operacion, colonia, comentarios } = req.body;
+  const { nombre, email, whatsapp, mensaje, asunto, tipo, operacion, colonia, comentarios, plaza, service, source, campaign, landing_path, owner_scenario, propiedad_en_venta, precio_esperado, utm_source, utm_medium, utm_campaign, utm_term, utm_content } = req.body;
 
   if (!nombre || !whatsapp) {
     return res.status(400).json({ error: "Faltan campos requeridos" });
@@ -24,6 +24,13 @@ export default async function handler(req, res) {
         ${operacion ? `<p style="margin: 0 0 10px;"><strong>Operación:</strong> ${operacion}</p>` : ""}
         ${mensaje ? `<p style="margin: 0 0 10px;"><strong>Mensaje:</strong><br/>${mensaje}</p>` : ""}
         ${comentarios ? `<p style="margin: 0 0 10px;"><strong>Comentarios:</strong><br/>${comentarios}</p>` : ""}
+        ${plaza ? `<p style="margin: 0 0 10px;"><strong>Plaza:</strong> ${plaza}</p>` : ""}
+        ${service ? `<p style="margin: 0 0 10px;"><strong>Servicio:</strong> ${service}</p>` : ""}
+        ${owner_scenario ? `<p style="margin: 0 0 10px;"><strong>Escenario:</strong> ${owner_scenario}</p>` : ""}
+        ${propiedad_en_venta ? `<p style="margin: 0 0 10px;"><strong>¿Ya está en venta?:</strong> ${propiedad_en_venta}</p>` : ""}
+        ${precio_esperado ? `<p style="margin: 0 0 10px;"><strong>Precio esperado:</strong> ${precio_esperado}</p>` : ""}
+        ${landing_path ? `<p style="margin: 0 0 10px;"><strong>Landing:</strong> ${landing_path}</p>` : ""}
+        ${source || campaign || utm_source ? `<p style="margin: 0 0 10px;"><strong>Origen:</strong> ${[source, campaign || utm_campaign, utm_source, utm_medium, utm_term, utm_content].filter(Boolean).join(" · ")}</p>` : ""}
       </div>
       <div style="text-align: center; margin-top: 28px;">
         <a href="https://wa.me/52${(whatsapp || "").replace(/\D/g, "")}" style="background: #25d366; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px;">
