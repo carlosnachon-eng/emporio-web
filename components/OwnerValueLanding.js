@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useState } from "react";
 import Link from "next/link";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -41,7 +42,7 @@ export default function OwnerValueLanding({ plaza, propiedades = [] }) {
       {"@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Inicio",item:`${SITE_URL}/`},{"@type":"ListItem",position:2,name:`Vender propiedad en ${city}`,item:`${SITE_URL}${path}`}]}
     ]
   };
-  const [scenario, setScenario] = require("react").useState("opinion_valor");
+  const [scenario, setScenario] = useState("opinion_valor");
   const move = (next) => {
     setScenario(next);
     registrarEventoSitio("site_lead_cta_click",{contexto:config.analyticsContext,destino:"formulario_opinion_valor",ubicacion:next,ruta:path,plaza,servicio:"SELL_PROPERTY",owner_scenario:next});
