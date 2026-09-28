@@ -25,7 +25,7 @@ export default function Footer({ brandDescription="Una sola empresa inmobiliaria
       {showContextualLinks && links && <nav className="footer-context" aria-label="Siguiente paso"><div><strong>Siguiente paso</strong>{links.map(([label,href])=><a key={href} href={href}>{label} <span>→</span></a>)}</div></nav>}
       <footer className="site-footer">
         <div className="footer-grid">
-          <div className="brand"><img src="/images/emporio-logo-footer.webp" alt="Emporio Inmobiliario" /><p>{brandDescription}</p><p className="office"><strong>Oficina Puebla</strong>5to Retorno de Osa Menor 2A<br/>Reserva Territorial Atlixcáyotl<br/>San Andrés Cholula, Puebla</p></div>
+          <div className="brand"><img src="/logo.png" alt="Emporio Inmobiliario" /><p>{brandDescription}</p><p className="office"><strong>Oficina Puebla</strong>5to Retorno de Osa Menor 2A<br/>Reserva Territorial Atlixcáyotl<br/>San Andrés Cholula, Puebla</p></div>
           {GROUPS.map((group)=><div key={group.title}><h2>{group.title}</h2>{group.links.map(([label,href])=><a key={href} href={href}>{label}</a>)}</div>)}
         </div>
         <div className="bottom"><p className="legal">© {new Date().getFullYear()} Emporio Inmobiliario</p><div><a href="tel:2222573237">222 257 3237</a><a href="mailto:ventas@emporioinmobiliario.mx">ventas@emporioinmobiliario.mx</a></div></div>
