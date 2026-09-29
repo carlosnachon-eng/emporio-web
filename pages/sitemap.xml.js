@@ -52,6 +52,7 @@ const PAGINAS_ESTATICAS = [
   { loc: "/blindaje-legal", changefreq: "monthly", priority: "0.9" },
   { loc: "/blindaje-legal-partners", changefreq: "monthly", priority: "0.9" },
   { loc: "/administracion", changefreq: "monthly", priority: "0.9" },
+  { loc: "/administracion-de-propiedades-veracruz", changefreq: "monthly", priority: "0.9" },
   { loc: "/administracion-de-condominios-puebla", changefreq: "monthly", priority: "0.9" },
   { loc: "/bolsa-de-trabajo", changefreq: "monthly", priority: "0.85" },
   { loc: "/nosotros", changefreq: "monthly", priority: "0.7" },

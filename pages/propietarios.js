@@ -409,6 +409,14 @@ export default function Propietarios() {
               </a>
             </div>
 
+            <div style={{ marginBottom: 28, padding: "18px 22px", borderRadius: 14, background: "#fff7f8", border: "1px solid #fecdd3", display: "flex", justifyContent: "space-between", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
+              <div>
+                <strong style={{ display: "block", color: "#1a1a2e", marginBottom: 4 }}>¿Tu propiedad está en Veracruz?</strong>
+                <span style={{ color: "#6b7280", fontSize: 13 }}>Conoce el servicio de administración para Veracruz puerto, Boca del Río, Riviera Veracruzana y Alvarado.</span>
+              </div>
+              <a href="/administracion-de-propiedades-veracruz" style={{ color: "#C8102E", fontWeight: 800, textDecoration: "none", whiteSpace: "nowrap" }}>Ver Administración Veracruz →</a>
+            </div>
+
             {/* Garantía */}
             <div style={{ background: "linear-gradient(135deg, #C8102E 0%, #9b0d23 100%)", borderRadius: 20, padding: "32px 36px", display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
               <div style={{ fontSize: 48, flexShrink: 0 }}>🛡️</div>
