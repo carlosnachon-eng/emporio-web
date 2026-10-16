@@ -285,6 +285,7 @@ export default function PropiedadDetalle({ propiedad }) {
   const amenidades = Array.isArray(propiedad.amenidades) ? propiedad.amenidades : [];
   const creditos = Array.isArray(propiedad.creditos_aceptados) ? propiedad.creditos_aceptados : [];
   const status = propiedad.status || "published";
+  const noDisponible = ["leased", "sold"].includes(status);
   const esVenta = propiedad.operacion === "sale";
   const lat = propiedad.lat;
   const lng = propiedad.lng;
@@ -380,7 +381,7 @@ export default function PropiedadDetalle({ propiedad }) {
         <meta name="twitter:title" content={seoTitle} />
         <meta name="twitter:description" content={seoDesc} />
         <meta name="twitter:image" content={seoImage} />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content={noDisponible ? "index, follow, max-image-preview:large" : "index, follow"} />
         <link rel="canonical" href={seoUrl} />
         <script
           type="application/ld+json"
@@ -443,7 +444,35 @@ export default function PropiedadDetalle({ propiedad }) {
                   </div>
                 )}
               </div>
-              <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+              {noDisponible ? (
+                <div style={{ background: "#fff", borderRadius: 20, padding: "22px", marginBottom: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", textAlign: "center" }}>
+                  <h3 style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>
+                    Esta propiedad ya fue {status === "sold" ? "vendida" : "rentada"}
+                  </h3>
+                  <p style={{ margin: "0 0 16px", fontSize: 13, color: "#6b7280", lineHeight: 1.6 }}>
+                    Conservamos la ficha como referencia. Consulta nuestro inventario disponible para ver opciones similares.
+                  </p>
+                  <a href="/propiedades" style={{ display: "inline-block", background: "#C8102E", color: "#fff", padding: "12px 20px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none" }}>
+                    Ver propiedades disponibles
+                  </a>
+                </div>
+              ) : (
+                {noDisponible ? (
+                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", textAlign: "center" }}>
+                    <h3 style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>
+                      Esta propiedad ya fue {status === "sold" ? "vendida" : "rentada"}
+                    </h3>
+                    <p style={{ margin: "0 0 18px", fontSize: 13, color: "#6b7280", lineHeight: 1.6 }}>
+                      Conservamos la ficha como referencia. Consulta nuestro inventario disponible para ver opciones similares.
+                    </p>
+                    <a href="/propiedades" style={{ display: "inline-block", width: "100%", background: "#C8102E", color: "#fff", padding: "13px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", boxSizing: "border-box" }}>
+                      Ver propiedades disponibles
+                    </a>
+                  </div>
+                ) : (
+                  <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+                )}
+              )}
               <MapaUbicacion lat={lat} lng={lng} mostrarExacta={propiedad.mostrar_ubicacion_exacta} direccion={direccion} />
               {datosOperativos.length > 0 && (
                 <div style={{ background: "#fff", borderRadius: 20, padding: "20px", marginTop: 16, border: "1px solid #f0f0f0", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
@@ -581,7 +610,7 @@ export async function getServerSideProps({ params, req, resolvedUrl }) {
       .from("propiedades")
       .select("*")
       .eq("public_id", publicIdSolicitado)
-      .in("status", ["published", "reserved"])
+      .in("status", ["published", "reserved", "leased", "sold"])
       .maybeSingle();
 
     if (error || !data) return { props: { propiedad: null } };
