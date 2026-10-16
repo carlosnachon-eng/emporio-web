@@ -457,21 +457,7 @@ export default function PropiedadDetalle({ propiedad }) {
                   </a>
                 </div>
               ) : (
-                {noDisponible ? (
-                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", textAlign: "center" }}>
-                    <h3 style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>
-                      Esta propiedad ya fue {status === "sold" ? "vendida" : "rentada"}
-                    </h3>
-                    <p style={{ margin: "0 0 18px", fontSize: 13, color: "#6b7280", lineHeight: 1.6 }}>
-                      Conservamos la ficha como referencia. Consulta nuestro inventario disponible para ver opciones similares.
-                    </p>
-                    <a href="/propiedades" style={{ display: "inline-block", width: "100%", background: "#C8102E", color: "#fff", padding: "13px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", boxSizing: "border-box" }}>
-                      Ver propiedades disponibles
-                    </a>
-                  </div>
-                ) : (
-                  <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
-                )}
+                <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
               )}
               <MapaUbicacion lat={lat} lng={lng} mostrarExacta={propiedad.mostrar_ubicacion_exacta} direccion={direccion} />
               {datosOperativos.length > 0 && (
@@ -578,7 +564,21 @@ export default function PropiedadDetalle({ propiedad }) {
                 )}
               </div>
               <div style={{ position: "sticky", top: 20 }}>
-                <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+                {noDisponible ? (
+                  <div style={{ background: "#fff", borderRadius: 20, padding: "24px", border: "1px solid #f0f0f0", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", textAlign: "center" }}>
+                    <h3 style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 800, color: "#1a1a2e" }}>
+                      Esta propiedad ya fue {status === "sold" ? "vendida" : "rentada"}
+                    </h3>
+                    <p style={{ margin: "0 0 18px", fontSize: 13, color: "#6b7280", lineHeight: 1.6 }}>
+                      Conservamos la ficha como referencia. Consulta nuestro inventario disponible para ver opciones similares.
+                    </p>
+                    <a href="/propiedades" style={{ display: "inline-block", width: "100%", background: "#C8102E", color: "#fff", padding: "13px", borderRadius: 10, fontWeight: 800, fontSize: 14, textDecoration: "none", boxSizing: "border-box" }}>
+                      Ver propiedades disponibles
+                    </a>
+                  </div>
+                ) : (
+                  <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
+                )}
               </div>
             </div>
           )}
