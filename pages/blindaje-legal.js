@@ -95,7 +95,7 @@ export default function BlindajeLegal() {
   return (
     <>
       <Head>
-        <title>Emporio Blindaje Legal — Póliza Jurídica para Arrendamiento en Puebla</title>
+        <title>Póliza Jurídica de Arrendamiento en Puebla | Emporio Blindaje Legal</title>
         <meta name="description" content="Protección jurídica total para tu inmueble en Puebla. Investigamos al inquilino, elaboramos el contrato y te respaldamos si algo falla. Desde $2,800 + IVA." />
         <meta name="keywords" content="póliza jurídica puebla, protección jurídica arrendamiento puebla, investigación de inquilinos puebla, contrato arrendamiento puebla, blindaje legal inmueble puebla" />
         <meta property="og:title" content="Emporio Blindaje Legal — Póliza Jurídica en Puebla" />
@@ -122,19 +122,26 @@ export default function BlindajeLegal() {
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", display: "inline-block" }} />
                 <span style={{ fontSize: 11, color: "#fca5a5", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Servicio especializado · Puebla</span>
               </div>
-              <h1 className="hero-title" style={{ fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 1.1, margin: "0 0 8px", letterSpacing: "-0.02em" }}>
-                Emporio
+              <h1 className="hero-title" style={{ fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 1.08, margin: "0 0 20px", letterSpacing: "-0.02em" }}>
+                Póliza Jurídica de Arrendamiento en Puebla
               </h1>
-              <h1 className="hero-title" style={{ fontSize: 52, fontWeight: 900, color: "#C8102E", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-0.02em" }}>
-                Blindaje Legal
-              </h1>
-              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, margin: "0 0 32px" }}>
+              <p style={{ fontSize: 14, color: "#fca5a5", fontWeight: 800, letterSpacing: "0.04em", margin: "0 0 14px" }}>
+                Emporio Blindaje Legal · Desde $2,800 + IVA · Cobertura por 12 meses
+              </p>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, margin: "0 0 22px" }}>
                 Renta tu inmueble con la certeza de que tu patrimonio está protegido. Investigamos a fondo a cada candidato, elaboramos tu contrato y te respaldamos jurídicamente durante todo el arrendamiento.
               </p>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 28 }}>
+                {["Investigación del inquilino", "Contrato de arrendamiento", "Cobranza extrajudicial", "Recuperación judicial cuando proceda"].map((item, i) => (
+                  <span key={i} style={{ fontSize: 11, fontWeight: 700, padding: "6px 10px", borderRadius: 99, background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.82)", border: "1px solid rgba(255,255,255,0.14)" }}>
+                    ✓ {item}
+                  </span>
+                ))}
+              </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a href="https://wa.me/522222573237?text=Hola,%20quiero%20información%20sobre%20Emporio%20Blindaje%20Legal" target="_blank" rel="noreferrer"
                   style={{ background: "#C8102E", color: "#fff", padding: "14px 28px", borderRadius: 12, fontWeight: 800, fontSize: 15, textDecoration: "none" }}>
-                  💬 Solicitar información
+                  💬 Cotizar mi póliza jurídica
                 </a>
                 <a href="#proceso"
                   style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.85)", padding: "14px 28px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
