@@ -294,6 +294,29 @@ export default function PropiedadDetalle({ propiedad, eliminada = false }) {
   const lat = propiedad.lat;
   const lng = propiedad.lng;
   const direccion = [propiedad.colonia, propiedad.ciudad, propiedad.estado].filter(Boolean).join(", ");
+  const esVeracruz = [propiedad.ciudad, propiedad.estado]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+    .includes("veracruz");
+
+  const enlacesContextuales = [
+    !esVenta && {
+      href: "/blindaje-legal",
+      title: "Blindaje Legal para esta renta",
+      desc: "Conoce la investigación, contrato y respaldo jurídico de Emporio para arrendamientos.",
+    },
+    esVeracruz && {
+      href: "/administracion-de-propiedades-veracruz",
+      title: "Administración de propiedades en Veracruz",
+      desc: "Si eres propietario, podemos encargarnos de la operación, cobranza y mantenimiento.",
+    },
+    !esVeracruz && {
+      href: "/administracion",
+      title: "Administración de propiedades en Puebla",
+      desc: "Si eres propietario, conoce nuestro servicio de administración y mantenimiento.",
+    },
+  ].filter(Boolean);
 
   // Datos operativos que sí aportan valor al público (nunca incluimos comisión ni ubicación de llave)
   const datosOperativos = [
@@ -584,6 +607,17 @@ export default function PropiedadDetalle({ propiedad, eliminada = false }) {
                   <FormularioContacto propiedad={propiedad} contacto={contacto} setContacto={setContacto} enviando={enviando} enviado={enviado} errorEnvio={errorEnvio} onEnviar={handleContacto} isMobile={isMobile} />
                 )}
               </div>
+            </div>
+          )}
+          {enlacesContextuales.length > 0 && (
+            <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12 }}>
+              {enlacesContextuales.slice(0, 2).map((enlace, i) => (
+                <a key={i} href={enlace.href}
+                  style={{ display: "block", background: "#fff", border: "1px solid #eceef2", borderRadius: 14, padding: "16px 18px", textDecoration: "none" }}>
+                  <p style={{ margin: "0 0 5px", fontSize: 13, fontWeight: 800, color: "#1a1a2e" }}>{enlace.title}</p>
+                  <p style={{ margin: 0, fontSize: 12, color: "#6b7280", lineHeight: 1.6 }}>{enlace.desc}</p>
+                </a>
+              ))}
             </div>
           )}
           <LeyendaProfeco />
