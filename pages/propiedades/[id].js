@@ -251,7 +251,7 @@ function MapaUbicacion({ lat, lng, mostrarExacta, direccion }) {
   return null;
 }
 
-export default function PropiedadDetalle({ propiedad }) {
+export default function PropiedadDetalle({ propiedad, eliminada = false }) {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState(null);
@@ -268,11 +268,15 @@ export default function PropiedadDetalle({ propiedad }) {
 
   if (!propiedad) return (
     <>
+      <Head>
+        <title>{eliminada ? "Propiedad ya no disponible" : "Propiedad no encontrada"} — Emporio Inmobiliario</title>
+        <meta name="robots" content="noindex, follow" />
+      </Head>
       <Navbar />
       <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Montserrat', sans-serif", background: "#fafafa" }}>
         <div style={{ textAlign: "center" }}>
           <p style={{ fontSize: 48 }}>🔍</p>
-          <h2 style={{ color: "#1a1a2e" }}>Propiedad no encontrada</h2>
+          <h2 style={{ color: "#1a1a2e" }}>{eliminada ? "Esta propiedad ya no está disponible" : "Propiedad no encontrada"}</h2>
           <a href="/propiedades" style={{ color: "#C8102E", fontWeight: 700 }}>← Ver todas las propiedades</a>
         </div>
       </div>
@@ -602,7 +606,7 @@ function extraerPublicId(param) {
   return match ? match[1].toUpperCase() : param;
 }
 
-export async function getServerSideProps({ params, req, resolvedUrl }) {
+export async function getServerSideProps({ params, req, res, resolvedUrl }) {
   try {
     const publicIdSolicitado = extraerPublicId(params.id);
 
@@ -610,10 +614,27 @@ export async function getServerSideProps({ params, req, resolvedUrl }) {
       .from("propiedades")
       .select("*")
       .eq("public_id", publicIdSolicitado)
-      .in("status", ["published", "reserved", "leased", "sold"])
       .maybeSingle();
 
-    if (error || !data) return { props: { propiedad: null } };
+    if (error) {
+      return { notFound: true };
+    }
+
+    if (!data) {
+      return { notFound: true };
+    }
+
+    if (data.status === "archived") {
+      res.statusCode = 410;
+      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+      return {
+        props: { propiedad: null, eliminada: true },
+      };
+    }
+
+    if (!["published", "reserved", "leased", "sold"].includes(data.status)) {
+      return { notFound: true };
+    }
 
     // Si la URL recibida no es exactamente el slug vigente (porque venía
     // sin slug, con un slug viejo, o cualquier variante), redirigimos de
