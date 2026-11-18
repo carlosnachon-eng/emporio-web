@@ -186,6 +186,11 @@ export default function Home({ propiedadesDestacadas = [] }) {
                             <span style={{ background: esVenta ? "#1a1a2e" : "#C8102E", color: "#fff", padding: "3px 10px", borderRadius: 99, fontSize: 10, fontWeight: 800 }}>
                               {esVenta ? "EN VENTA" : "EN RENTA"}
                             </span>
+                          {p.status === "reserved" && (
+                            <span style={{ position: "absolute", top: 10, right: 10, background: "#fef3c7", color: "#92400e", border: "1px solid #f59e0b", padding: "4px 10px", borderRadius: 99, fontSize: 11, fontWeight: 800 }}>
+                              RESERVADA
+                            </span>
+                          )}
                           </div>
                         </div>
                         <div style={{ padding: "16px 16px 20px" }}>
