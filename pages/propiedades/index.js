@@ -205,6 +205,13 @@ export default function Propiedades({ propiedadesIniciales }) {
                         {esVenta ? "EN VENTA" : "EN RENTA"}
                       </span>
                     </div>
+                    {p.status === "reserved" && (
+                      <div style={{ position: "absolute", bottom: 10, left: 10 }}>
+                        <span style={{ display: "inline-block", background: "#fef3c7", color: "#92400e", border: "1px solid #f59e0b", padding: "5px 12px", borderRadius: 99, fontSize: 12, fontWeight: 800 }}>
+                          RESERVADA
+                        </span>
+                      </div>
+                    )}
                     {p.es_exclusiva && (
                       <div style={{ position: "absolute", top: 10, right: 10 }}>
                         <span style={{ display: "inline-block", background: "#fff", color: "#1a1a2e", padding: "4px 12px", borderRadius: 99, fontSize: 11, fontWeight: 800, letterSpacing: "0.06em" }}>
